@@ -1,0 +1,124 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>SONG VIP - Admin Dashboard</title>
+    <style>
+        * {
+            box-sizing: border-box;
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            margin: 0;
+            padding: 0;
+        }
+
+        body {
+            background: #070514;
+            color: #ffffff;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            min-height: 100vh;
+            padding: 20px;
+        }
+
+        .admin-card {
+            background: rgba(18, 14, 36, 0.95);
+            border: 1px solid rgba(255, 255, 255, 0.15);
+            border-radius: 24px;
+            padding: 30px;
+            width: 100%;
+            max-width: 450px;
+            box-shadow: 0 30px 60px rgba(0, 0, 0, 0.9);
+            text-align: center;
+        }
+
+        .admin-title {
+            font-size: 20px;
+            font-weight: 900;
+            color: #00f2fe;
+            margin-bottom: 25px;
+        }
+
+        .stats-grid {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 15px;
+            margin-bottom: 25px;
+        }
+
+        .stat-box {
+            background: rgba(255, 255, 255, 0.05);
+            border: 1px solid rgba(255, 255, 255, 0.1);
+            border-radius: 16px;
+            padding: 20px 10px;
+            text-align: center;
+        }
+
+        .stat-box h4 {
+            font-size: 13px;
+            color: #b0a8d0;
+            margin-bottom: 8px;
+        }
+
+        .stat-box span {
+            font-size: 24px;
+            font-weight: bold;
+            color: #38ef7d;
+        }
+
+        .btn-reset {
+            width: 100%;
+            padding: 12px;
+            border: none;
+            border-radius: 12px;
+            font-size: 14px;
+            font-weight: bold;
+            color: #fff;
+            background: #ff4b5c;
+            cursor: pointer;
+        }
+    </style>
+</head>
+<body>
+
+    <div class="admin-card">
+        <h2 class="admin-title">🛠️ لوحة تحكم المسؤول (Admin)</h2>
+        
+        <div class="stats-grid">
+            <div class="stat-box">
+                <h4>إجمالي الزيارات</h4>
+                <span id="adminTotalVisits">0</span>
+            </div>
+            <div class="stat-box">
+                <h4>إجمالي النقرات</h4>
+                <span id="adminTotalClicks">0</span>
+            </div>
+        </div>
+
+        <button class="btn-reset" onclick="resetStats()">تصفير الإحصائيات 🔄</button>
+    </div>
+
+    <script>
+        // جلب البيانات المخزنة من المتصفح (LocalStorage)
+        function loadAdminStats() {
+            let visits = localStorage.getItem('site_visits') || 1420;
+            let clicks = localStorage.getItem('site_clicks') || 850;
+
+            document.getElementById('adminTotalVisits').innerText = visits;
+            document.getElementById('adminTotalClicks').innerText = clicks;
+        }
+
+        function resetStats() {
+            if(confirm('هل أنت متأكد من تصفير الإحصائيات؟')) {
+                localStorage.setItem('site_visits', 0);
+                localStorage.setItem('site_clicks', 0);
+                loadAdminStats();
+            }
+        }
+
+        loadAdminStats();
+    </script>
+
+</body>
+</html>

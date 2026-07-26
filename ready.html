@@ -1,0 +1,275 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>SONG - Skip Content</title>
+    <style>
+        * {
+            box-sizing: border-box;
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            margin: 0;
+            padding: 0;
+            transition: all 0.3s ease;
+        }
+
+        body {
+            background: linear-gradient(-45deg, #070514, #140c2d, #1b0736, #03020a);
+            background-size: 400% 400%;
+            animation: gradientBG 12s ease infinite;
+            color: #ffffff;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            min-height: 100vh;
+            padding: 15px;
+        }
+
+        @keyframes gradientBG {
+            0% { background-position: 0% 50%; }
+            50% { background-position: 100% 50%; }
+            100% { background-position: 0% 50%; }
+        }
+
+        .card {
+            background: rgba(18, 14, 36, 0.95);
+            backdrop-filter: blur(20px);
+            border: 1px solid rgba(255, 255, 255, 0.12);
+            border-radius: 24px;
+            width: 100%;
+            max-width: 420px;
+            overflow: hidden;
+            box-shadow: 0 25px 50px rgba(0, 0, 0, 0.8);
+            text-align: center;
+        }
+
+        /* شريط الخطوات في الأعلى مع نص "أكمل الخطوات" */
+        .header-steps-box {
+            background: rgba(0, 0, 0, 0.25);
+            padding: 12px 15px;
+            border-bottom: 1px solid rgba(255, 255, 255, 0.08);
+        }
+
+        .header-title-top {
+            font-size: 14px;
+            font-weight: 700;
+            color: #ffaa00;
+            margin-bottom: 8px;
+        }
+
+        .steps-bar {
+            display: flex;
+            justify-content: center;
+            gap: 8px;
+        }
+
+        .step-pill {
+            width: 45px;
+            height: 5px;
+            border-radius: 4px;
+            background: rgba(255, 255, 255, 0.15);
+        }
+
+        .step-pill.active {
+            background: #ff7700;
+            box-shadow: 0 0 10px rgba(255, 119, 0, 0.5);
+        }
+
+        .step-pill.completed {
+            background: #38ef7d;
+        }
+
+        /* صندوق الإعلان والصورة */
+        .ad-container {
+            width: 100%;
+            background: #000;
+            position: relative;
+        }
+
+        .ad-container img {
+            width: 100%;
+            height: 190px;
+            object-fit: cover;
+            display: block;
+        }
+
+        .ad-badge {
+            position: absolute;
+            top: 10px;
+            right: 10px;
+            background: rgba(0, 0, 0, 0.7);
+            color: #fff;
+            font-size: 11px;
+            font-weight: bold;
+            padding: 3px 8px;
+            border-radius: 6px;
+            border: 1px solid rgba(255, 255, 255, 0.2);
+        }
+
+        /* محتوى الكارت */
+        .content-body {
+            padding: 20px;
+        }
+
+        .ad-title {
+            font-size: 15px;
+            font-weight: 700;
+            color: #ffffff;
+            margin-bottom: 20px;
+            line-height: 1.4;
+            text-align: right;
+        }
+
+        /* زر المتابعة والانتظار 10 ثواني */
+        .btn-continue {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            width: 100%;
+            padding: 15px;
+            border: none;
+            border-radius: 14px;
+            font-size: 16px;
+            font-weight: 800;
+            color: #7b729e;
+            background: rgba(255, 255, 255, 0.08);
+            cursor: not-allowed;
+            pointer-events: none;
+            text-decoration: none;
+        }
+
+        .btn-continue.active {
+            background: linear-gradient(135deg, #ff7700, #ffaa00);
+            color: white;
+            cursor: pointer;
+            pointer-events: auto;
+            box-shadow: 0 8px 20px rgba(255, 119, 0, 0.4);
+        }
+
+        .btn-continue.active:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 12px 25px rgba(255, 119, 0, 0.6);
+        }
+
+        .brand-footer {
+            font-size: 11px;
+            color: #554d75;
+            margin-top: 15px;
+            letter-spacing: 1px;
+        }
+    </style>
+</head>
+<body>
+
+    <div class="card">
+        <div class="header-steps-box">
+            <div class="header-title-top" id="headerInstruction">⚡ أكمل الخطوات التالية للمتابعة</div>
+            <div class="steps-bar">
+                <div class="step-pill active" id="p1"></div>
+                <div class="step-pill" id="p2"></div>
+                <div class="step-pill" id="p3"></div>
+            </div>
+        </div>
+
+        <div class="ad-container">
+            <span class="ad-badge" id="stepCounterBadge">1/3</span>
+            <img src="https://images.unsplash.com/photo-1550745165-9bc0b252726f?w=600&auto=format&fit=crop&q=80" alt="Ad Banner" id="adImage">
+        </div>
+
+        <div class="content-body">
+            <h2 class="ad-title" id="adTitleText">20 تكنولوجيا حديثة ومميزة ستغير طريقك في البرمجة والتقنية اليوم</h2>
+
+            <button id="actionBtn" class="btn-continue" onclick="proceedNext()">
+                ⏳ يرجى الانتظار (10)
+            </button>
+
+            <div class="brand-footer">SONG VIP - SECURE REDIRECT</div>
+        </div>
+    </div>
+
+    <script>
+        let currentStep = 1;
+        let timeLeft = 10; // تم ضبط الوقت على 10 ثواني
+        let actionBtn = document.getElementById('actionBtn');
+        let adTitleText = document.getElementById('adTitleText');
+        let stepCounterBadge = document.getElementById('stepCounterBadge');
+        let adImage = document.getElementById('adImage');
+        let headerInstruction = document.getElementById('headerInstruction');
+
+        let p1 = document.getElementById('p1');
+        let p2 = document.getElementById('p2');
+        let p3 = document.getElementById('p3');
+
+        const adImages = [
+            "https://images.unsplash.com/photo-1550745165-9bc0b252726f?w=600&auto=format&fit=crop&q=80",
+            "https://images.unsplash.com/photo-1526374965328-7f61d4dc18c5?w=600&auto=format&fit=crop&q=80",
+            "https://images.unsplash.com/photo-1518770660439-4636190af475?w=600&auto=format&fit=crop&q=80"
+        ];
+
+        const adTitles = [
+            "20 تكنولوجيا حديثة ومميزة ستغير طريقك في البرمجة والتقنية اليوم",
+            "أهم أدوات التطوير والذكاء الاصطناعي للمطورين في 2026",
+            "خطوتك الأخيرة جاهزة تماماً للحصول على المحتوى المطلوب برابط مباشر"
+        ];
+
+        let timer = setInterval(runTimer, 1000);
+
+        function runTimer() {
+            if (timeLeft > 0) {
+                actionBtn.innerText = `⏳ يرجى الانتظار (${timeLeft})`;
+                timeLeft--;
+            } else {
+                clearInterval(timer);
+                if (currentStep < 3) {
+                    actionBtn.innerText = "Continue ➡️";
+                    headerInstruction.innerText = "✅ تم انتهاء العد، انتقل للخطوة التالية";
+                } else {
+                    actionBtn.innerText = "Get Link / Learn more 🚀";
+                    headerInstruction.innerText = "🎉 مبروك! الرابط أصبح جاهزاً";
+                }
+                actionBtn.classList.add('active');
+            }
+        }
+
+        function proceedNext() {
+            if (currentStep === 1) {
+                currentStep = 2;
+                timeLeft = 10; // 10 ثواني للخطوة الثانية
+                p1.classList.remove('active');
+                p1.classList.add('completed');
+                p2.classList.add('active');
+                
+                stepCounterBadge.innerText = "2/3";
+                adImage.src = adImages[1];
+                adTitleText.innerText = adTitles[1];
+                headerInstruction.innerText = "⚡ أكمل الخطوات التالية للمتابعة";
+
+                actionBtn.classList.remove('active');
+                actionBtn.innerText = `⏳ يرجى الانتظار (${timeLeft})`;
+                timer = setInterval(runTimer, 1000);
+
+            } else if (currentStep === 2) {
+                currentStep = 3;
+                timeLeft = 10; // 10 ثواني للخطوة الثالثة والأخيرة
+                p2.classList.remove('active');
+                p2.classList.add('completed');
+                p3.classList.add('active');
+                
+                stepCounterBadge.innerText = "3/3";
+                adImage.src = adImages[2];
+                adTitleText.innerText = adTitles[2];
+                headerInstruction.innerText = "⚡ الخطوة الأخيرة، يرجى الانتظار قليلاً";
+
+                actionBtn.classList.remove('active');
+                actionBtn.innerText = `⏳ يرجى الانتظار (${timeLeft})`;
+                timer = setInterval(runTimer, 1000);
+
+            } else if (currentStep === 3) {
+                // فتح الرابط النهائي (استبدل رابط pastebin بالرابط الذي تريده)
+                window.open("https://pastebin.com", "_blank");
+            }
+        }
+    </script>
+
+</body>
+</html>
