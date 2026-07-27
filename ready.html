@@ -60,7 +60,6 @@
             background: #2ecc71;
         }
 
-        /* حاوية الإعلان العلوي بمقاس 300x250 متناسق */
         .banner-box {
             width: 100%;
             height: 250px;
@@ -74,7 +73,6 @@
             border: 1px solid var(--border-color);
         }
 
-        /* ضمان ظهور وتوسيط إعلان الإيفريم جوه المربع بالمقاس الصحيح */
         .banner-box iframe {
             width: 300px !important;
             height: 250px !important;
@@ -127,9 +125,10 @@
 
     <div class="card">
         <div class="steps-indicators">
-            <div class="step-dot completed"></div>
+            <div class="step-dot completed" id="dot0"></div>
             <div class="step-dot active" id="dot1"></div>
             <div class="step-dot" id="dot2"></div>
+            <div class="step-dot" id="dot3"></div>
         </div>
 
         <div class="banner-box">
@@ -157,82 +156,79 @@
     </div>
 
     <script>
-let timeLeft = 10;
-let step = 1;
+        let timeLeft = 10;
+        let step = 1;
 
-const urlParams = new URLSearchParams(window.location.search);
-const linkToken = urlParams.get('to');
-let finalTarget = 'https://pastebin.com/JuDa1y';
+        const urlParams = new URLSearchParams(window.location.search);
+        const linkToken = urlParams.get('to');
+        let finalTarget = 'https://pastebin.com/JuDa1y';
 
-if (linkToken && localStorage.getItem(linkToken)) {
-    finalTarget = localStorage.getItem(linkToken);
-} else if (linkToken) {
-    finalTarget = decodeURIComponent(linkToken);
-}
-
-const adTitles = [
-    "تكنولوجيا حديثة ومميزة لتغيير طريقك في البرمجة والتقنية اليوم.",
-    "احصل على أفضل الأدوات والمميزات المخصصة لتطوير مواقعك بسرعة.",
-    "الخطوة الأخيرة جاهزة الآن، اضغط أدناه للحصول على الرابط."
-];
-
-const actionBtn = document.getElementById('actionBtn');
-const adTitleText = document.getElementById('adTitleText');
-
-let timer = setInterval(() => {
-    if (timeLeft > 0) {
-        timeLeft--;
-        if (actionBtn) {
-            actionBtn.innerHTML = `⏳ يرجى الانتظار (${timeLeft})`;
+        if (linkToken && localStorage.getItem(linkToken)) {
+            finalTarget = localStorage.getItem(linkToken);
+        } else if (linkToken) {
+            finalTarget = decodeURIComponent(linkToken);
         }
-    } else {
-        clearInterval(timer);
-        if (actionBtn) {
-            actionBtn.innerHTML = `✅ الخطوة جاهزة - متابعة`;
-        }
-    }
-}, 1000);
 
-function proceedNext() {
-    if (timeLeft > 0) {
-        alert('يرجى الانتظار حتى انتهاء العد التنازلي!');
-        return;
-    }
+        const adTitles = [
+            "تكنولوجيا حديثة ومميزة لتغيير طريقك في البرمجة والتقنية اليوم.",
+            "احصل على أفضل الأدوات والمميزات المخصصة لتطوير مواقعك بسرعة.",
+            "الخطوة الأخيرة جاهزة الآن، اضغط أدناه للحصول على الرابط."
+        ];
 
-    if (step === 1) {
-        step = 2;
-        timeLeft = 10;
-        if (adTitleText) adTitleText.innerText = adTitles[1];
-        document.getElementById('dot1').classList.remove('active');
-        document.getElementById('dot1').classList.add('completed');
-        document.getElementById('dot2').classList.add('active');
-    } else if (step === 2) {
-        step = 3;
-        timeLeft = 10;
-        if (adTitleText) adTitleText.innerText = adTitles[2];
-        document.getElementById('dot2').classList.remove('active');
-        document.getElementById('dot2').classList.add('completed');
-        document.getElementById('dot3').classList.add('active');
-    } else if (step === 3) {
-        window.open(finalTarget, '_blank');
-    }
-}
-                    clearInterval(timer);
-                    let btn = document.getElementById('actionBtn');
-                    btn.innerText = '🚀 انقر هنا للذهاب إلى الرابط';
-                    btn.style.background = 'linear-gradient(135deg, #2ecc71, #27ae60)';
-                }
+        const actionBtn = document.getElementById('actionBtn');
+        const adTitleText = document.getElementById('adTitleText');
+
+        let timer;
+
+        function startTimer() {
+            timeLeft = 10;
+            if (actionBtn) {
+                actionBtn.innerHTML = `⏳ يرجى الانتظار (${timeLeft})`;
+                actionBtn.style.background = 'linear-gradient(135deg, #f39c12, #d35400)';
             }
+            
+            clearInterval(timer);
+            timer = setInterval(() => {
+                if (timeLeft > 0) {
+                    timeLeft--;
+                    if (actionBtn) {
+                        actionBtn.innerHTML = `⏳ يرجى الانتظار (${timeLeft})`;
+                    }
+                } else {
+                    clearInterval(timer);
+                    if (actionBtn) {
+                        actionBtn.innerHTML = `✅ الخطوة جاهزة - متابعة`;
+                        actionBtn.style.background = 'linear-gradient(135deg, #2ecc71, #27ae60)';
+                    }
+                }
+            }, 1000);
         }
 
-        let timer = setInterval(runTimer, 1000);
-const urlParams = new URLSearchParams(location.search);
-const finalTarget = urlParams.get('to') || 'https://example.com';
+        // بدء العداد عند تحميل الصفحة
+        startTimer();
+
         function proceedNext() {
-            if (step === 3 && timeLeft === 0) {
+            if (timeLeft > 0) {
+                alert('يرجى الانتظار حتى انتهاء العد التنازلي!');
+                return;
+            }
+
+            if (step === 1) {
+                step = 2;
+                if (adTitleText) adTitleText.innerText = adTitles[1];
+                document.getElementById('dot1').classList.remove('active');
+                document.getElementById('dot1').classList.add('completed');
+                document.getElementById('dot2').classList.add('active');
+                startTimer();
+            } else if (step === 2) {
+                step = 3;
+                if (adTitleText) adTitleText.innerText = adTitles[2];
+                document.getElementById('dot2').classList.remove('active');
+                document.getElementById('dot2').classList.add('completed');
+                document.getElementById('dot3').classList.add('active');
+                startTimer();
+            } else if (step === 3) {
                 window.open(finalTarget, '_blank');
-            } else {
-                alert('يرجى الانتظار حتى اكتمال عداد الوقت في الخطوات!');
             }
         }
     </script>
