@@ -95,6 +95,38 @@
                 <span id="adminTotalClicks">0</span>
             </div>
         </div>
+    <div class="form-group" style="margin: 20px 0; padding: 15px; background: rgba(255,255,255,0.03); border-radius: 14px; border: 1px solid rgba(255,255,255,0.08); text-align: right;">
+        <label style="color: #fff; display: block; margin-bottom: 8px; font-weight: bold; font-size: 14px;">🔗 إنشاء رابط مختصر وفريد للزوار:</label>
+        <input type="text" id="customShortInput" placeholder="ضع الرابط المراد توجيه الزوار إليه هنا" style="width: 100%; padding: 12px; border-radius: 10px; background: #0b071e; border: 1px solid rgba(255,255,255,0.1); color: #fff; box-sizing: border-box; outline: none; font-size: 13px;">
+        <button onclick="generateShortLink()" style="margin-top: 10px; width: 100%; padding: 12px; background: linear-gradient(135deg, #f39c12, #d35400); color: #fff; border: none; border-radius: 10px; font-weight: bold; cursor: pointer; font-size: 14px;">إنشاء الرابط الفريد الآن</button>
+        <p id="generatedResult" style="color: #2ecc71; font-size: 13px; margin-top: 10px; word-break: break-all;"></p>
+    </div>
+    <div style="margin: 20px 0; padding: 15px; background: rgba(255,255,255,0.03); border-radius: 14px; border: 1px solid rgba(255,255,255,0.08); text-align: right;">
+        <label style="color: #fff; display: block; margin-bottom: 8px; font-weight: bold; font-size: 14px;">🔗 إنشاء رابط مختصر وفريد للزوار:</label>
+        <input type="text" id="customShortInput" placeholder="ضع الرابط المراد توجيه الزوار إليه هنا" style="width: 100%; padding: 12px; border-radius: 10px; background: #0b071e; border: 1px solid rgba(255,255,255,0.1); color: #fff; box-sizing: border-box; outline: none; font-size: 13px;">
+        <button onclick="generateShortLink()" style="margin-top: 10px; width: 100%; padding: 12px; background: linear-gradient(135deg, #f39c12, #d35400); color: #fff; border: none; border-radius: 10px; font-weight: bold; cursor: pointer; font-size: 14px;">إنشاء الرابط الفريد الآن</button>
+        <p id="generatedResult" style="color: #2ecc71; font-size: 13px; margin-top: 10px; word-break: break-all;"></p>
+    </div>
+<div style="margin: 20px 0; text-align: right;">
+    <label style="color: #fff; display: block; margin-bottom: 8px; font-weight: bold; font-size: 14px;">🔗 إنشاء رابط مختصر وفريد:</label>
+    <input type="text" id="customShortInput" placeholder="ضع الرابط هنا" style="width: 100%; padding: 12px; border-radius: 10px; background: #0b071e; border: 1px solid rgba(255,255,255,0.1); color: #fff; box-sizing: border-box; outline: none; font-size: 13px;">
+    <button type="button" onclick="generateShortLink()" style="margin-top: 10px; width: 100%; padding: 12px; background: linear-gradient(135deg, #f39c12, #d35400); color: #fff; border: none; border-radius: 10px; font-weight: bold; cursor: pointer; font-size: 14px;">إنشاء الرابط الفريد الآن</button>
+    <p id="generatedResult" style="color: #2ecc71; font-size: 13px; margin-top: 10px; word-break: break-all;"></p>
+</div>
+
+    <script>
+        function generateShortLink() {
+            let originalUrl = document.getElementById('customShortInput').value;
+            if(!originalUrl) {
+                alert('الرجاء إدخال الرابط أولاً!');
+                return;
+            }
+            let uniqueId = 'song_' + Math.random().toString(36).substring(2, 8);
+            localStorage.setItem(uniqueId, originalUrl);
+            let generatedReadyLink = window.location.origin + '/ready.html?to=' + uniqueId;
+            document.getElementById('generatedResult').innerText = 'تم التوليد بنجاح: ' + generatedReadyLink;
+        }
+    </script>
 
         <button class="btn-reset" onclick="resetStats()">تصفير الإحصائيات 🔄</button>
     </div>
