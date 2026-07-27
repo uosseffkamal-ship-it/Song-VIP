@@ -491,6 +491,18 @@
             alert('تم الحفظ بنجاح! قم بتحديث الصفحة.');
         }
     </script>
-</body>
-    </html>
+    window.addEventListener('DOMContentLoaded', () => {
+    const urlParams = new URLSearchParams(window.location.search);
+    const toParam = urlParams.get('to');
     
+    // لو الرابط فيه معرف توجيه، استنى 3 ثواني يفتح الواجهة الأول وبعدين يحول لصفحة العد التنازلي
+    if (toParam) {
+        setTimeout(() => {
+            window.location.href = 'ready.html?to=' + toParam;
+        }, 3000); // 3000 تعني 3 ثواني، تقدر تزودها أو تنقصها براحتك
+    }
+});
+
+</body>
+                                                                               </html>
+        
