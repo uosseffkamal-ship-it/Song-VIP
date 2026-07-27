@@ -158,13 +158,27 @@
 
     <script>
 let timeLeft = 10;
-const urlParams = new URLSearchParams(window.location.search);
-let finalTarget = urlParams.get('to');
+let step = 1;
 
-if (!finalTarget) {
-    finalTarget = localStorage.getItem('final_target') || 'https://pastebin.com/JuDa1y';
+const urlParams = new URLSearchParams(window.location.search);
+const linkToken = urlParams.get('to');
+let finalTarget = 'https://pastebin.com/JuDa1y';
+
+if (linkToken && localStorage.getItem(linkToken)) {
+    finalTarget = localStorage.getItem(linkToken);
+} else if (linkToken) {
+    finalTarget = decodeURIComponent(linkToken);
 }
+
+const adTitles = [
+    "تكنولوجيا حديثة ومميزة لتغيير طريقك في البرمجة والتقنية اليوم.",
+    "احصل على أفضل الأدوات والمميزات المخصصة لتطوير مواقعك بسرعة.",
+    "الخطوة الأخيرة جاهزة الآن، اضغط أدناه للحصول على الرابط."
+];
+
 const actionBtn = document.getElementById('actionBtn');
+const adTitleText = document.getElementById('adTitleText');
+
 let timer = setInterval(() => {
     if (timeLeft > 0) {
         timeLeft--;
@@ -174,45 +188,35 @@ let timer = setInterval(() => {
     } else {
         clearInterval(timer);
         if (actionBtn) {
-            actionBtn.innerHTML = `✅ احصل على الرابط`;
+            actionBtn.innerHTML = `✅ الخطوة جاهزة - متابعة`;
         }
     }
 }, 1000);
 
 function proceedNext() {
-    if (timeLeft <= 0) {
+    if (timeLeft > 0) {
+        alert('يرجى الانتظار حتى انتهاء العد التنازلي!');
+        return;
+    }
+
+    if (step === 1) {
+        step = 2;
+        timeLeft = 10;
+        if (adTitleText) adTitleText.innerText = adTitles[1];
+        document.getElementById('dot1').classList.remove('active');
+        document.getElementById('dot1').classList.add('completed');
+        document.getElementById('dot2').classList.add('active');
+    } else if (step === 2) {
+        step = 3;
+        timeLeft = 10;
+        if (adTitleText) adTitleText.innerText = adTitles[2];
+        document.getElementById('dot2').classList.remove('active');
+        document.getElementById('dot2').classList.add('completed');
+        document.getElementById('dot3').classList.add('active');
+    } else if (step === 3) {
         window.open(finalTarget, '_blank');
-    } else {
-        alert('يرجى الانتظار حتى انتهاء عداد الوقت!');
     }
 }
-        const adTitles = [
-            "تكنولوجيا حديثة ومميزة لتغيير طريقك في البرمجة والتقنية اليوم",
-            "أهم أدوات التطوير والذكاء الاصطناعي للمطورين في 2026",
-            "خطوتك الأخيرة جاهزة تماماً للحصول على المحتوى المطلوب برابط مباشر"
-        ];
-
-        function runTimer() {
-            if (timeLeft > 0) {
-                timeLeft--;
-                document.getElementById('actionBtn').innerText = `⏳ يرجى الانتظار (${timeLeft})`;
-            } else {
-                if (step === 1) {
-                    step = 2;
-                    timeLeft = 10;
-                    document.getElementById('dot1').classList.remove('active');
-                    document.getElementById('dot1').classList.add('completed');
-                    document.getElementById('dot2').classList.add('active');
-                    document.getElementById('adTitleText').innerText = adTitles[1];
-                    document.getElementById('actionBtn').innerText = `⏳ يرجى الانتظار (${timeLeft})`;
-                } else if (step === 2) {
-                    step = 3;
-                    timeLeft = 10;
-                    document.getElementById('dot2').classList.remove('active');
-                    document.getElementById('dot2').classList.add('completed');
-                    document.getElementById('adTitleText').innerText = adTitles[2];
-                    document.getElementById('actionBtn').innerText = `⏳ يرجى الانتظار (${timeLeft})`;
-                } else {
                     clearInterval(timer);
                     let btn = document.getElementById('actionBtn');
                     btn.innerText = '🚀 انقر هنا للذهاب إلى الرابط';
