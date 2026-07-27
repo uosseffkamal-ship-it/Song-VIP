@@ -204,7 +204,8 @@
         }
 
         let timer = setInterval(runTimer, 1000);
-
+const urlParams = new URLSearchParams(location.search);
+const finalTarget = urlParams.get('to') || 'https://example.com';
         function proceedNext() {
             if (step === 3 && timeLeft === 0) {
                 window.open(finalTarget, '_blank');
