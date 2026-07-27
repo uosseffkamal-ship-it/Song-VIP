@@ -161,7 +161,9 @@
 
         const urlParams = new URLSearchParams(window.location.search);
         const linkToken = urlParams.get('to');
-        let finalTarget = 'https://pastebin.com/JuDa1y';
+        
+        // تم تحديث الرابط الاحتياطي ليكون صالحاً وآمناً
+        let finalTarget = 'https://www.google.com';
 
         if (linkToken && localStorage.getItem(linkToken)) {
             finalTarget = localStorage.getItem(linkToken);
@@ -204,7 +206,7 @@
             }, 1000);
         }
 
-        // بدء العداد عند تحميل الصفحة
+        // بدء العداد عند فتح الصفحة
         startTimer();
 
         function proceedNext() {
