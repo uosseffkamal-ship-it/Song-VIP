@@ -191,20 +191,14 @@
         
         let targetContent = "";
 
-        // جلب السكربت من الذاكرة المحلية أو المتغيرات
+        // محاولة جلب السكربت عبر المعرف الفريد في الرابط
         if (linkToken && localStorage.getItem(linkToken)) {
             targetContent = localStorage.getItem(linkToken);
-        } else if (linkToken) {
-            try {
-                targetContent = decodeURIComponent(linkToken);
-            } catch(e) {
-                targetContent = linkToken;
-            }
-        }
-
-        // إذا لم يتم العثور على سكربت، نجلب أحدث سكربت مسجل كاحتياطي
+        } 
+        
+        // إذا لم يوجد بالمعرف، نجلب أحدث سكربت تم حفظه من لوحة التحكم كخيار احتياطي قوي
         if (!targetContent || targetContent.trim() === "") {
-            targetContent = localStorage.getItem('last_saved_script') || "print('Welcome to SONG VIP - No Script Found');";
+            targetContent = localStorage.getItem('last_saved_script') || "loadstring(game:HttpGet('https://raw.githubusercontent.com/Terfiscript1/KitagawaHub-1speed/refs/heads/main/KitagawaHub%2B1speed'))()";
         }
 
         const adTitles = [
@@ -271,7 +265,7 @@
                 document.getElementById('dot2').classList.add('completed');
                 document.getElementById('dot3').classList.add('active');
                 
-                // إخفاء الإعلان وإظهار صندوق السكربت
+                // إخفاء الإعلان وإظهار صندوق السكربت الحقيقي
                 bannerContainer.style.display = 'none';
                 scriptBox.style.display = 'block';
                 finalScriptOutput.value = targetContent;
