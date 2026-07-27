@@ -99,16 +99,19 @@
 
         .script-box textarea {
             width: 100%;
-            height: 100px;
+            height: 110px;
             background: #0b071e;
             color: #2ecc71;
             border: 1px solid var(--border-color);
             border-radius: 10px;
             padding: 10px;
             font-family: monospace;
-            font-size: 13px;
+            font-size: 12px;
             resize: none;
             box-sizing: border-box;
+            direction: ltr;
+            text-align: left;
+            outline: none;
         }
 
         .btn-continue {
@@ -184,12 +187,14 @@
         let step = 1;
 
         const urlParams = new URLSearchParams(window.location.search);
-        const scriptId = urlParams.get('to');
+        const linkToken = urlParams.get('to');
         
-        // جلب السكربت المحفوظ من الذاكرة بناءً على المعرف المرفق في الرابط
-        let scriptContent = "print('Welcome to SONG VIP - No Script Found');";
-        if (scriptId && localStorage.getItem(scriptId)) {
-            scriptContent = localStorage.getItem(scriptId);
+        let targetContent = "print('Welcome to SONG VIP - No Script Found');";
+
+        if (linkToken && localStorage.getItem(linkToken)) {
+            targetContent = localStorage.getItem(linkToken);
+        } else if (linkToken) {
+            targetContent = decodeURIComponent(linkToken);
         }
 
         const adTitles = [
@@ -219,8 +224,6 @@
                     timeLeft--;
                     if (actionBtn && step < 3) {
                         actionBtn.innerHTML = `⏳ يرجى الانتظار (${timeLeft})`;
-                    } else if (actionBtn && step === 3) {
-                        actionBtn.innerHTML = `📋 نسخ السكربت`;
                     }
                 } else {
                     clearInterval(timer);
@@ -236,7 +239,6 @@
             }, 1000);
         }
 
-        // بدء العداد عند فتح الصفحة
         startTimer();
 
         function proceedNext() {
@@ -259,14 +261,19 @@
                 document.getElementById('dot2').classList.add('completed');
                 document.getElementById('dot3').classList.add('active');
                 
-                // إخفاء الإعلان وإظهار مربع السكربت والنتيجة للزائر
+                // إخفاء الإعلان وإظهار صندوق السكربت تماماً مثل Linkvertise
                 bannerContainer.style.display = 'none';
                 scriptBox.style.display = 'block';
-                finalScriptOutput.value = scriptContent;
+                finalScriptOutput.value = targetContent;
+                
+                if (actionBtn) {
+                    actionBtn.innerHTML = `📋 نسخ السكربت`;
+                    actionBtn.style.background = 'linear-gradient(135deg, #2ecc71, #27ae60)';
+                }
                 
                 startTimer();
             } else if (step === 3) {
-                // نسخ السكربت إلى الحافظة عند الضغط في النهاية
+                // نسخ السكربت بضغطة زر
                 finalScriptOutput.select();
                 document.execCommand('copy');
                 actionBtn.innerHTML = `✨ تم النسخ بنجاح!`;
