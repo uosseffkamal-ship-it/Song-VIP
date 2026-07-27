@@ -157,17 +157,35 @@
     </div>
 
     <script>
-        let timeLeft = 10;
-        let step = 1;
-              const urlParams = new URLSearchParams(window.location.search);
-        const linkToken = urlParams.get('to');
-        let finalTarget = 'https://example.com';
-        if (linkToken && localStorage.getItem(linkToken)) {
-            finalTarget = localStorage.getItem(linkToken);
-        } else {
-            finalTarget = localStorage.getItem('final_target') || 'https://example.com';
-        }
+let timeLeft = 10;
+const urlParams = new URLSearchParams(window.location.search);
+let finalTarget = urlParams.get('to');
 
+if (!finalTarget) {
+    finalTarget = localStorage.getItem('final_target') || 'https://pastebin.com/JuDa1y';
+}
+const actionBtn = document.getElementById('actionBtn');
+let timer = setInterval(() => {
+    if (timeLeft > 0) {
+        timeLeft--;
+        if (actionBtn) {
+            actionBtn.innerHTML = `⏳ يرجى الانتظار (${timeLeft})`;
+        }
+    } else {
+        clearInterval(timer);
+        if (actionBtn) {
+            actionBtn.innerHTML = `✅ احصل على الرابط`;
+        }
+    }
+}, 1000);
+
+function proceedNext() {
+    if (timeLeft <= 0) {
+        window.open(finalTarget, '_blank');
+    } else {
+        alert('يرجى الانتظار حتى انتهاء عداد الوقت!');
+    }
+}
         const adTitles = [
             "تكنولوجيا حديثة ومميزة لتغيير طريقك في البرمجة والتقنية اليوم",
             "أهم أدوات التطوير والذكاء الاصطناعي للمطورين في 2026",
