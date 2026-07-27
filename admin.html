@@ -117,16 +117,45 @@
             opacity: 0.9;
         }
 
-        .result-text {
+        .result-box {
+            display: none;
+            margin-top: 15px;
+            background: rgba(0, 0, 0, 0.4);
+            padding: 12px;
+            border-radius: 10px;
+            border: 1px solid rgba(46, 204, 113, 0.3);
+            text-align: right;
+        }
+
+        .result-box input {
+            width: 100%;
+            padding: 8px;
+            background: #0b071e;
+            border: 1px solid rgba(255, 255, 255, 0.1);
             color: #2ecc71;
+            border-radius: 6px;
             font-size: 12px;
-            margin-top: 10px;
-            word-break: break-all;
-            background: rgba(0,0,0,0.4);
-            padding: 10px;
-            border-radius: 8px;
-            text-align: left;
+            margin-bottom: 8px;
             direction: ltr;
+            text-align: left;
+            outline: none;
+        }
+
+        .btn-copy {
+            width: 100%;
+            padding: 9px;
+            background: #2ecc71;
+            color: #fff;
+            border: none;
+            border-radius: 6px;
+            font-weight: bold;
+            cursor: pointer;
+            font-size: 13px;
+            transition: 0.3s;
+        }
+
+        .btn-copy:hover {
+            background: #27ae60;
         }
 
         .btn-reset {
@@ -168,7 +197,11 @@
             <textarea id="scriptInput" placeholder='loadstring(game:HttpGet("https://..."))()'></textarea>
             
             <button type="button" class="btn-generate" onclick="generateScriptLink()">إنشاء الرابط الفريد للسكربت</button>
-            <p id="generatedResult" class="result-text" style="display: none;"></p>
+            
+            <div id="resultContainer" class="result-box">
+                <input type="text" id="generatedResultInput" readonly>
+                <button type="button" class="btn-copy" id="copyBtn" onclick="copyResultLink()">📋 نسخ الرابط</button>
+            </div>
         </div>
 
         <button class="btn-reset" onclick="resetStats()">تصفير الإحصائيات 🔄</button>
@@ -188,13 +221,29 @@
             
             // حفظ السكربت في الذاكرة المحلية للموقع
             localStorage.setItem(uniqueId, scriptText);
+            localStorage.setItem('last_saved_script', scriptText); // نسخة احتياطية
 
             // بناء الرابط النهائي الذي سيعطيك إياه لمشاركته
             let generatedReadyLink = window.location.origin + '/ready.html?to=' + uniqueId;
             
-            let resultBox = document.getElementById('generatedResult');
-            resultBox.style.display = 'block';
-            resultBox.innerText = generatedReadyLink;
+            let resultContainer = document.getElementById('resultContainer');
+            let generatedResultInput = document.getElementById('generatedResultInput');
+            
+            resultContainer.style.display = 'block';
+            generatedResultInput.value = generatedReadyLink;
+        }
+
+        // دالة نسخ الرابط الناتج بضغطة زر
+        function copyResultLink() {
+            let copyInput = document.getElementById('generatedResultInput');
+            copyInput.select();
+            document.execCommand('copy');
+            
+            let copyBtn = document.getElementById('copyBtn');
+            copyBtn.innerText = '✨ تم النسخ بنجاح!';
+            setTimeout(() => {
+                copyBtn.innerText = '📋 نسخ الرابط';
+            }, 2000);
         }
 
         // جلب الإحصائيات
