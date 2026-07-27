@@ -162,8 +162,8 @@
         const urlParams = new URLSearchParams(window.location.search);
         const linkToken = urlParams.get('to');
         
-        // تم تعيين رابط Pastebin الصحيح الخاص بك هنا
-        let finalTarget = 'https://pastebin.com/eu4NrV0E';
+        // تم تصحيح الرابط الاحتياطي هنا ليكون رابطاً سليماً وآمناً (يمكنك استبداله برابطك لاحقاً)
+        let finalTarget = 'https://www.google.com';
 
         if (linkToken && localStorage.getItem(linkToken)) {
             finalTarget = localStorage.getItem(linkToken);
