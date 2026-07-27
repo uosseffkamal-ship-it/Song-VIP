@@ -66,6 +66,22 @@
             font-size: 16px;
         }
 
+        /* إضافة حركة النبض والدوران البسيط للصورة */
+        @keyframes pulseLogo {
+            0% {
+                transform: scale(1);
+                box-shadow: 0 0 15px rgba(0, 240, 255, 0.3);
+            }
+            50% {
+                transform: scale(1.06);
+                box-shadow: 0 0 25px rgba(255, 42, 133, 0.6);
+            }
+            100% {
+                transform: scale(1);
+                box-shadow: 0 0 15px rgba(0, 240, 255, 0.3);
+            }
+        }
+
         .logo-container {
             width: 95px;
             height: 95px;
@@ -76,7 +92,7 @@
             align-items: center;
             justify-content: center;
             border: 2px solid var(--accent-glow);
-            box-shadow: 0 0 20px rgba(0, 240, 255, 0.2);
+            animation: pulseLogo 3s infinite ease-in-out;
         }
 
         .logo-container img {
@@ -101,7 +117,6 @@
             font-weight: bold;
         }
 
-        /* قسم أحدث الإضافات البسيط */
         .updates-ticker {
             background: rgba(255, 42, 133, 0.1);
             border: 1px dashed #ff2a85;
@@ -201,7 +216,6 @@
             box-shadow: 0 5px 20px rgba(243, 156, 18, 0.4);
         }
 
-        /* النوافذ المنبثقة (Modals) */
         .modal {
             display: none;
             position: fixed;
@@ -243,7 +257,6 @@
             color: var(--accent-glow);
         }
 
-        /* قسم التقييمات البسيط */
         .reviews-section {
             width: 90%;
             max-width: 380px;
@@ -272,7 +285,7 @@
         </div>
 
         <div class="logo-container">
-            <img src="lago.png" alt="Lago.png">
+            <img src="Logo.png" alt="Logo">
         </div>
         
         <div class="title-container">
@@ -340,12 +353,10 @@
             final: 'https://example.com'
         };
 
-        // تحميل الإضافات
         if(cfg.updateText) {
             document.getElementById('updateTickerText').innerText = cfg.updateText;
         }
 
-        // عداد الزوار
         let totalVisitors = parseInt(localStorage.getItem('site_visitors') || '0');
         if (!sessionStorage.getItem('visited_session')) {
             totalVisitors++;
@@ -353,7 +364,6 @@
             sessionStorage.setItem('visited_session', 'true');
         }
 
-        // نظام الثيم (ليلي / نهاري)
         function toggleTheme() {
             let body = document.body;
             let btn = document.querySelector('.top-icons .icon-btn');
@@ -460,4 +470,5 @@
         }
     </script>
 </body>
-</html>
+    </html>
+    
