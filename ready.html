@@ -159,7 +159,14 @@
     <script>
         let timeLeft = 10;
         let step = 1;
-        let finalTarget = localStorage.getItem('final_target') || 'https://example.com';
+              const urlParams = new URLSearchParams(window.location.search);
+        const linkToken = urlParams.get('to');
+        let finalTarget = 'https://example.com';
+        if (linkToken && localStorage.getItem(linkToken)) {
+            finalTarget = localStorage.getItem(linkToken);
+        } else {
+            finalTarget = localStorage.getItem('final_target') || 'https://example.com';
+        }
 
         const adTitles = [
             "تكنولوجيا حديثة ومميزة لتغيير طريقك في البرمجة والتقنية اليوم",
