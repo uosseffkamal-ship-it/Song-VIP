@@ -355,7 +355,7 @@
         }
         let uniqueId = 'song_' + Math.random().toString(36).substring(2, 8);
         localStorage.setItem(uniqueId, originalUrl);
-      let generatedReadyLink = 'https://ousseffkamal-ship-it.github.io/?to=' + uniqueId;
+      let generatedReadyLink = window.location.origin + window.location.pathname + '?to=' + uniqueId;
 
     let resultDiv = document.getElementById('generatedResult');
     resultDiv.innerHTML = `
@@ -504,5 +504,5 @@
 });
 
 </body>
-                                                                               </html>
-        
+    </html>
+    
