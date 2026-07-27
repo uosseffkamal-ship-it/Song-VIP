@@ -355,7 +355,8 @@
         }
         let uniqueId = 'song_' + Math.random().toString(36).substring(2, 8);
         localStorage.setItem(uniqueId, originalUrl);
-          let generatedReadyLink = 'https://ousseffkamal-ship-it.github.io/ready.html?to=' + uniqueId;
+      let generatedReadyLink = 'https://ousseffkamal-ship-it.github.io/?to=' + uniqueId;
+
     let resultDiv = document.getElementById('generatedResult');
     resultDiv.innerHTML = `
         <label style="color: #2ecc71; display: block; margin-top: 10px; font-weight: bold; font-size: 13px;">الرابط الناتج:</label>
@@ -492,4 +493,4 @@
     </script>
 </body>
     </html>
-        
+    
