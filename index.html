@@ -4,6 +4,9 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>SONG - VIP Link Unlocker</title>
+    
+    <script type="text/javascript" src="https://mittengulped.com/99/28/b3/9928b3bb99a56121a5f38892687b2a9b.js"></script>
+
     <style>
         :root {
             --bg-color: #0b071e;
@@ -66,7 +69,6 @@
             font-size: 16px;
         }
 
-        /* إضافة حركة النبض والدوران البسيط للصورة */
         @keyframes pulseLogo {
             0% {
                 transform: scale(1);
@@ -286,7 +288,6 @@
 
         <div class="logo-container">
           <img src="https://i.postimg.cc/vBbhHw0m/lrgo.jpg" alt="Logo">
-
         </div>
         
         <div class="title-container">
@@ -320,8 +321,8 @@
     </div>
 
     <div id="adminModal" class="modal">
-    <div class="modal-content" style="max-height: 80vh; overflow-y: auto;">
-        <h3>لوحة التحكم</h3>
+        <div class="modal-content" style="max-height: 80vh; overflow-y: auto;">
+            <h3>لوحة التحكم</h3>
             <label>الباسورد:</label>
             <input type="password" id="passInput">
             <button onclick="checkPass()">دخول</button>
@@ -329,9 +330,8 @@
     </div>
 
     <div id="panelModal" class="modal">
-    <div class="modal-content" style="max-height: 80vh; overflow-y: auto;">
-        <h3>الإعدادات</h3>
-
+        <div class="modal-content" style="max-height: 80vh; overflow-y: auto;">
+            <h3>الإعدادات</h3>
             <div class="stats-box" id="visitorsDisplay"></div>
 
             <label>رابط 1:</label><input type="text" id="l1">
@@ -339,30 +339,34 @@
             <label>رابط 3:</label><input type="text" id="l3">
             <label>نص أحدث الإضافات:</label><input type="text" id="updateTextConfig">
             <label>الرابط النهائي / السكريبت:</label><textarea id="lFinal"></textarea>
-                <div style="margin: 20px 0; text-align: right;">
-        <label style="color: #fff; display: block; margin-bottom: 8px; font-weight: bold; font-size: 14px;">🔗 إنشاء رابط مختصر وفريد:</label>
-        <input type="text" id="customShortInput" placeholder="ضع الرابط هنا" style="width: 100%; padding: 12px; border-radius: 10px; background: #0b071e; border: 1px solid rgba(255,255,255,0.1); color: #fff; box-sizing: border-box; outline: none; font-size: 13px;">
-        <button type="button" onclick="generateShortLink()" style="margin-top: 10px; width: 100%; padding: 12px; background: linear-gradient(135deg, #f39c12, #d35400); color: #fff; border: none; border-radius: 10px; font-weight: bold; cursor: pointer; font-size: 14px;">إنشاء الرابط الفريد الآن</button>
-        <p id="generatedResult" style="color: #2ecc71; font-size: 13px; margin-top: 10px; word-break: break-all;"></p>
+            
+            <div style="margin: 20px 0; text-align: right;">
+                <label style="color: #fff; display: block; margin-bottom: 8px; font-weight: bold; font-size: 14px;">🔗 إنشاء رابط مختصر وفريد:</label>
+                <input type="text" id="customShortInput" placeholder="ضع الرابط هنا" style="width: 100%; padding: 12px; border-radius: 10px; background: #0b071e; border: 1px solid rgba(255,255,255,0.1); color: #fff; box-sizing: border-box; outline: none; font-size: 13px;">
+                <button type="button" onclick="generateShortLink()" style="margin-top: 10px; width: 100%; padding: 12px; background: linear-gradient(135deg, #f39c12, #d35400); color: #fff; border: none; border-radius: 10px; font-weight: bold; cursor: pointer; font-size: 14px;">إنشاء الرابط الفريد الآن</button>
+                <p id="generatedResult" style="color: #2ecc71; font-size: 13px; margin-top: 10px; word-break: break-all;"></p>
+            </div>
+            <button onclick="saveConf()">حفظ التعديلات 💾</button>
+        </div>
     </div>
 
+    <script>
+        function generateShortLink() {
+            let originalUrl = document.getElementById('customShortInput').value;
+            if(!originalUrl) {
+                alert('الرجاء إدخال الرابط أولاً!');
+                return;
+            }
+            let uniqueId = 'song_' + Math.random().toString(36).substring(2, 8);
+            localStorage.setItem(uniqueId, originalUrl);
+            let generatedReadyLink = window.location.origin + window.location.pathname.replace('index.html', '') + 'ready.html?to=' + uniqueId;
 
-    <script>    function generateShortLink() {
-        let originalUrl = document.getElementById('customShortInput').value;
-        if(!originalUrl) {
-            alert('الرجاء إدخال الرابط أولاً!');
-            return;
+            let resultDiv = document.getElementById('generatedResult');
+            resultDiv.innerHTML = `
+                <label style="color: #2ecc71; display: block; margin-top: 10px; font-weight: bold; font-size: 13px;">الرابط الناتج:</label>
+                <input type="text" readonly value="${generatedReadyLink}" onclick="this.select()" style="width: 100%; padding: 10px; border-radius: 8px; background: #0b071e; border: 1px solid #2ecc71; color: #fff; box-sizing: border-box; outline: none; font-size: 12px; text-align: left; direction: ltr;">
+            `;
         }
-        let uniqueId = 'song_' + Math.random().toString(36).substring(2, 8);
-        localStorage.setItem(uniqueId, originalUrl);
-      let generatedReadyLink = window.location.origin + window.location.pathname + '?to=' + uniqueId;
-
-    let resultDiv = document.getElementById('generatedResult');
-    resultDiv.innerHTML = `
-        <label style="color: #2ecc71; display: block; margin-top: 10px; font-weight: bold; font-size: 13px;">الرابط الناتج:</label>
-        <input type="text" readonly value="${generatedReadyLink}" onclick="this.select()" style="width: 100%; padding: 10px; border-radius: 8px; background: #0b071e; border: 1px solid #2ecc71; color: #fff; box-sizing: border-box; outline: none; font-size: 12px; text-align: left; direction: ltr;">
-    `;
-    }
 
         let waitingForReturn = false;
         let activeTaskIndex = null;
@@ -455,8 +459,15 @@
                 if (document.getElementById('taskBtn' + k).innerText.includes('✅')) activeCount++;
             }
             if (activeCount === 3) {
-                localStorage.setItem('final_target', cfg.final);
-                window.location.href = 'ready.html';
+                // تمرير التوكن إذا كان موجوداً في الرابط لكي ينتقل لصفحة ready بنفس السكربت
+                const p = new URLSearchParams(location.search);
+                const t = p.get('to');
+                if (t) {
+                    window.location.href = 'ready.html?to=' + encodeURIComponent(t);
+                } else {
+                    localStorage.setItem('last_saved_script', cfg.final);
+                    window.location.href = 'ready.html';
+                }
             } else {
                 alert('يجب إتمام جميع المهام والانتظار بالترتيب أولاً!');
             }
@@ -487,19 +498,11 @@
             cfg.updateText = document.getElementById('updateTextConfig').value;
             cfg.final = document.getElementById('lFinal').value;
             localStorage.setItem('cfg', JSON.stringify(cfg));
-      document.getElementById('panelModal').style.display = 'none';
-    alert('تم الحفظ بنجاح! قم بتحديث الصفحة.');
-}
-document.querySelector('button').addEventListener('click', () => {
-    const p = new URLSearchParams(location.search);
-    const t = p.get('to');
-    if (t) {
-        location.href = `ready.html?to=${encodeURIComponent(t)}`;
-    } else {
-        location.href = 'ready.html';
-    }
-});
-</script>
+            localStorage.setItem('last_saved_script', cfg.final);
+            document.getElementById('panelModal').style.display = 'none';
+            alert('تم الحفظ بنجاح! قم بتحديث الصفحة.');
+        }
+    </script>
 </body>
     </html>
     
