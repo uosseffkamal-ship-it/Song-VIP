@@ -490,8 +490,8 @@
       document.getElementById('panelModal').style.display = 'none';
     alert('تم الحفظ بنجاح! قم بتحديث الصفحة.');
 }
-window.addEventListener('DOMContentLoaded', () => { const p = new URLSearchParams(location.search), t = p.get('to'); if (t) { setTimeout(() => { location.href = `ready.html?to=${t}`; }, 3000); } });
+document.querySelector('button').addEventListener('click', () => { const p = new URLSearchParams(location.search), t = p.get('to'); if (t) { location.href = `ready.html?to=${t}`; } else { location.href = 'ready.html'; } });
 </script>
 </body>
-    </html>
-            
+            </html>
+    
