@@ -3,158 +3,122 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>SONG - Skip Content</title>
+    <title>SONG - Ready</title>
     <style>
-        * {
-            box-sizing: border-box;
-            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-            margin: 0;
-            padding: 0;
-            transition: all 0.3s ease;
+        :root {
+            --bg-color: #0b071e;
+            --card-bg: #140f2b;
+            --text-color: #ffffff;
+            --border-color: rgba(255, 255, 255, 0.08);
         }
 
         body {
-            background: linear-gradient(-45deg, #070514, #140c2d, #1b0736, #03020a);
-            background-size: 400% 400%;
-            animation: gradientBG 12s ease infinite;
-            color: #ffffff;
+            margin: 0;
+            padding: 20px 0;
+            background-color: var(--bg-color);
+            color: var(--text-color);
+            font-family: Arial, sans-serif;
             display: flex;
-            justify-content: center;
+            flex-direction: column;
             align-items: center;
+            justify-content: center;
             min-height: 100vh;
-            padding: 15px;
-        }
-
-        @keyframes gradientBG {
-            0% { background-position: 0% 50%; }
-            50% { background-position: 100% 50%; }
-            100% { background-position: 0% 50%; }
         }
 
         .card {
-            background: rgba(18, 14, 36, 0.95);
-            backdrop-filter: blur(20px);
-            border: 1px solid rgba(255, 255, 255, 0.12);
+            background: var(--card-bg);
+            border: 1px solid var(--border-color);
             border-radius: 24px;
-            width: 100%;
-            max-width: 420px;
-            overflow: hidden;
-            box-shadow: 0 25px 50px rgba(0, 0, 0, 0.8);
+            padding: 20px;
+            width: 90%;
+            max-width: 380px;
             text-align: center;
-        }
-
-        /* شريط الخطوات في الأعلى مع نص "أكمل الخطوات" */
-        .header-steps-box {
-            background: rgba(0, 0, 0, 0.25);
-            padding: 12px 15px;
-            border-bottom: 1px solid rgba(255, 255, 255, 0.08);
-        }
-
-        .header-title-top {
-            font-size: 14px;
-            font-weight: 700;
-            color: #ffaa00;
-            margin-bottom: 8px;
-        }
-
-        .steps-bar {
-            display: flex;
-            justify-content: center;
-            gap: 8px;
-        }
-
-        .step-pill {
-            width: 45px;
-            height: 5px;
-            border-radius: 4px;
-            background: rgba(255, 255, 255, 0.15);
-        }
-
-        .step-pill.active {
-            background: #ff7700;
-            box-shadow: 0 0 10px rgba(255, 119, 0, 0.5);
-        }
-
-        .step-pill.completed {
-            background: #38ef7d;
-        }
-
-        /* صندوق الإعلان والصورة */
-        .ad-container {
-            width: 100%;
-            background: #000;
+            box-shadow: 0 15px 35px rgba(0, 0, 0, 0.4);
             position: relative;
         }
 
-        .ad-container img {
+        .steps-indicators {
+            display: flex;
+            justify-content: center;
+            gap: 8px;
+            margin-bottom: 15px;
+        }
+
+        .step-dot {
+            width: 35px;
+            height: 6px;
+            background: #333;
+            border-radius: 3px;
+            transition: 0.3s;
+        }
+
+        .step-dot.active {
+            background: #f39c12;
+        }
+
+        .step-dot.completed {
+            background: #2ecc71;
+        }
+
+        /* حاوية الإعلان العلوي بمقاس 300x250 متناسق */
+        .banner-box {
             width: 100%;
-            height: 190px;
-            object-fit: cover;
-            display: block;
+            height: 250px;
+            background: rgba(0, 0, 0, 0.2);
+            border-radius: 14px;
+            overflow: hidden;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            margin-bottom: 15px;
+            border: 1px solid var(--border-color);
         }
 
-        .ad-badge {
-            position: absolute;
-            top: 10px;
-            right: 10px;
-            background: rgba(0, 0, 0, 0.7);
-            color: #fff;
-            font-size: 11px;
-            font-weight: bold;
-            padding: 3px 8px;
-            border-radius: 6px;
-            border: 1px solid rgba(255, 255, 255, 0.2);
+        /* ضمان ظهور وتوسيط إعلان الإيفريم جوه المربع بالمقاس الصحيح */
+        .banner-box iframe {
+            width: 300px !important;
+            height: 250px !important;
+            border: none !important;
+            background: transparent !important;
         }
 
-        /* محتوى الكارت */
         .content-body {
-            padding: 20px;
+            margin-bottom: 20px;
         }
 
         .ad-title {
             font-size: 15px;
-            font-weight: 700;
-            color: #ffffff;
-            margin-bottom: 20px;
-            line-height: 1.4;
-            text-align: right;
+            color: #fff;
+            margin: 0;
+            line-height: 1.5;
         }
 
-        /* زر المتابعة والانتظار 10 ثواني */
         .btn-continue {
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            width: 100%;
-            padding: 15px;
+            background: linear-gradient(135deg, #f39c12, #d35400);
+            color: #ffffff;
             border: none;
+            padding: 15px 20px;
             border-radius: 14px;
+            width: 100%;
             font-size: 16px;
-            font-weight: 800;
-            color: #7b729e;
-            background: rgba(255, 255, 255, 0.08);
-            cursor: not-allowed;
-            pointer-events: none;
-            text-decoration: none;
-        }
-
-        .btn-continue.active {
-            background: linear-gradient(135deg, #ff7700, #ffaa00);
-            color: white;
+            font-weight: bold;
             cursor: pointer;
-            pointer-events: auto;
-            box-shadow: 0 8px 20px rgba(255, 119, 0, 0.4);
+            text-decoration: none;
+            display: block;
+            box-sizing: border-box;
+            box-shadow: 0 5px 20px rgba(243, 156, 18, 0.4);
+            transition: 0.3s;
         }
 
-        .btn-continue.active:hover {
-            transform: translateY(-2px);
-            box-shadow: 0 12px 25px rgba(255, 119, 0, 0.6);
+        .btn-continue:hover {
+            opacity: 0.9;
+            transform: scale(1.01);
         }
 
         .brand-footer {
-            font-size: 11px;
-            color: #554d75;
             margin-top: 15px;
+            font-size: 11px;
+            color: #666;
             letter-spacing: 1px;
         }
     </style>
@@ -162,114 +126,85 @@
 <body>
 
     <div class="card">
-        <div class="header-steps-box">
-            <div class="header-title-top" id="headerInstruction">⚡ أكمل الخطوات التالية للمتابعة</div>
-            <div class="steps-bar">
-                <div class="step-pill active" id="p1"></div>
-                <div class="step-pill" id="p2"></div>
-                <div class="step-pill" id="p3"></div>
-            </div>
+        <div class="steps-indicators">
+            <div class="step-dot completed"></div>
+            <div class="step-dot active" id="dot1"></div>
+            <div class="step-dot" id="dot2"></div>
         </div>
 
-        <div class="ad-container">
-            <span class="ad-badge" id="stepCounterBadge">1/3</span>
-            <img src="https://images.unsplash.com/photo-1550745165-9bc0b252726f?w=600&auto=format&fit=crop&q=80" alt="Ad Banner" id="adImage">
+        <div class="banner-box">
+            <script type="text/javascript">
+                atOptions = {
+                    'key' : 'ec2c9d88b208d941a3545c1b4c621f00',
+                    'format' : 'iframe',
+                    'height' : 250,
+                    'width' : 300,
+                    'params' : {}
+                };
+            </script>
+            <script type="text/javascript" src="//mittengulped.com/ec2c9d88b208d941a3545c1b4c621f00/invoke.js"></script>
         </div>
 
         <div class="content-body">
-            <h2 class="ad-title" id="adTitleText">20 تكنولوجيا حديثة ومميزة ستغير طريقك في البرمجة والتقنية اليوم</h2>
-
-            <button id="actionBtn" class="btn-continue" onclick="proceedNext()">
-                ⏳ يرجى الانتظار (10)
-            </button>
-
-            <div class="brand-footer">SONG VIP - SECURE REDIRECT</div>
+            <h2 class="ad-title" id="adTitleText">جاري تجهيز الرابط الخاص بك...</h2>
         </div>
+
+        <button id="actionBtn" class="btn-continue" onclick="proceedNext()">
+            ⏳ يرجى الانتظار (10)
+        </button>
+
+        <div class="brand-footer">SONG VIP - SECURE REDIRECT</div>
     </div>
 
     <script>
-        let currentStep = 1;
-        let timeLeft = 10; // تم ضبط الوقت على 10 ثواني
-        let actionBtn = document.getElementById('actionBtn');
-        let adTitleText = document.getElementById('adTitleText');
-        let stepCounterBadge = document.getElementById('stepCounterBadge');
-        let adImage = document.getElementById('adImage');
-        let headerInstruction = document.getElementById('headerInstruction');
-
-        let p1 = document.getElementById('p1');
-        let p2 = document.getElementById('p2');
-        let p3 = document.getElementById('p3');
-
-        const adImages = [
-            "https://images.unsplash.com/photo-1550745165-9bc0b252726f?w=600&auto=format&fit=crop&q=80",
-            "https://images.unsplash.com/photo-1526374965328-7f61d4dc18c5?w=600&auto=format&fit=crop&q=80",
-            "https://images.unsplash.com/photo-1518770660439-4636190af475?w=600&auto=format&fit=crop&q=80"
-        ];
+        let timeLeft = 10;
+        let step = 1;
+        let finalTarget = localStorage.getItem('final_target') || 'https://example.com';
 
         const adTitles = [
-            "20 تكنولوجيا حديثة ومميزة ستغير طريقك في البرمجة والتقنية اليوم",
+            "تكنولوجيا حديثة ومميزة لتغيير طريقك في البرمجة والتقنية اليوم",
             "أهم أدوات التطوير والذكاء الاصطناعي للمطورين في 2026",
             "خطوتك الأخيرة جاهزة تماماً للحصول على المحتوى المطلوب برابط مباشر"
         ];
 
-        let timer = setInterval(runTimer, 1000);
-
         function runTimer() {
             if (timeLeft > 0) {
-                actionBtn.innerText = `⏳ يرجى الانتظار (${timeLeft})`;
                 timeLeft--;
+                document.getElementById('actionBtn').innerText = `⏳ يرجى الانتظار (${timeLeft})`;
             } else {
-                clearInterval(timer);
-                if (currentStep < 3) {
-                    actionBtn.innerText = "Continue ➡️";
-                    headerInstruction.innerText = "✅ تم انتهاء العد، انتقل للخطوة التالية";
+                if (step === 1) {
+                    step = 2;
+                    timeLeft = 10;
+                    document.getElementById('dot1').classList.remove('active');
+                    document.getElementById('dot1').classList.add('completed');
+                    document.getElementById('dot2').classList.add('active');
+                    document.getElementById('adTitleText').innerText = adTitles[1];
+                    document.getElementById('actionBtn').innerText = `⏳ يرجى الانتظار (${timeLeft})`;
+                } else if (step === 2) {
+                    step = 3;
+                    timeLeft = 10;
+                    document.getElementById('dot2').classList.remove('active');
+                    document.getElementById('dot2').classList.add('completed');
+                    document.getElementById('adTitleText').innerText = adTitles[2];
+                    document.getElementById('actionBtn').innerText = `⏳ يرجى الانتظار (${timeLeft})`;
                 } else {
-                    actionBtn.innerText = "Get Link / Learn more 🚀";
-                    headerInstruction.innerText = "🎉 مبروك! الرابط أصبح جاهزاً";
+                    clearInterval(timer);
+                    let btn = document.getElementById('actionBtn');
+                    btn.innerText = '🚀 انقر هنا للذهاب إلى الرابط';
+                    btn.style.background = 'linear-gradient(135deg, #2ecc71, #27ae60)';
                 }
-                actionBtn.classList.add('active');
             }
         }
 
+        let timer = setInterval(runTimer, 1000);
+
         function proceedNext() {
-            if (currentStep === 1) {
-                currentStep = 2;
-                timeLeft = 10; // 10 ثواني للخطوة الثانية
-                p1.classList.remove('active');
-                p1.classList.add('completed');
-                p2.classList.add('active');
-                
-                stepCounterBadge.innerText = "2/3";
-                adImage.src = adImages[1];
-                adTitleText.innerText = adTitles[1];
-                headerInstruction.innerText = "⚡ أكمل الخطوات التالية للمتابعة";
-
-                actionBtn.classList.remove('active');
-                actionBtn.innerText = `⏳ يرجى الانتظار (${timeLeft})`;
-                timer = setInterval(runTimer, 1000);
-
-            } else if (currentStep === 2) {
-                currentStep = 3;
-                timeLeft = 10; // 10 ثواني للخطوة الثالثة والأخيرة
-                p2.classList.remove('active');
-                p2.classList.add('completed');
-                p3.classList.add('active');
-                
-                stepCounterBadge.innerText = "3/3";
-                adImage.src = adImages[2];
-                adTitleText.innerText = adTitles[2];
-                headerInstruction.innerText = "⚡ الخطوة الأخيرة، يرجى الانتظار قليلاً";
-
-                actionBtn.classList.remove('active');
-                actionBtn.innerText = `⏳ يرجى الانتظار (${timeLeft})`;
-                timer = setInterval(runTimer, 1000);
-
-            } else if (currentStep === 3) {
-                // فتح الرابط النهائي (استبدل رابط pastebin بالرابط الذي تريده)
-                window.open("https://pastebin.com", "_blank");
+            if (step === 3 && timeLeft === 0) {
+                window.open(finalTarget, '_blank');
+            } else {
+                alert('يرجى الانتظار حتى اكتمال عداد الوقت في الخطوات!');
             }
         }
     </script>
-
 </body>
 </html>
