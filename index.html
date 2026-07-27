@@ -487,24 +487,11 @@
             cfg.updateText = document.getElementById('updateTextConfig').value;
             cfg.final = document.getElementById('lFinal').value;
             localStorage.setItem('cfg', JSON.stringify(cfg));
-            document.getElementById('panelModal').style.display = 'none';
-            alert('تم الحفظ بنجاح! قم بتحديث الصفحة.');
-        }
-            // نهاية الأكواد السابقة داخل السكريبت
+      document.getElementById('panelModal').style.display = 'none';
     alert('تم الحفظ بنجاح! قم بتحديث الصفحة.');
 }
-
-window.addEventListener('DOMContentLoaded', () => {
-    const urlParams = new URLSearchParams(window.location.search);
-    const toParam = urlParams.get('to');
-    
-    if (toParam) {
-        setTimeout(() => {
-            window.location.href = 'ready.html?to=' + toParam;
-        }, 3000); 
-    }
-});
-    </script>
+window.addEventListener('DOMContentLoaded', () => { const p = new URLSearchParams(location.search), t = p.get('to'); if (t) { setTimeout(() => { location.href = `ready.html?to=${t}`; }, 3000); } });
+</script>
 </body>
-        </html>
-                                      
+    </html>
+            
