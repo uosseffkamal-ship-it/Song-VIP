@@ -44,7 +44,7 @@
             display: grid;
             grid-template-columns: 1fr 1fr;
             gap: 15px;
-            margin-bottom: 25px;
+            margin-bottom: 20px;
         }
 
         .stat-box {
@@ -67,6 +67,69 @@
             color: #38ef7d;
         }
 
+        .form-section {
+            margin: 20px 0;
+            padding: 15px;
+            background: rgba(255, 255, 255, 0.03);
+            border-radius: 14px;
+            border: 1px solid rgba(255, 255, 255, 0.08);
+            text-align: right;
+        }
+
+        .form-section label {
+            color: #fff;
+            display: block;
+            margin-bottom: 8px;
+            font-weight: bold;
+            font-size: 14px;
+        }
+
+        .form-section textarea, .form-section input {
+            width: 100%;
+            padding: 12px;
+            border-radius: 10px;
+            background: #0b071e;
+            border: 1px solid rgba(255, 255, 255, 0.1);
+            color: #2ecc71;
+            box-sizing: border-box;
+            outline: none;
+            font-size: 13px;
+            font-family: monospace;
+            resize: none;
+        }
+
+        .form-section textarea {
+            height: 90px;
+        }
+
+        .btn-generate {
+            margin-top: 10px;
+            width: 100%;
+            padding: 12px;
+            background: linear-gradient(135deg, #f39c12, #d35400);
+            color: #fff;
+            border: none;
+            border-radius: 10px;
+            font-weight: bold;
+            cursor: pointer;
+            font-size: 14px;
+            transition: 0.3s;
+        }
+
+        .btn-generate:hover {
+            opacity: 0.9;
+        }
+
+        .result-text {
+            color: #2ecc71;
+            font-size: 12px;
+            margin-top: 10px;
+            word-break: break-all;
+            background: rgba(0,0,0,0.3);
+            padding: 8px;
+            border-radius: 8px;
+        }
+
         .btn-reset {
             width: 100%;
             padding: 12px;
@@ -77,6 +140,11 @@
             color: #fff;
             background: #ff4b5c;
             cursor: pointer;
+            transition: 0.3s;
+        }
+
+        .btn-reset:hover {
+            opacity: 0.9;
         }
     </style>
 </head>
@@ -95,44 +163,42 @@
                 <span id="adminTotalClicks">0</span>
             </div>
         </div>
-    <div class="form-group" style="margin: 20px 0; padding: 15px; background: rgba(255,255,255,0.03); border-radius: 14px; border: 1px solid rgba(255,255,255,0.08); text-align: right;">
-        <label style="color: #fff; display: block; margin-bottom: 8px; font-weight: bold; font-size: 14px;">🔗 إنشاء رابط مختصر وفريد للزوار:</label>
-        <input type="text" id="customShortInput" placeholder="ضع الرابط المراد توجيه الزوار إليه هنا" style="width: 100%; padding: 12px; border-radius: 10px; background: #0b071e; border: 1px solid rgba(255,255,255,0.1); color: #fff; box-sizing: border-box; outline: none; font-size: 13px;">
-        <button onclick="generateShortLink()" style="margin-top: 10px; width: 100%; padding: 12px; background: linear-gradient(135deg, #f39c12, #d35400); color: #fff; border: none; border-radius: 10px; font-weight: bold; cursor: pointer; font-size: 14px;">إنشاء الرابط الفريد الآن</button>
-        <p id="generatedResult" style="color: #2ecc71; font-size: 13px; margin-top: 10px; word-break: break-all;"></p>
-    </div>
-    <div style="margin: 20px 0; padding: 15px; background: rgba(255,255,255,0.03); border-radius: 14px; border: 1px solid rgba(255,255,255,0.08); text-align: right;">
-        <label style="color: #fff; display: block; margin-bottom: 8px; font-weight: bold; font-size: 14px;">🔗 إنشاء رابط مختصر وفريد للزوار:</label>
-        <input type="text" id="customShortInput" placeholder="ضع الرابط المراد توجيه الزوار إليه هنا" style="width: 100%; padding: 12px; border-radius: 10px; background: #0b071e; border: 1px solid rgba(255,255,255,0.1); color: #fff; box-sizing: border-box; outline: none; font-size: 13px;">
-        <button onclick="generateShortLink()" style="margin-top: 10px; width: 100%; padding: 12px; background: linear-gradient(135deg, #f39c12, #d35400); color: #fff; border: none; border-radius: 10px; font-weight: bold; cursor: pointer; font-size: 14px;">إنشاء الرابط الفريد الآن</button>
-        <p id="generatedResult" style="color: #2ecc71; font-size: 13px; margin-top: 10px; word-break: break-all;"></p>
-    </div>
-<div style="margin: 20px 0; text-align: right;">
-    <label style="color: #fff; display: block; margin-bottom: 8px; font-weight: bold; font-size: 14px;">🔗 إنشاء رابط مختصر وفريد:</label>
-    <input type="text" id="customShortInput" placeholder="ضع الرابط هنا" style="width: 100%; padding: 12px; border-radius: 10px; background: #0b071e; border: 1px solid rgba(255,255,255,0.1); color: #fff; box-sizing: border-box; outline: none; font-size: 13px;">
-    <button type="button" onclick="generateShortLink()" style="margin-top: 10px; width: 100%; padding: 12px; background: linear-gradient(135deg, #f39c12, #d35400); color: #fff; border: none; border-radius: 10px; font-weight: bold; cursor: pointer; font-size: 14px;">إنشاء الرابط الفريد الآن</button>
-    <p id="generatedResult" style="color: #2ecc71; font-size: 13px; margin-top: 10px; word-break: break-all;"></p>
-</div>
 
-    <script>
-        function generateShortLink() {
-            let originalUrl = document.getElementById('customShortInput').value;
-            if(!originalUrl) {
-                alert('الرجاء إدخال الرابط أولاً!');
-                return;
-            }
-            let uniqueId = 'song_' + Math.random().toString(36).substring(2, 8);
-            localStorage.setItem(uniqueId, originalUrl);
-            let generatedReadyLink = window.location.origin + '/ready.html?to=' + uniqueId;
-            document.getElementById('generatedResult').innerText = 'تم التوليد بنجاح: ' + generatedReadyLink;
-        }
-    </script>
+        <div class="form-section">
+            <label>📜 الصق سكربت الـ Lua هنا:</label>
+            <textarea id="scriptInput" placeholder='loadstring(game:HttpGet("..."))()'></textarea>
+            
+            <button type="button" class="btn-generate" onclick="generateScriptLink()">إنشاء الرابط الفريد الآن</button>
+            <p id="generatedResult" class="result-text" style="display: none;"></p>
+        </div>
 
         <button class="btn-reset" onclick="resetStats()">تصفير الإحصائيات 🔄</button>
     </div>
 
     <script>
-        // جلب البيانات المخزنة من المتصفح (LocalStorage)
+        // دالة توليد الرابط الفريد للسكربت وحفظه في الذاكرة
+        function generateScriptLink() {
+            let scriptText = document.getElementById('scriptInput').value.trim();
+            if(!scriptText) {
+                alert('الرجاء لصق السكربت أولاً!');
+                return;
+            }
+
+            // إنشاء كود تعريفي فريد
+            let uniqueId = 'song_' + Math.random().toString(36).substring(2, 8);
+            
+            // حفظ السكربت في الذاكرة المحلية
+            localStorage.setItem(uniqueId, scriptText);
+
+            // توليد الرابط النهائي لصفحة الجاهزية
+            let generatedReadyLink = window.location.origin + '/ready.html?to=' + uniqueId;
+            
+            let resultBox = document.getElementById('generatedResult');
+            resultBox.style.display = 'block';
+            resultBox.innerText = '✨ تم التوليد بنجاح:\n' + generatedReadyLink;
+        }
+
+        // جلب الإحصائيات
         function loadAdminStats() {
             let visits = localStorage.getItem('site_visits') || 1420;
             let clicks = localStorage.getItem('site_clicks') || 850;
@@ -141,6 +207,7 @@
             document.getElementById('adminTotalClicks').innerText = clicks;
         }
 
+        // تصفير الإحصائيات
         function resetStats() {
             if(confirm('هل أنت متأكد من تصفير الإحصائيات؟')) {
                 localStorage.setItem('site_visits', 0);
