@@ -355,8 +355,8 @@
         }
         let uniqueId = 'song_' + Math.random().toString(36).substring(2, 8);
         localStorage.setItem(uniqueId, originalUrl);
-          let generatedReadyLink = window.location.origin + '/ready.html?to=' + uniqueId;
-    
+          let baseHref = window.location.origin + window.location.pathname.substring(0, window.location.pathname.lastIndexOf('/') + 1);
+let generatedReadyLink = baseHref + 'ready.html?to=' + uniqueId;
     let resultDiv = document.getElementById('generatedResult');
     resultDiv.innerHTML = `
         <label style="color: #2ecc71; display: block; margin-top: 10px; font-weight: bold; font-size: 13px;">الرابط الناتج:</label>
@@ -492,5 +492,5 @@
         }
     </script>
 </body>
-        </html>
-                
+    </html>
+        
