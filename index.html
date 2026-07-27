@@ -359,7 +359,10 @@
             }
             let uniqueId = 'song_' + Math.random().toString(36).substring(2, 8);
             localStorage.setItem(uniqueId, originalUrl);
-            let generatedReadyLink = window.location.origin + window.location.pathname.replace('index.html', '') + 'ready.html?to=' + uniqueId;
+            
+            // تعديل الرابط الناتج ليوجه المستخدم إلى الواجهة الرئيسية (index.html) أولاً مع الـ token
+            let basePath = window.location.pathname.substring(0, window.location.pathname.lastIndexOf('/') + 1);
+            let generatedReadyLink = window.location.origin + basePath + 'index.html?to=' + uniqueId;
 
             let resultDiv = document.getElementById('generatedResult');
             resultDiv.innerHTML = `
@@ -459,7 +462,7 @@
                 if (document.getElementById('taskBtn' + k).innerText.includes('✅')) activeCount++;
             }
             if (activeCount === 3) {
-                // تمرير التوكن إذا كان موجوداً في الرابط لكي ينتقل لصفحة ready بنفس السكربت
+                // تمرير التوكن بدقة إلى صفحة ready.html عند الانتقال
                 const p = new URLSearchParams(location.search);
                 const t = p.get('to');
                 if (t) {
@@ -504,5 +507,5 @@
         }
     </script>
 </body>
-    </html>
-    
+        </html>
+                                                         
