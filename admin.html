@@ -158,21 +158,51 @@
             background: #27ae60;
         }
 
-        .btn-reset {
-            width: 100%;
+        .action-btns {
+            display: flex;
+            gap: 10px;
+            margin-top: 15px;
+        }
+
+        .btn-action {
+            flex: 1;
             padding: 12px;
             border: none;
             border-radius: 12px;
             font-size: 14px;
             font-weight: bold;
             color: #fff;
-            background: #ff4b5c;
             cursor: pointer;
             transition: 0.3s;
         }
 
-        .btn-reset:hover {
+        .btn-home {
+            background: #4169e1;
+        }
+
+        .btn-reset {
+            background: #ff4b5c;
+        }
+
+        .btn-action:hover {
             opacity: 0.9;
+        }
+
+        /* نظام التنبيهات المباشرة Toast */
+        #toast-container {
+            position: fixed;
+            bottom: 20px;
+            right: 20px;
+            z-index: 10000;
+        }
+        .toast-msg {
+            background: #140f2b;
+            color: #fff;
+            padding: 12px 20px;
+            border-radius: 12px;
+            border: 1px solid #00f2fe;
+            box-shadow: 0 5px 15px rgba(0,0,0,0.3);
+            font-size: 13px;
         }
     </style>
 </head>
@@ -199,69 +229,83 @@
             <button type="button" class="btn-generate" onclick="generateScriptLink()">إنشاء الرابط الفريد للسكربت</button>
             
             <div id="resultContainer" class="result-box">
-                <input type="text" id="generatedResultInput" readonly>
+                <input type="text" id="generatedResultInput" readonly onclick="this.select()">
                 <button type="button" class="btn-copy" id="copyBtn" onclick="copyResultLink()">📋 نسخ الرابط</button>
             </div>
         </div>
 
-        <button class="btn-reset" onclick="resetStats()">تصفير الإحصائيات 🔄</button>
+        <div class="action-btns">
+            <button class="btn-action btn-home" onclick="goHome()">🏠 الموقع</button>
+            <button class="btn-action btn-reset" onclick="resetStats()">تصفير 🔄</button>
+        </div>
     </div>
 
+    <div id="toast-container"></div>
+
     <script>
-        // دالة توليد الرابط الفريد من السكربت
+        function showToast(message) {
+            let container = document.getElementById('toast-container');
+            container.innerHTML = `<div class="toast-msg">✨ ${message}</div>`;
+            setTimeout(() => { container.innerHTML = ''; }, 3000);
+        }
+
+        // توليد الرابط الفريد ليوجه المستخدم إلى index.html مع تضمين معرف السكربت
         function generateScriptLink() {
             let scriptText = document.getElementById('scriptInput').value.trim();
             if(!scriptText) {
-                alert('الرجاء كتابة أو لصق السكربت أولاً!');
+                showToast('الرجاء كتابة أو لصق السكربت أولاً!');
                 return;
             }
 
-            // إنشاء كود تعريفي عشوائي فريد
             let uniqueId = 'song_' + Math.random().toString(36).substring(2, 8);
             
-            // حفظ السكربت في الذاكرة المحلية للموقع
+            // تخزين السكربت برمز فريد في الذاكرة
             localStorage.setItem(uniqueId, scriptText);
-            localStorage.setItem('last_saved_script', scriptText); // نسخة احتياطية
+            localStorage.setItem('last_saved_script', scriptText);
 
-            // بناء الرابط النهائي الذي سيعطيك إياه لمشاركته
-            let generatedReadyLink = window.location.origin + '/ready.html?to=' + uniqueId;
+            let basePath = window.location.pathname.substring(0, window.location.pathname.lastIndexOf('/') + 1);
+            let generatedReadyLink = window.location.origin + basePath + 'index.html?to=' + uniqueId;
             
             let resultContainer = document.getElementById('resultContainer');
             let generatedResultInput = document.getElementById('generatedResultInput');
             
             resultContainer.style.display = 'block';
             generatedResultInput.value = generatedReadyLink;
+            showToast('تم إنشاء الرابط الفريد بنجاح!');
         }
 
-        // دالة نسخ الرابط الناتج بضغطة زر
         function copyResultLink() {
             let copyInput = document.getElementById('generatedResultInput');
             copyInput.select();
-            document.execCommand('copy');
+            navigator.clipboard.writeText(copyInput.value);
             
             let copyBtn = document.getElementById('copyBtn');
             copyBtn.innerText = '✨ تم النسخ بنجاح!';
+            showToast('تم نسخ الرابط إلى الحافظة');
             setTimeout(() => {
                 copyBtn.innerText = '📋 نسخ الرابط';
             }, 2000);
         }
 
-        // جلب الإحصائيات
         function loadAdminStats() {
-            let visits = localStorage.getItem('site_visits') || 1420;
-            let clicks = localStorage.getItem('site_clicks') || 850;
+            let visits = localStorage.getItem('site_visitors') || 0;
+            let clicks = localStorage.getItem('site_clicks') || 0;
 
             document.getElementById('adminTotalVisits').innerText = visits;
             document.getElementById('adminTotalClicks').innerText = clicks;
         }
 
-        // تصفير الإحصائيات
         function resetStats() {
             if(confirm('هل أنت متأكد من تصفير الإحصائيات؟')) {
-                localStorage.setItem('site_visits', 0);
+                localStorage.setItem('site_visitors', 0);
                 localStorage.setItem('site_clicks', 0);
                 loadAdminStats();
+                showToast('تم تصفير الإحصائيات بنجاح');
             }
+        }
+
+        function goHome() {
+            window.location.href = 'index.html';
         }
 
         loadAdminStats();
