@@ -191,12 +191,10 @@
         
         let targetContent = "";
 
-        // محاولة جلب السكربت عبر المعرف الفريد في الرابط
         if (linkToken && localStorage.getItem(linkToken)) {
             targetContent = localStorage.getItem(linkToken);
         } 
         
-        // إذا لم يوجد بالمعرف، نجلب أحدث سكربت تم حفظه من لوحة التحكم كخيار احتياطي قوي
         if (!targetContent || targetContent.trim() === "") {
             targetContent = localStorage.getItem('last_saved_script') || "loadstring(game:HttpGet('https://raw.githubusercontent.com/Terfiscript1/KitagawaHub-1speed/refs/heads/main/KitagawaHub%2B1speed'))()";
         }
@@ -216,8 +214,11 @@
         let timer;
 
         function startTimer() {
+            // إذا وصلنا للخطوة الثالثة، لا نحتاج لتشغيل عداد تنازلي جديد للزر
+            if (step === 3) return;
+
             timeLeft = 10;
-            if (actionBtn && step < 3) {
+            if (actionBtn) {
                 actionBtn.innerHTML = `⏳ يرجى الانتظار (${timeLeft})`;
                 actionBtn.style.background = 'linear-gradient(135deg, #f39c12, #d35400)';
             }
@@ -226,17 +227,13 @@
             timer = setInterval(() => {
                 if (timeLeft > 0) {
                     timeLeft--;
-                    if (actionBtn && step < 3) {
+                    if (actionBtn) {
                         actionBtn.innerHTML = `⏳ يرجى الانتظار (${timeLeft})`;
                     }
                 } else {
                     clearInterval(timer);
                     if (actionBtn) {
-                        if (step === 3) {
-                            actionBtn.innerHTML = `📋 نسخ السكربت`;
-                        } else {
-                            actionBtn.innerHTML = `✅ الخطوة جاهزة - متابعة`;
-                        }
+                        actionBtn.innerHTML = `✅ الخطوة جاهزة - متابعة`;
                         actionBtn.style.background = 'linear-gradient(135deg, #2ecc71, #27ae60)';
                     }
                 }
@@ -246,6 +243,17 @@
         startTimer();
 
         function proceedNext() {
+            // إذا كنا في الخطوة الثالثة، قم بالنسخ مباشرة دون قيود أو عد تنازلي
+            if (step === 3) {
+                finalScriptOutput.select();
+                document.execCommand('copy');
+                actionBtn.innerHTML = `✨ تم النسخ بنجاح!`;
+                setTimeout(() => {
+                    actionBtn.innerHTML = `📋 نسخ السكربت مرة أخرى`;
+                }, 2000);
+                return;
+            }
+
             if (timeLeft > 0) {
                 alert('يرجى الانتظار حتى انتهاء العد التنازلي!');
                 return;
@@ -265,25 +273,16 @@
                 document.getElementById('dot2').classList.add('completed');
                 document.getElementById('dot3').classList.add('active');
                 
-                // إخفاء الإعلان وإظهار صندوق السكربت الحقيقي
+                // إخفاء الإعلان وإظهار صندوق السكربت الحقيقي نهائياً
                 bannerContainer.style.display = 'none';
                 scriptBox.style.display = 'block';
                 finalScriptOutput.value = targetContent;
                 
+                // تغيير شكل الزر ليصبح جاهزاً للنسخ المباشر
                 if (actionBtn) {
                     actionBtn.innerHTML = `📋 نسخ السكربت`;
                     actionBtn.style.background = 'linear-gradient(135deg, #2ecc71, #27ae60)';
                 }
-                
-                startTimer();
-            } else if (step === 3) {
-                // نسخ السكربت بضغطة زر
-                finalScriptOutput.select();
-                document.execCommand('copy');
-                actionBtn.innerHTML = `✨ تم النسخ بنجاح!`;
-                setTimeout(() => {
-                    actionBtn.innerHTML = `📋 نسخ السكربت مرة أخرى`;
-                }, 2000);
             }
         }
     </script>
