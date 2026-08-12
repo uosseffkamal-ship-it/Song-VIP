@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>SONG VIP - لوحة التحكم الجديدة</title>
+    <title>SONG VIP - لوحة التحكم المتقدمة</title>
     <style>
         * {
             box-sizing: border-box;
@@ -28,7 +28,7 @@
             border-radius: 28px;
             padding: 25px;
             width: 100%;
-            max-width: 420px;
+            max-width: 440px;
             box-shadow: 0 20px 40px rgba(0, 0, 0, 0.8);
         }
 
@@ -96,7 +96,7 @@
         }
 
         .control-group textarea {
-            height: 90px;
+            height: 80px;
             resize: none;
             direction: rtl;
             text-align: right;
@@ -156,6 +156,47 @@
             font-weight: bold;
             cursor: pointer;
             font-size: 13px;
+        }
+
+        /* قسم الشكاوى الواردة داخل لوحة التحكم */
+        .admin-messages-section {
+            margin-top: 20px;
+            background: rgba(255, 255, 255, 0.03);
+            border: 1px solid rgba(255, 255, 255, 0.08);
+            border-radius: 16px;
+            padding: 15px;
+            text-align: right;
+        }
+        .admin-messages-section b {
+            font-size: 13px;
+            color: #00f0ff;
+            display: block;
+            margin-bottom: 10px;
+        }
+        .messages-list-box {
+            max-height: 140px;
+            overflow-y: auto;
+            display: flex;
+            flex-direction: column;
+            gap: 8px;
+        }
+        .msg-card {
+            background: #070414;
+            padding: 8px 10px;
+            border-radius: 8px;
+            border-right: 3px solid #ff2a85;
+            font-size: 12px;
+        }
+        .btn-clear-msgs {
+            background: #e74c3c;
+            color: #fff;
+            border: none;
+            padding: 6px 12px;
+            border-radius: 8px;
+            font-size: 11px;
+            cursor: pointer;
+            margin-top: 10px;
+            font-weight: bold;
         }
 
         .nav-buttons {
@@ -232,6 +273,13 @@
             <button class="btn-copy-link" id="copyBtn" onclick="copyGeneratedLink()">📋 نسخ الرابط الفريد</button>
         </div>
 
+        <div class="admin-messages-section">
+            <b>📥 شكاوى ومشاكل المستخدمين الواردة:</b>
+            <div class="messages-list-box" id="adminMessagesList">
+                </div>
+            <button class="btn-clear-msgs" onclick="clearAllMessages()">🗑️ مسح جميع الرسائل</button>
+        </div>
+
         <div class="nav-buttons">
             <button class="nav-btn btn-home-link" onclick="location.href='index.html'">🏠 العودة للموقع</button>
             <button class="nav-btn btn-clear-data" onclick="resetSiteStats()">🔄 تصفير الإحصائيات</button>
@@ -291,6 +339,33 @@
             setTimeout(() => { btn.innerText = '📋 نسخ الرابط الفريد'; }, 2000);
         }
 
+        // جلب وعرض شكاوى المستخدمين داخل لوحة التحكم
+        function loadAdminMessages() {
+            let container = document.getElementById('adminMessagesList');
+            let savedComments = JSON.parse(localStorage.getItem('site_user_comments')) || [];
+            
+            container.innerHTML = '';
+            if(savedComments.length === 0) {
+                container.innerHTML = '<div class="msg-card" style="color: #888;">لا توجد رسائل أو مشاكل مرسلة حالياً.</div>';
+                return;
+            }
+
+            savedComments.forEach(c => {
+                let div = document.createElement('div');
+                div.className = 'msg-card';
+                div.innerHTML = `<b>👤 ${c.name}:</b> ${c.text}`;
+                container.appendChild(div);
+            });
+        }
+
+        function clearAllMessages() {
+            if(confirm('هل تريد مسح جميع رسائل وشكاوى المستخدمين؟')) {
+                localStorage.removeItem('site_user_comments');
+                loadAdminMessages();
+                showNotification('تم مسح جميع الرسائل بنجاح');
+            }
+        }
+
         function refreshDashboardStats() {
             let visits = localStorage.getItem('site_visitors') || '0';
             let clicks = localStorage.getItem('site_clicks') || '0';
@@ -314,6 +389,7 @@
         }
 
         refreshDashboardStats();
+        loadAdminMessages();
         setInterval(refreshDashboardStats, 3000);
     </script>
 </body>
