@@ -58,7 +58,7 @@
             top: 15px;
             left: 15px;
             display: flex;
-            gap: 10px;
+            gap: 8px;
         }
 
         .icon-btn {
@@ -66,7 +66,7 @@
             border: none;
             color: #888;
             cursor: pointer;
-            font-size: 16px;
+            font-size: 15px;
         }
 
         @keyframes pulseLogo {
@@ -118,6 +118,7 @@
             font-size: 12px;
             color: #ff2a85;
             margin-bottom: 15px;
+            cursor: pointer;
         }
 
         .search-box {
@@ -246,6 +247,60 @@
             color: #000;
         }
 
+        .support-section {
+            width: 90%;
+            max-width: 380px;
+            background: var(--card-bg);
+            border: 1px solid var(--border-color);
+            border-radius: 20px;
+            padding: 15px;
+            box-sizing: border-box;
+            font-size: 13px;
+            text-align: right;
+            margin-top: 15px;
+        }
+        .support-section input, .support-section textarea {
+            width: 100%;
+            padding: 10px;
+            background: var(--input-bg);
+            border: 1px solid var(--border-color);
+            border-radius: 10px;
+            color: var(--text-color);
+            font-size: 12px;
+            margin-top: 8px;
+            outline: none;
+            box-sizing: border-box;
+        }
+        .support-section textarea {
+            height: 60px;
+            resize: none;
+        }
+        .btn-submit-msg {
+            width: 100%;
+            padding: 10px;
+            background: #2ecc71;
+            color: #fff;
+            border: none;
+            border-radius: 10px;
+            font-weight: bold;
+            cursor: pointer;
+            margin-top: 10px;
+            font-size: 13px;
+        }
+        .comments-list {
+            margin-top: 12px;
+            max-height: 120px;
+            overflow-y: auto;
+        }
+        .comment-item {
+            background: var(--input-bg);
+            padding: 6px 10px;
+            border-radius: 8px;
+            margin-top: 6px;
+            border-right: 3px solid #00f0ff;
+            font-size: 11px;
+        }
+
         #toast-container {
             position: fixed;
             bottom: 20px;
@@ -272,24 +327,6 @@
             from { transform: translateX(100%); opacity: 0; }
             to { transform: translateX(0); opacity: 1; }
         }
-
-        .reviews-section {
-            width: 90%;
-            max-width: 380px;
-            background: var(--card-bg);
-            border: 1px solid var(--border-color);
-            border-radius: 20px;
-            padding: 15px;
-            box-sizing: border-box;
-            font-size: 13px;
-        }
-        .review-item {
-            background: var(--input-bg);
-            padding: 8px 12px;
-            border-radius: 8px;
-            margin-top: 8px;
-            border-right: 3px solid #ff2a85;
-        }
     </style>
 </head>
 <body data-theme="dark">
@@ -297,6 +334,7 @@
     <div class="card">
         <div class="top-icons">
             <button class="icon-btn" onclick="toggleTheme()" title="تغيير الوضع">🌙</button>
+            <button class="icon-btn" onclick="location.href='updates.html'" title="سجل التحديثات">📜</button>
             <button class="icon-btn" onclick="openAdmin()" title="الإعدادات">⚙️</button>
         </div>
 
@@ -310,7 +348,7 @@
             <span>👑</span>
         </div>
 
-        <div class="updates-ticker" id="updateTickerText">
+        <div class="updates-ticker" onclick="location.href='updates.html'" id="updateTickerText">
             🚀 أحدث إضافة: تم تحديث سيرفر السكريبتات برابط مباشر جديد!
         </div>
 
@@ -337,10 +375,12 @@
         </div>
     </div>
 
-    <div class="reviews-section">
-        <b>💬 آراء المستخدمين المميزين:</b>
-        <div class="review-item"><b>أحمد:</b> "الموقع أسطوري وسريع جداً عاش!"</div>
-        <div class="review-item"><b>محمود:</b> "شكراً على التحديثات والمصداقية العالية."</div>
+    <div class="support-section">
+        <b>💬 لديك مشكلة أو اقتراح؟ اتركه هنا:</b>
+        <input type="text" id="userNameInput" placeholder="اسمك أو يوزرك...">
+        <textarea id="userMsgInput" placeholder="اكتب المشكلة أو الملاحظة هنا..."></textarea>
+        <button class="btn-submit-msg" onclick="sendUserMessage()">إرسال التعليق</button>
+        <div class="comments-list" id="commentsContainer"></div>
     </div>
 
     <div id="toast-container"></div>
@@ -359,6 +399,49 @@
                 setTimeout(() => toast.remove(), 300);
             }, 2700);
         }
+
+        function loadComments() {
+            let savedComments = JSON.parse(localStorage.getItem('site_user_comments')) || [];
+            let container = document.getElementById('commentsContainer');
+            container.innerHTML = '';
+            
+            if(savedComments.length === 0) {
+                container.innerHTML = '<div class="comment-item">لا توجد تعليقات حتى الآن، كن أول المشاركين!</div>';
+                return;
+            }
+
+            savedComments.forEach(c => {
+                let div = document.createElement('div');
+                div.className = 'comment-item';
+                div.innerHTML = `<b>${c.name}:</b> ${c.text}`;
+                container.appendChild(div);
+            });
+        }
+
+        function sendUserMessage() {
+            let name = document.getElementById('userNameInput').value.trim();
+            let text = document.getElementById('userMsgInput').value.trim();
+
+            if(!name || !text) {
+                showToast('يرجى كتابة الاسم والرسالة أولاً!');
+                return;
+            }
+
+            let savedComments = JSON.parse(localStorage.getItem('site_user_comments')) || [];
+            savedComments.unshift({ name: name, text: text });
+            
+            if(savedComments.length > 15) savedComments.pop();
+
+            localStorage.setItem('site_user_comments', JSON.stringify(savedComments));
+
+            document.getElementById('userNameInput').value = '';
+            document.getElementById('userMsgInput').value = '';
+            
+            loadComments();
+            showToast('تم إرسال تعليقك بنجاح وشكراً لملاحظتك!');
+        }
+
+        loadComments();
 
         function shareWebsite() {
             if (navigator.share) {
@@ -384,18 +467,30 @@
         let waitingForReturn = false;
         let activeTaskIndex = null;
 
+        const urlParams = new URLSearchParams(window.location.search);
+        let linkKey = urlParams.get('to');
+        let finalTargetUrl = 'https://example.com';
+
+        if (linkKey) {
+            let customLink = localStorage.getItem(linkKey);
+            if (customLink) {
+                finalTargetUrl = customLink;
+                let currentClicks = parseInt(localStorage.getItem(linkKey + '_clicks') || '0');
+                localStorage.setItem(linkKey + '_clicks', currentClicks + 1);
+            }
+        } else {
+            let savedScript = localStorage.getItem('last_saved_script');
+            if(savedScript) {
+                finalTargetUrl = savedScript;
+            }
+        }
+
         let cfg = JSON.parse(localStorage.getItem('cfg')) || {
             l1: 'https://youtube.com',
             l2: 'https://discord.com',
             l3: 'https://youtube.com',
-            updateText: '🚀 أحدث إضافة: تم تحديث سيرفر السكريبتات برابط مباشر جديد!',
-            final: 'https://example.com'
+            updateText: '🚀 أحدث إضافة: تم تحديث سيرفر السكريبتات برابط مباشر جديد!'
         };
-
-        let savedScript = localStorage.getItem('last_saved_script');
-        if(savedScript) {
-            cfg.final = savedScript;
-        }
 
         if(cfg.updateText) {
             document.getElementById('updateTickerText').innerText = cfg.updateText;
@@ -477,16 +572,15 @@
                 if (document.getElementById('taskBtn' + k).innerText.includes('✅')) activeCount++;
             }
             if (activeCount === 3) {
-                const p = new URLSearchParams(location.search);
-                const t = p.get('to');
-                
-                let targetUrl = 'ready.html';
-                if (t) {
-                    targetUrl += '?to=' + encodeURIComponent(t);
+                let totalClicks = parseInt(localStorage.getItem('site_clicks') || '0');
+                localStorage.setItem('site_clicks', totalClicks + 1);
+
+                if (linkKey) {
+                    window.location.href = 'ready.html?to=' + encodeURIComponent(linkKey);
                 } else {
-                    localStorage.setItem('last_saved_script', cfg.final);
+                    localStorage.setItem('last_saved_script', finalTargetUrl);
+                    window.location.href = 'ready.html';
                 }
-                window.location.href = targetUrl;
             } else {
                 showToast('يجب إتمام جميع المهام والانتظار بالترتيب أولاً!');
             }
@@ -497,4 +591,4 @@
         }
     </script>
 </body>
-        </html>
+            </html>
