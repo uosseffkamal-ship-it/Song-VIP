@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>SONG VIP - Admin Dashboard</title>
+    <title>SONG VIP - لوحة التحكم الجديدة</title>
     <style>
         * {
             box-sizing: border-box;
@@ -13,7 +13,7 @@
         }
 
         body {
-            background: #070514;
+            background: #090514;
             color: #ffffff;
             display: flex;
             justify-content: center;
@@ -22,294 +22,303 @@
             padding: 20px;
         }
 
-        .admin-card {
-            background: rgba(18, 14, 36, 0.95);
-            border: 1px solid rgba(255, 255, 255, 0.15);
-            border-radius: 24px;
-            padding: 30px;
+        .admin-container {
+            background: linear-gradient(145deg, #130f2c, #0d0a1f);
+            border: 1px solid rgba(0, 240, 255, 0.2);
+            border-radius: 28px;
+            padding: 25px;
             width: 100%;
-            max-width: 450px;
-            box-shadow: 0 30px 60px rgba(0, 0, 0, 0.9);
+            max-width: 420px;
+            box-shadow: 0 20px 40px rgba(0, 0, 0, 0.8);
+        }
+
+        .header-title {
             text-align: center;
-        }
-
-        .admin-title {
-            font-size: 20px;
-            font-weight: 900;
-            color: #00f2fe;
-            margin-bottom: 25px;
-        }
-
-        .stats-grid {
-            display: grid;
-            grid-template-columns: 1fr 1fr;
-            gap: 15px;
+            font-size: 22px;
+            font-weight: bold;
+            color: #00f0ff;
             margin-bottom: 20px;
         }
 
-        .stat-box {
-            background: rgba(255, 255, 255, 0.05);
-            border: 1px solid rgba(255, 255, 255, 0.1);
+        .stats-row {
+            display: flex;
+            gap: 12px;
+            margin-bottom: 20px;
+        }
+
+        .stat-card {
+            flex: 1;
+            background: rgba(255, 255, 255, 0.04);
+            border: 1px solid rgba(255, 255, 255, 0.08);
             border-radius: 16px;
-            padding: 20px 10px;
+            padding: 15px;
             text-align: center;
         }
 
-        .stat-box h4 {
-            font-size: 13px;
-            color: #b0a8d0;
-            margin-bottom: 8px;
-        }
-
-        .stat-box span {
-            font-size: 24px;
-            font-weight: bold;
-            color: #38ef7d;
-        }
-
-        .form-section {
-            margin: 20px 0;
-            padding: 15px;
-            background: rgba(255, 255, 255, 0.03);
-            border-radius: 14px;
-            border: 1px solid rgba(255, 255, 255, 0.08);
-            text-align: right;
-        }
-
-        .form-section label {
-            color: #fff;
-            display: block;
-            margin-bottom: 8px;
-            font-weight: bold;
-            font-size: 14px;
-        }
-
-        .form-section textarea {
-            width: 100%;
-            height: 110px;
-            padding: 12px;
-            border-radius: 10px;
-            background: #0b071e;
-            border: 1px solid rgba(255, 255, 255, 0.1);
-            color: #2ecc71;
-            box-sizing: border-box;
-            outline: none;
-            font-size: 13px;
-            font-family: monospace;
-            resize: none;
-        }
-
-        .btn-generate {
-            margin-top: 10px;
-            width: 100%;
-            padding: 12px;
-            background: linear-gradient(135deg, #f39c12, #d35400);
-            color: #fff;
-            border: none;
-            border-radius: 10px;
-            font-weight: bold;
-            cursor: pointer;
-            font-size: 14px;
-            transition: 0.3s;
-        }
-
-        .btn-generate:hover {
-            opacity: 0.9;
-        }
-
-        .result-box {
-            display: none;
-            margin-top: 15px;
-            background: rgba(0, 0, 0, 0.4);
-            padding: 12px;
-            border-radius: 10px;
-            border: 1px solid rgba(46, 204, 113, 0.3);
-            text-align: right;
-        }
-
-        .result-box input {
-            width: 100%;
-            padding: 8px;
-            background: #0b071e;
-            border: 1px solid rgba(255, 255, 255, 0.1);
-            color: #2ecc71;
-            border-radius: 6px;
+        .stat-card h5 {
             font-size: 12px;
+            color: #aaa;
+            margin-bottom: 5px;
+        }
+
+        .stat-card span {
+            font-size: 20px;
+            font-weight: bold;
+            color: #2ecc71;
+        }
+
+        .control-group {
+            margin-bottom: 18px;
+            text-align: right;
+        }
+
+        .control-group label {
+            display: block;
+            font-size: 13px;
+            font-weight: bold;
+            color: #ff2a85;
             margin-bottom: 8px;
+        }
+
+        .control-group input[type="text"],
+        .control-group textarea {
+            width: 100%;
+            padding: 12px;
+            background: #070414;
+            border: 1px solid rgba(255, 255, 255, 0.1);
+            border-radius: 12px;
+            color: #00f0ff;
+            font-size: 13px;
+            outline: none;
+            box-sizing: border-box;
             direction: ltr;
             text-align: left;
+        }
+
+        .control-group textarea {
+            height: 90px;
+            resize: none;
+            direction: rtl;
+            text-align: right;
+        }
+
+        .btn-main {
+            width: 100%;
+            padding: 14px;
+            background: linear-gradient(135deg, #ff2a85, #ff2a4d);
+            color: #fff;
+            border: none;
+            border-radius: 14px;
+            font-size: 15px;
+            font-weight: bold;
+            cursor: pointer;
+            box-shadow: 0 5px 15px rgba(255, 42, 133, 0.4);
+            transition: 0.3s;
+            margin-bottom: 10px;
+        }
+
+        .btn-main:hover {
+            opacity: 0.9;
+            transform: scale(1.01);
+        }
+
+        .output-box {
+            display: none;
+            background: rgba(0, 0, 0, 0.5);
+            border: 1px solid rgba(46, 204, 113, 0.3);
+            border-radius: 12px;
+            padding: 12px;
+            margin-top: 15px;
+            text-align: right;
+        }
+
+        .output-box input {
+            width: 100%;
+            padding: 10px;
+            background: #070414;
+            border: 1px solid rgba(255, 255, 255, 0.1);
+            color: #2ecc71;
+            border-radius: 8px;
+            font-size: 12px;
+            direction: ltr;
+            text-align: left;
+            margin-bottom: 8px;
             outline: none;
         }
 
-        .btn-copy {
+        .btn-copy-link {
             width: 100%;
-            padding: 9px;
+            padding: 10px;
             background: #2ecc71;
             color: #fff;
             border: none;
-            border-radius: 6px;
+            border-radius: 8px;
             font-weight: bold;
             cursor: pointer;
             font-size: 13px;
-            transition: 0.3s;
         }
 
-        .btn-copy:hover {
-            background: #27ae60;
-        }
-
-        .action-btns {
+        .nav-buttons {
             display: flex;
             gap: 10px;
-            margin-top: 15px;
+            margin-top: 20px;
         }
 
-        .btn-action {
+        .nav-btn {
             flex: 1;
             padding: 12px;
-            border: none;
             border-radius: 12px;
-            font-size: 14px;
+            border: none;
             font-weight: bold;
-            color: #fff;
+            font-size: 13px;
             cursor: pointer;
+            color: #fff;
             transition: 0.3s;
         }
 
-        .btn-home {
-            background: #4169e1;
-        }
+        .btn-home-link { background: #4169e1; }
+        .btn-clear-data { background: #e74c3c; }
 
-        .btn-reset {
-            background: #ff4b5c;
-        }
+        .nav-btn:hover { opacity: 0.85; }
 
-        .btn-action:hover {
-            opacity: 0.9;
-        }
-
-        /* نظام التنبيهات المباشرة Toast */
-        #toast-container {
+        #toast-box {
             position: fixed;
             bottom: 20px;
             right: 20px;
-            z-index: 10000;
+            z-index: 999;
         }
-        .toast-msg {
+        .toast-notify {
             background: #140f2b;
             color: #fff;
-            padding: 12px 20px;
-            border-radius: 12px;
-            border: 1px solid #00f2fe;
-            box-shadow: 0 5px 15px rgba(0,0,0,0.3);
+            padding: 10px 18px;
+            border-radius: 10px;
+            border: 1px solid #00f0ff;
             font-size: 13px;
+            box-shadow: 0 5px 15px rgba(0,0,0,0.5);
         }
     </style>
 </head>
 <body>
 
-    <div class="admin-card">
-        <h2 class="admin-title">🛠️ لوحة تحكم المسؤول (Admin)</h2>
-        
-        <div class="stats-grid">
-            <div class="stat-box">
-                <h4>إجمالي الزيارات</h4>
-                <span id="adminTotalVisits">0</span>
+    <div class="admin-container">
+        <h2 class="header-title">🛠️ لوحة تحكم SONG VIP</h2>
+
+        <div class="stats-row">
+            <div class="stat-card">
+                <h5>إجمالي الزيارات</h5>
+                <span id="statVisits">0</span>
             </div>
-            <div class="stat-box">
-                <h4>إجمالي النقرات</h4>
-                <span id="adminTotalClicks">0</span>
+            <div class="stat-card">
+                <h5>إجمالي النقرات</h5>
+                <span id="statClicks">0</span>
             </div>
         </div>
 
-        <div class="form-section">
-            <label>📜 ضع سكربت الـ Lua هنا لتحويله لرابط:</label>
-            <textarea id="scriptInput" placeholder='loadstring(game:HttpGet("https://..."))()'></textarea>
-            
-            <button type="button" class="btn-generate" onclick="generateScriptLink()">إنشاء الرابط الفريد للسكربت</button>
-            
-            <div id="resultContainer" class="result-box">
-                <input type="text" id="generatedResultInput" readonly onclick="this.select()">
-                <button type="button" class="btn-copy" id="copyBtn" onclick="copyResultLink()">📋 نسخ الرابط</button>
-            </div>
+        <div class="control-group">
+            <label>🔗 الرابط الخارجي المطلوب (أو السكربت):</label>
+            <input type="text" id="targetLinkInput" placeholder="https://example.com أو رابط التحميل">
         </div>
 
-        <div class="action-btns">
-            <button class="btn-action btn-home" onclick="goHome()">🏠 الموقع</button>
-            <button class="btn-action btn-reset" onclick="resetStats()">تصفير 🔄</button>
+        <div class="control-group">
+            <label>💬 نص تحديث الشريط المتحرك (اختياري):</label>
+            <textarea id="updateTextInput" placeholder="أحدث إضافة: تم تحديث السيرفر..."></textarea>
+        </div>
+
+        <button class="btn-main" onclick="generateUniqueLink()">✨ توليد رابط فريد ومختلف</button>
+
+        <div class="output-box" id="outputContainer">
+            <div style="font-size: 12px; color: #00f0ff; margin-bottom: 6px; text-align: center;" id="linkClickCountText">عدد مرات استخدام هذا الرابط: 0</div>
+            <input type="text" id="resultLinkInput" readonly onclick="this.select()">
+            <button class="btn-copy-link" id="copyBtn" onclick="copyGeneratedLink()">📋 نسخ الرابط الفريد</button>
+        </div>
+
+        <div class="nav-buttons">
+            <button class="nav-btn btn-home-link" onclick="location.href='index.html'">🏠 العودة للموقع</button>
+            <button class="nav-btn btn-clear-data" onclick="resetSiteStats()">🔄 تصفير الإحصائيات</button>
         </div>
     </div>
 
-    <div id="toast-container"></div>
+    <div id="toast-box"></div>
 
     <script>
-        function showToast(message) {
-            let container = document.getElementById('toast-container');
-            container.innerHTML = `<div class="toast-msg">✨ ${message}</div>`;
-            setTimeout(() => { container.innerHTML = ''; }, 3000);
+        let generatedId = "";
+
+        function showNotification(msg) {
+            let box = document.getElementById('toast-box');
+            box.innerHTML = `<div class="toast-notify">✨ ${msg}</div>`;
+            setTimeout(() => { box.innerHTML = ''; }, 2500);
         }
 
-        // توليد الرابط الفريد ليوجه المستخدم إلى index.html مع تضمين معرف السكربت
-        function generateScriptLink() {
-            let scriptText = document.getElementById('scriptInput').value.trim();
-            if(!scriptText) {
-                showToast('الرجاء كتابة أو لصق السكربت أولاً!');
+        function generateUniqueLink() {
+            let linkVal = document.getElementById('targetLinkInput').value.trim();
+            let updateVal = document.getElementById('updateTextInput').value.trim();
+
+            if (!linkVal) {
+                showNotification('يرجى كتابة الرابط المطلوب أولاً!');
                 return;
             }
 
-            let uniqueId = 'song_' + Math.random().toString(36).substring(2, 8);
-            
-            // تخزين السكربت برمز فريد في الذاكرة
-            localStorage.setItem(uniqueId, scriptText);
-            localStorage.setItem('last_saved_script', scriptText);
+            // إنشاء معرّف عشوائي فريد ومختلف تماماً لكل رابط جديد تضعه
+            generatedId = 'link_' + Math.random().toString(36).substring(2, 10) + Date.now().toString(36);
 
-            let basePath = window.location.pathname.substring(0, window.location.pathname.lastIndexOf('/') + 1);
-            let generatedReadyLink = window.location.origin + basePath + 'index.html?to=' + uniqueId;
-            
-            let resultContainer = document.getElementById('resultContainer');
-            let generatedResultInput = document.getElementById('generatedResultInput');
-            
-            resultContainer.style.display = 'block';
-            generatedResultInput.value = generatedReadyLink;
-            showToast('تم إنشاء الرابط الفريد بنجاح!');
+            // حفظ الرابط الخارجي والمحتوى الخاص به في الذاكرة المحلية بناءً على المعرف الفريد
+            localStorage.setItem(generatedId, linkVal);
+            localStorage.setItem(generatedId + '_clicks', '0');
+            localStorage.setItem('last_saved_script', linkVal);
+
+            // حفظ نص التحديث إن وُجد لتحديثه في الواجهة الرئيسية تلقائياً
+            if (updateVal) {
+                let cfg = JSON.parse(localStorage.getItem('cfg')) || { l1: 'https://youtube.com', l2: 'https://discord.com', l3: 'https://youtube.com' };
+                cfg.updateText = updateVal;
+                localStorage.setItem('cfg', JSON.stringify(cfg));
+            }
+
+            // بناء الرابط الفريد الخاص بهذه الصفحة فقط
+            let currentPath = window.location.pathname.substring(0, window.location.pathname.lastIndexOf('/') + 1);
+            let finalUrl = window.location.origin + currentPath + 'index.html?to=' + generatedId;
+
+            document.getElementById('outputContainer').style.display = 'block';
+            document.getElementById('resultLinkInput').value = finalUrl;
+            document.getElementById('linkClickCountText').innerText = `عدد مرات استخدام هذا الرابط: 0`;
+
+            showNotification('تم توليد الرابط الفريد بنجاح!');
         }
 
-        function copyResultLink() {
-            let copyInput = document.getElementById('generatedResultInput');
-            copyInput.select();
-            navigator.clipboard.writeText(copyInput.value);
-            
-            let copyBtn = document.getElementById('copyBtn');
-            copyBtn.innerText = '✨ تم النسخ بنجاح!';
-            showToast('تم نسخ الرابط إلى الحافظة');
-            setTimeout(() => {
-                copyBtn.innerText = '📋 نسخ الرابط';
-            }, 2000);
+        function copyGeneratedLink() {
+            let inputField = document.getElementById('resultLinkInput');
+            inputField.select();
+            navigator.clipboard.writeText(inputField.value);
+
+            let btn = document.getElementById('copyBtn');
+            btn.innerText = '✨ تم النسخ بنجاح!';
+            showNotification('تم نسخ الرابط إلى الحافظة');
+            setTimeout(() => { btn.innerText = '📋 نسخ الرابط الفريد'; }, 2000);
         }
 
-        function loadAdminStats() {
-            let visits = localStorage.getItem('site_visitors') || 0;
-            let clicks = localStorage.getItem('site_clicks') || 0;
+        function refreshDashboardStats() {
+            let visits = localStorage.getItem('site_visitors') || '0';
+            let clicks = localStorage.getItem('site_clicks') || '0';
 
-            document.getElementById('adminTotalVisits').innerText = visits;
-            document.getElementById('adminTotalClicks').innerText = clicks;
-        }
+            document.getElementById('statVisits').innerText = visits;
+            document.getElementById('statClicks').innerText = clicks;
 
-        function resetStats() {
-            if(confirm('هل أنت متأكد من تصفير الإحصائيات؟')) {
-                localStorage.setItem('site_visitors', 0);
-                localStorage.setItem('site_clicks', 0);
-                loadAdminStats();
-                showToast('تم تصفير الإحصائيات بنجاح');
+            if (generatedId) {
+                let specificClicks = localStorage.getItem(generatedId + '_clicks') || '0';
+                document.getElementById('linkClickCountText').innerText = `عدد مرات استخدام هذا الرابط: ${specificClicks}`;
             }
         }
 
-        function goHome() {
-            window.location.href = 'index.html';
+        function resetSiteStats() {
+            if (confirm('هل أنت متأكد من تصفير كافة إحصائيات الموقع؟')) {
+                localStorage.setItem('site_visitors', '0');
+                localStorage.setItem('site_clicks', '0');
+                refreshDashboardStats();
+                showNotification('تم تصفير الإحصائيات بنجاح');
+            }
         }
 
-        loadAdminStats();
+        refreshDashboardStats();
+        setInterval(refreshDashboardStats, 3000);
     </script>
-
 </body>
 </html>
