@@ -258,22 +258,18 @@
                 return;
             }
 
-            // إنشاء معرّف عشوائي فريد ومختلف تماماً لكل رابط جديد تضعه
             generatedId = 'link_' + Math.random().toString(36).substring(2, 10) + Date.now().toString(36);
 
-            // حفظ الرابط الخارجي والمحتوى الخاص به في الذاكرة المحلية بناءً على المعرف الفريد
             localStorage.setItem(generatedId, linkVal);
             localStorage.setItem(generatedId + '_clicks', '0');
             localStorage.setItem('last_saved_script', linkVal);
 
-            // حفظ نص التحديث إن وُجد لتحديثه في الواجهة الرئيسية تلقائياً
             if (updateVal) {
                 let cfg = JSON.parse(localStorage.getItem('cfg')) || { l1: 'https://youtube.com', l2: 'https://discord.com', l3: 'https://youtube.com' };
                 cfg.updateText = updateVal;
                 localStorage.setItem('cfg', JSON.stringify(cfg));
             }
 
-            // بناء الرابط الفريد الخاص بهذه الصفحة فقط
             let currentPath = window.location.pathname.substring(0, window.location.pathname.lastIndexOf('/') + 1);
             let finalUrl = window.location.origin + currentPath + 'index.html?to=' + generatedId;
 
