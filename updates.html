@@ -1,0 +1,222 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>SONG - سجل التحديثات</title>
+    
+    <style>
+        :root {
+            --bg-color: #0b071e;
+            --card-bg: #140f2b;
+            --text-color: #ffffff;
+            --border-color: rgba(255, 255, 255, 0.08);
+            --input-bg: #0b071e;
+            --accent-glow: #00f0ff;
+        }
+
+        [data-theme="light"] {
+            --bg-color: #f0f2f5;
+            --card-bg: #ffffff;
+            --text-color: #222222;
+            --border-color: rgba(0, 0, 0, 0.1);
+            --input-bg: #f8f9fa;
+            --accent-glow: #007bff;
+        }
+
+        body {
+            margin: 0;
+            padding: 20px 0;
+            background-color: var(--bg-color);
+            color: var(--text-color);
+            font-family: Arial, sans-serif;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            min-height: 100vh;
+        }
+
+        .container {
+            width: 90%;
+            max-width: 450px;
+        }
+
+        .header-box {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 20px;
+        }
+
+        h2 {
+            color: #ff2a85;
+            margin: 0;
+            font-size: 20px;
+        }
+
+        .back-btn {
+            background: var(--card-bg);
+            border: 1px solid var(--border-color);
+            color: var(--text-color);
+            padding: 8px 14px;
+            border-radius: 10px;
+            cursor: pointer;
+            font-size: 13px;
+            text-decoration: none;
+        }
+
+        .search-box {
+            margin-bottom: 20px;
+        }
+
+        .search-box input {
+            width: 100%;
+            padding: 12px 15px;
+            background: var(--card-bg);
+            border: 1px solid var(--border-color);
+            border-radius: 12px;
+            color: var(--text-color);
+            outline: none;
+            font-size: 13px;
+            box-sizing: border-box;
+        }
+
+        .update-card {
+            background: var(--card-bg);
+            border: 1px solid var(--border-color);
+            border-radius: 18px;
+            padding: 18px;
+            margin-bottom: 15px;
+            box-shadow: 0 10px 25px rgba(0,0,0,0.2);
+        }
+
+        .update-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 10px;
+        }
+
+        .update-title {
+            font-weight: bold;
+            font-size: 15px;
+            color: #00f0ff;
+        }
+
+        .update-date {
+            font-size: 11px;
+            color: #888;
+        }
+
+        .update-desc {
+            font-size: 13px;
+            line-height: 1.6;
+            color: #ccc;
+            margin-bottom: 12px;
+        }
+
+        .badge-new {
+            background: rgba(255, 42, 133, 0.15);
+            color: #ff2a85;
+            padding: 3px 8px;
+            border-radius: 6px;
+            font-size: 10px;
+            font-weight: bold;
+        }
+
+        .card-actions {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            font-size: 12px;
+            border-top: 1px solid rgba(255, 255, 255, 0.05);
+            padding-top: 8px;
+        }
+
+        .like-btn {
+            background: none;
+            border: 1px solid rgba(255, 255, 255, 0.2);
+            color: var(--text-color);
+            padding: 4px 10px;
+            border-radius: 8px;
+            cursor: pointer;
+            font-size: 12px;
+            transition: 0.2s;
+        }
+
+        .like-btn:hover {
+            background: #ff2a85;
+            border-color: #ff2a85;
+        }
+    </style>
+</head>
+<body data-theme="dark">
+
+    <div class="container">
+        <div class="header-box">
+            <h2>🚀 سجل التحديثات والإصدارات</h2>
+            <a href="index.html" class="back-btn">⬅ العودة للموقع</a>
+        </div>
+
+        <div class="search-box">
+            <input type="text" id="searchInput" placeholder="🔍 ابحث في التحديثات..." onkeyup="filterUpdates()">
+        </div>
+
+        <div id="updatesList">
+            <div class="update-card" data-text="إصدار v2.0 روابط فريدة وتحديث السيرفرات">
+                <div class="update-header">
+                    <span class="update-title">✨ الإصدار الأخير (v2.0)</span>
+                    <span class="badge-new">الحدث الأبرز</span>
+                </div>
+                <div class="update-date">منذ قليل | أغسطس 2026</div>
+                <div class="update-desc">
+                    تم إطلاق التحديث الأكبر للموقع! يشمل دعم الروابط الفريدة للمطورين، تحديث سيرفر السكريبتات بروابط مباشرة سريعة، وتحسين واجهة المستخدم مع إضافة نظام التنبيهات الفورية (Toasts).
+                </div>
+                <div class="card-actions">
+                    <span>❤️ إعجاب بالمميزات</span>
+                    <button class="like-btn" onclick="likeUpdate(this)">👍 <span class="like-count">142</span></button>
+                </div>
+            </div>
+
+            <div class="update-card" data-text="إصدار v1.5 نظام التعليقات والوضع الليلي">
+                <div class="update-header">
+                    <span class="update-title">🛠️ الإصدار v1.5</span>
+                </div>
+                <div class="update-date">أغسطس 2026</div>
+                <div class="update-desc">
+                    إضافة صندوق الدعم والملاحظات لتواصل أفضل مع المستخدمين، إمكانية التبديل بين الوضع الليلي والنهاري، وإصلاح بعض المشاكل في عداد تجاوز المهام.
+                </div>
+                <div class="card-actions">
+                    <span>❤️ إعجاب بالمميزات</span>
+                    <button class="like-btn" onclick="likeUpdate(this)">👍 <span class="like-count">95</span></button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        function filterUpdates() {
+            let query = document.getElementById('searchInput').value.toLowerCase();
+            let cards = document.querySelectorAll('.update-card');
+
+            cards.forEach(card => {
+                let text = card.getAttribute('data-text').toLowerCase();
+                if(text.includes(query)) {
+                    card.style.display = 'block';
+                } else {
+                    card.style.display = 'none';
+                }
+            });
+        }
+
+        function likeUpdate(btn) {
+            let countSpan = btn.querySelector('.like-count');
+            let count = parseInt(countSpan.innerText);
+            countSpan.innerText = count + 1;
+            btn.style.background = '#ff2a85';
+            btn.style.borderColor = '#ff2a85';
+            btn.setAttribute('disabled', 'true');
+        }
+    </script>
+</body>
+  </html>
