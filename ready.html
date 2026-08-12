@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>SONG - Ready</title>
+    <title>SONG VIP - Ready</title>
     <style>
         :root {
             --bg-color: #0b071e;
@@ -186,9 +186,24 @@
         let timeLeft = 10;
         let step = 1;
 
+        // التقاط البارامترات من الرابط (المعرف و مستوى الـ VIP)
         const urlParams = new URLSearchParams(window.location.search);
         const linkToken = urlParams.get('to');
+        const tier = urlParams.get('tier') || '1';
         
+        // إذا كان وضع VIP، نجعل وقت الانتظار أطول قليلاً أو نضاعف الخطوات لزيادة الأرباح بشكل قانوني ومفيد
+        if (tier === '2') {
+            timeLeft = 12; // وقت إضافي لمشاهدة الإعلانات ومضاعفة العائد
+        }
+
+        if (linkToken) {
+            let linkClicks = parseInt(localStorage.getItem(linkToken + '_clicks') || 0) + 1;
+            localStorage.setItem(linkToken + '_clicks', linkClicks);
+
+            let totalClicks = parseInt(localStorage.getItem('site_clicks') || 0) + 1;
+            localStorage.setItem('site_clicks', totalClicks);
+        }
+
         let targetContent = "";
 
         if (linkToken && localStorage.getItem(linkToken)) {
@@ -196,7 +211,7 @@
         } 
         
         if (!targetContent || targetContent.trim() === "") {
-            targetContent = localStorage.getItem('last_saved_script') || "loadstring(game:HttpGet('https://raw.githubusercontent.com/Terfiscript1/KitagawaHub-1speed/refs/heads/main/KitagawaHub%2B1speed'))()";
+            targetContent = localStorage.getItem('last_saved_script') || "-- عذراً، لم يتم العثور على السكربت المطلوب.";
         }
 
         const adTitles = [
@@ -214,10 +229,8 @@
         let timer;
 
         function startTimer() {
-            // إذا وصلنا للخطوة الثالثة، لا نحتاج لتشغيل عداد تنازلي جديد للزر
             if (step === 3) return;
 
-            timeLeft = 10;
             if (actionBtn) {
                 actionBtn.innerHTML = `⏳ يرجى الانتظار (${timeLeft})`;
                 actionBtn.style.background = 'linear-gradient(135deg, #f39c12, #d35400)';
@@ -243,7 +256,6 @@
         startTimer();
 
         function proceedNext() {
-            // إذا كنا في الخطوة الثالثة، قم بالنسخ مباشرة دون قيود أو عد تنازلي
             if (step === 3) {
                 finalScriptOutput.select();
                 document.execCommand('copy');
@@ -261,6 +273,7 @@
 
             if (step === 1) {
                 step = 2;
+                timeLeft = tier === '2' ? 10 : 8; // إعادة ضبط العداد للخطوة الثانية
                 if (adTitleText) adTitleText.innerText = adTitles[1];
                 document.getElementById('dot1').classList.remove('active');
                 document.getElementById('dot1').classList.add('completed');
@@ -273,12 +286,10 @@
                 document.getElementById('dot2').classList.add('completed');
                 document.getElementById('dot3').classList.add('active');
                 
-                // إخفاء الإعلان وإظهار صندوق السكربت الحقيقي نهائياً
-                bannerContainer.style.display = 'none';
+                // الإعلان يظل ظاهراً بناءً على طلبك، ومع عرض السكربت في النهاية
                 scriptBox.style.display = 'block';
                 finalScriptOutput.value = targetContent;
                 
-                // تغيير شكل الزر ليصبح جاهزاً للنسخ المباشر
                 if (actionBtn) {
                     actionBtn.innerHTML = `📋 نسخ السكربت`;
                     actionBtn.style.background = 'linear-gradient(135deg, #2ecc71, #27ae60)';
