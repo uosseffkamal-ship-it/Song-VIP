@@ -117,7 +117,22 @@
             padding: 8px;
             font-size: 12px;
             color: #ff2a85;
-            margin-bottom: 20px;
+            margin-bottom: 15px;
+        }
+
+        .search-box {
+            margin-bottom: 15px;
+        }
+        .search-box input {
+            width: 100%;
+            padding: 10px 14px;
+            background: var(--input-bg);
+            border: 1px solid var(--border-color);
+            border-radius: 12px;
+            color: var(--text-color);
+            outline: none;
+            font-size: 13px;
+            box-sizing: border-box;
         }
 
         .btn-task {
@@ -298,6 +313,10 @@
         <div class="updates-ticker" id="updateTickerText">
             🚀 أحدث إضافة: تم تحديث سيرفر السكريبتات برابط مباشر جديد!
         </div>
+
+        <div class="search-box">
+            <input type="text" id="siteSearchInput" placeholder="🔍 ابحث هنا..." onkeyup="filterContent()">
+        </div>
         
         <button class="btn-task btn-red" id="taskBtn0" onclick="startTask(0)">إعجاب بالفيديو 👍</button>
         <button class="btn-task btn-blue" id="taskBtn1" onclick="startTask(1)" disabled style="opacity: 0.5;">الانضمام لسيرفر الديسكورد 💬</button>
@@ -313,7 +332,7 @@
         <button class="btn-unlock" id="unlockBtn" onclick="goNext()">🔒 الرابط مغلق</button>
 
         <div class="share-section">
-            <button class="share-btn" onclick="shareWebsite()">🔗 مشاركة</button>
+            <button class="share-btn" onclick="shareWebsite()">🔗 مشاركة ودعوة أصدقائك</button>
             <button class="share-btn" onclick="copySiteLink()">📋 نسخ الرابط</button>
         </div>
     </div>
@@ -345,7 +364,7 @@
             if (navigator.share) {
                 navigator.share({
                     title: 'SONG - VIP Link Unlocker',
-                    text: 'تفضل بزيارة الموقع وتخطى الروابط بسهولة!',
+                    text: 'تفضل بزيارة الموقع واحصل على أحدث السكريبتات مجاناً!',
                     url: window.location.href,
                 }).catch(() => {});
             } else {
@@ -355,7 +374,11 @@
 
         function copySiteLink() {
             navigator.clipboard.writeText(window.location.href);
-            showToast('تم نسخ رابط الموقع بنجاح!');
+            showToast('تم نسخ رابط الموقع بنجاح! شاركه مع أصدقائك.');
+        }
+
+        function filterContent() {
+            let query = document.getElementById('siteSearchInput').value.toLowerCase();
         }
 
         let waitingForReturn = false;
@@ -456,21 +479,22 @@
             if (activeCount === 3) {
                 const p = new URLSearchParams(location.search);
                 const t = p.get('to');
+                
+                let targetUrl = 'ready.html';
                 if (t) {
-                    window.location.href = 'ready.html?to=' + encodeURIComponent(t);
+                    targetUrl += '?to=' + encodeURIComponent(t);
                 } else {
                     localStorage.setItem('last_saved_script', cfg.final);
-                    window.location.href = 'ready.html';
                 }
+                window.location.href = targetUrl;
             } else {
                 showToast('يجب إتمام جميع المهام والانتظار بالترتيب أولاً!');
             }
         }
 
-        // تم تحديث الدالة لتوجيهك فوراً إلى صفحة لوحة التحكم المنفصلة admin.html
         function openAdmin() {
             window.location.href = 'admin.html';
         }
     </script>
 </body>
-</html>
+        </html>
