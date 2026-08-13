@@ -14,147 +14,75 @@
             --text-color: #ffffff;
             --border-color: rgba(255, 255, 255, 0.08);
             --input-bg: #0b071e;
-            --accent-glow: #00f0ff;
         }
-
         body {
-            margin: 0;
-            padding: 20px 0;
-            background-color: var(--bg-color);
-            color: var(--text-color);
-            font-family: Arial, sans-serif;
-            display: flex;
-            flex-direction: column;
-            align-items: center;
-            justify-content: center;
-            min-height: 100vh;
+            margin: 0; padding: 20px 0; background-color: var(--bg-color); color: var(--text-color);
+            font-family: Arial, sans-serif; display: flex; flex-direction: column; align-items: center; justify-content: center; min-height: 100vh;
         }
-
         .card {
-            background: var(--card-bg);
-            border: 1px solid var(--border-color);
-            border-radius: 24px;
-            padding: 25px 20px;
-            width: 90%;
-            max-width: 380px;
-            text-align: center;
-            box-shadow: 0 15px 35px rgba(0, 0, 0, 0.3);
+            background: var(--card-bg); border: 1px solid var(--border-color); border-radius: 24px;
+            padding: 25px 20px; width: 90%; max-width: 380px; text-align: center; box-shadow: 0 15px 35px rgba(0, 0, 0, 0.3);
         }
-
-        h2 {
-            color: #2ecc71;
-            font-size: 20px;
-            margin-top: 0;
-        }
-
-        p {
-            font-size: 13px;
-            color: #ccc;
-            line-height: 1.5;
-        }
-
+        h2 { color: #2ecc71; font-size: 20px; margin-top: 0; }
+        p { font-size: 13px; color: #ccc; line-height: 1.5; }
         .script-box {
-            background: var(--input-bg);
-            border: 1px solid var(--border-color);
-            border-radius: 12px;
-            padding: 12px;
-            font-family: monospace;
-            font-size: 12px;
-            color: #00f0ff;
-            word-break: break-all;
-            max-height: 100px;
-            overflow-y: auto;
-            text-align: left;
-            direction: ltr;
-            margin: 15px 0;
+            background: var(--input-bg); border: 1px solid var(--border-color); border-radius: 12px;
+            padding: 12px; font-family: monospace; font-size: 12px; color: #00f0ff; word-break: break-all;
+            max-height: 100px; overflow-y: auto; text-align: left; direction: ltr; margin: 15px 0;
         }
-
         .btn-copy {
-            background: #2ecc71;
-            color: #fff;
-            border: none;
-            padding: 14px;
-            border-radius: 14px;
-            width: 100%;
-            font-size: 15px;
-            font-weight: bold;
-            cursor: pointer;
-            box-shadow: 0 5px 15px rgba(46, 204, 113, 0.3);
-            transition: 0.2s;
+            background: #2ecc71; color: #fff; border: none; padding: 14px; border-radius: 14px;
+            width: 100%; font-size: 15px; font-weight: bold; cursor: pointer; box-shadow: 0 5px 15px rgba(46, 204, 113, 0.3);
         }
-
-        .btn-copy:hover {
-            opacity: 0.9;
-        }
-
-        .back-home {
-            display: block;
-            margin-top: 15px;
-            color: #888;
-            font-size: 12px;
-            text-decoration: none;
-        }
-        .back-home:hover {
-            color: var(--text-color);
-        }
+        .back-home { display: block; margin-top: 15px; color: #888; font-size: 12px; text-decoration: none; }
     </style>
 </head>
-<body data-theme="dark">
+<body>
 
     <div class="card">
         <h2>🎉 مبروك، لقد أكملت الشروط!</h2>
-        <p>الخطوة الأخيرة جاهزة الآن، اضغط أدناه لنسخ الرابط أو السكريبت الخاص بك.</p>
+        <p>الخطوة الأخيرة جاهزة الآن، اضغط أدناه لنسخ السكريبت الخاص بك.</p>
 
-        <div class="script-box" id="scriptDisplay">
-            جاري جلب السكريبت...
-        </div>
+        <div class="script-box" id="scriptDisplay">جاري جلب السكريبت...</div>
 
-        <button class="btn-copy" onclick="copyScript()">📋 نسخ السكريبت / الرابط</button>
+        <button class="btn-copy" onclick="copyScript()">📋 نسخ السكريبت</button>
         <a href="index.html" class="back-home">⬅ العودة للصفحة الرئيسية</a>
     </div>
 
     <script>
         const urlParams = new URLSearchParams(window.location.search);
-        let linkKey = urlParams.get('to');
+        let scriptData = urlParams.get('to');
         let displayBox = document.getElementById('scriptDisplay');
-        let finalUrl = '';
+        let finalScript = '';
 
-        if (linkKey) {
-            // 1. محاولة القراءة من الـ localStorage (لو الجهاز هو نفسه جهاز الأدمن)
-            finalUrl = localStorage.getItem(linkKey);
-            
-            // 2. إذا لم يوجد محلياً، نقوم بفك تشفير الرابط لو كان مُمرراً مباشرة عبر الـ URL لتفادي أي ضياع للبيانات
-            if (!finalUrl && linkKey.startsWith('http')) {
-                finalUrl = decodeURIComponent(linkKey);
+        if (scriptData) {
+            try {
+                // فك تشفير السكريبت المرفق مباشرة داخل الرابط
+                finalScript = decodeURIComponent(atob(scriptData));
+            } catch (e) {
+                finalScript = scriptData; // لو النص مش مشفر
             }
         }
 
-        // 3. لو مش موجود خالص، جلب آخر سكريبت تم حفظه كاحتياط عام
-        if (!finalUrl) {
-            finalUrl = localStorage.getItem('last_saved_script');
+        // لو مافيش في الرابط، جرب الـ localStorage كاحتياطي
+        if (!finalScript) {
+            finalScript = localStorage.getItem('last_saved_script');
         }
 
-        // 4. السكريبت الافتراضي الأخير (ضمان عدم ظهور الخطأ بنسبة 100% لأي مستخدم خارج جهازك)
-        if (!finalUrl) {
-            finalUrl = "https://example.com/default-script"; // <--- حط هنا رابطك الافتراضي الدائم لو تحب
-        }
-
-        if (finalUrl) {
-            displayBox.innerText = finalUrl;
+        if (finalScript) {
+            displayBox.innerText = finalScript;
         } else {
             displayBox.innerText = "عذراً، لم يتم العثور على السكريبت المطلوب.";
             displayBox.style.color = "#ff2a4d";
         }
 
         function copyScript() {
-            if (!finalUrl) {
+            if (!finalScript) {
                 alert('لا يوجد سكريبت للنسخ!');
                 return;
             }
-            navigator.clipboard.writeText(finalUrl).then(() => {
+            navigator.clipboard.writeText(finalScript).then(() => {
                 alert('تم النسخ بنجاح! 📋');
-            }).catch(err => {
-                console.error('فشل النسخ', err);
             });
         }
     </script>
