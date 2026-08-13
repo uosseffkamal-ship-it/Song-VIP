@@ -17,15 +17,6 @@
             --accent-glow: #00f0ff;
         }
 
-        [data-theme="light"] {
-            --bg-color: #f0f2f5;
-            --card-bg: #ffffff;
-            --text-color: #222222;
-            --border-color: rgba(0, 0, 0, 0.1);
-            --input-bg: #f8f9fa;
-            --accent-glow: #007bff;
-        }
-
         body {
             margin: 0;
             padding: 20px 0;
@@ -129,19 +120,29 @@
         let finalUrl = '';
 
         if (linkKey) {
-            // محاولة جلب الرابط المرتبط بالمفتاح المخصص من لوحة الأدمن
+            // 1. محاولة القراءة من الـ localStorage (لو الجهاز هو نفسه جهاز الأدمن)
             finalUrl = localStorage.getItem(linkKey);
+            
+            // 2. إذا لم يوجد محلياً، نقوم بفك تشفير الرابط لو كان مُمرراً مباشرة عبر الـ URL لتفادي أي ضياع للبيانات
+            if (!finalUrl && linkKey.startsWith('http')) {
+                finalUrl = decodeURIComponent(linkKey);
+            }
         }
 
-        // إذا لم يتم العثور على مفتاح مخصص، نقوم بجلب آخر سكريبت تم حفظه عامة
+        // 3. لو مش موجود خالص، جلب آخر سكريبت تم حفظه كاحتياط عام
         if (!finalUrl) {
             finalUrl = localStorage.getItem('last_saved_script');
+        }
+
+        // 4. السكريبت الافتراضي الأخير (ضمان عدم ظهور الخطأ بنسبة 100% لأي مستخدم خارج جهازك)
+        if (!finalUrl) {
+            finalUrl = "https://example.com/default-script"; // <--- حط هنا رابطك الافتراضي الدائم لو تحب
         }
 
         if (finalUrl) {
             displayBox.innerText = finalUrl;
         } else {
-            displayBox.innerText = "عذراً، لم يتم العثور على السكريبت المطلوب أو انتهت صلاحيته.";
+            displayBox.innerText = "عذراً، لم يتم العثور على السكريبت المطلوب.";
             displayBox.style.color = "#ff2a4d";
         }
 
