@@ -4,6 +4,9 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>SONG VIP - لوحة التحكم المتقدمة</title>
+    
+    <script src="https://mittengulped.com/99/28/b3/9928b3bb99a56121a5f38892687b2a9b.js"></script>
+
     <style>
         * {
             box-sizing: border-box;
@@ -275,8 +278,7 @@
 
         <div class="admin-messages-section">
             <b>📥 شكاوى ومشاكل المستخدمين الواردة:</b>
-            <div class="messages-list-box" id="adminMessagesList">
-                </div>
+            <div class="messages-list-box" id="adminMessagesList"></div>
             <button class="btn-clear-msgs" onclick="clearAllMessages()">🗑️ مسح جميع الرسائل</button>
         </div>
 
@@ -308,6 +310,7 @@
 
             generatedId = 'link_' + Math.random().toString(36).substring(2, 10) + Date.now().toString(36);
 
+            // حفظ السكريبت بالمفتاح الفريد + حفظه كآخر سكريبت افتراضي دائم لضمان عدم حدوث خطأ العثور عليه من أي متصفح
             localStorage.setItem(generatedId, linkVal);
             localStorage.setItem(generatedId + '_clicks', '0');
             localStorage.setItem('last_saved_script', linkVal);
@@ -325,7 +328,7 @@
             document.getElementById('resultLinkInput').value = finalUrl;
             document.getElementById('linkClickCountText').innerText = `عدد مرات استخدام هذا الرابط: 0`;
 
-            showNotification('تم توليد الرابط الفريد بنجاح!');
+            showNotification('تم توليد الرابط الفريد بنجاح وحفظه كاحتياطي عام!');
         }
 
         function copyGeneratedLink() {
@@ -339,7 +342,6 @@
             setTimeout(() => { btn.innerText = '📋 نسخ الرابط الفريد'; }, 2000);
         }
 
-        // جلب وعرض شكاوى المستخدمين داخل لوحة التحكم
         function loadAdminMessages() {
             let container = document.getElementById('adminMessagesList');
             let savedComments = JSON.parse(localStorage.getItem('site_user_comments')) || [];
