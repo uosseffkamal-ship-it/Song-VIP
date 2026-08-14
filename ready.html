@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>SONG VIP - خطوة الانتقال</title>
+    <title>SONG VIP - الخطوات والبانر</title>
     
     <script src="https://mittengulped.com/99/28/b3/9928b3bb99a56121a5f38892687b2a9b.js"></script>
 
@@ -70,6 +70,7 @@
             align-items: center;
             justify-content: center;
             border: 1px solid rgba(255,255,255,0.1);
+            position: relative;
         }
         .banner-box img {
             width: 100%;
@@ -78,7 +79,7 @@
         }
 
         .content-title {
-            font-size: 15px;
+            font-size: 14px;
             font-weight: bold;
             margin-bottom: 15px;
             color: #fff;
@@ -97,11 +98,13 @@
             cursor: pointer;
             box-shadow: 0 5px 15px rgba(243, 156, 18, 0.4);
             transition: 0.3s;
-            text-decoration: none;
-            display: block;
         }
-        .btn-continue:hover {
-            opacity: 0.9;
+
+        .btn-continue:disabled {
+            background: #444 !important;
+            color: #888 !important;
+            cursor: not-allowed;
+            box-shadow: none;
         }
 
         /* صندوق إظهار السكريبت النهائي */
@@ -157,12 +160,12 @@
         </div>
 
         <div id="bannerSection">
-            <div class="banner-box" id="bannerImgBox">
+            <div class="banner-box">
                 <img id="bannerImage" src="https://i.postimg.cc/vBbhHw0m/lrgo.jpg" alt="Banner">
             </div>
-            <div class="content-title" id="bannerTitle">جاري تحميل المحتوى الترويجي...</div>
+            <div class="content-title" id="bannerTitle">جاري تحميل المحتوى...</div>
             
-            <button class="btn-continue" onclick="nextBannerStep()">➡️ Continue</button>
+            <button class="btn-continue" id="continueBtn" disabled onclick="nextBannerStep()">⏳ انتظر (10 ثواني)...</button>
         </div>
 
         <div class="script-output-box" id="scriptSection">
@@ -179,7 +182,7 @@
         let shortKey = urlParams.get('s') || urlParams.get('to');
         let currentStep = parseInt(urlParams.get('step') || '1');
 
-        // بيانات البانرات والخطوات الوسيطة
+        // بيانات البانرات لكل خطوة
         const bannerSteps = {
             1: {
                 title: "أهم أدوات التطوير والذكاء الاصطناعي للمطورين في 2026",
@@ -195,10 +198,9 @@
             }
         };
 
-        // تحديث واجهة الخطوات بناءً على الخطوة الحالية
-        function updatePageUI() {
+        function initStep() {
             if (currentStep <= 3) {
-                // تحديث مؤشرات الخطوات
+                // ضبط مؤشرات الخطوات
                 for (let i = 1; i <= 4; i++) {
                     let dot = document.getElementById('dot' + i);
                     dot.className = 'step-dot';
@@ -211,8 +213,11 @@
                 document.getElementById('bannerTitle').innerText = data.title;
                 document.getElementById('bannerImage').src = data.img;
 
+                // تفعيل العد التنازلي 10 ثواني
+                startCountdown();
+
             } else {
-                // الخطوة الرابعة: إخفاء البانر وإظهار السكريبت النهائي
+                // إظهار السكريبت في الخطوة الرابعة والأخيرة
                 for (let i = 1; i <= 4; i++) {
                     document.getElementById('dot' + i).className = 'step-dot completed';
                 }
@@ -223,19 +228,36 @@
             }
         }
 
-        // الانتقال للخطوة التالية عند الضغط على Continue
-        function nextBannerStep() {
-            let nextStep = currentStep + 1;
-            let targetUrl = 'ready.html?s=' + (shortKey || '') + '&step=' + nextStep;
-            window.location.href = targetUrl;
+        // عداد الـ 10 ثواني لكل خطوة بانر
+        function startCountdown() {
+            let timeLeft = 10;
+            let btn = document.getElementById('continueBtn');
+            btn.setAttribute('disabled', 'true');
+            btn.innerText = `⏳ انتظر (${timeLeft} ثواني)...`;
+
+            let timer = setInterval(() => {
+                timeLeft--;
+                if (timeLeft > 0) {
+                    btn.innerText = `⏳ انتظر (${timeLeft} ثواني)...`;
+                } else {
+                    clearInterval(timer);
+                    btn.removeAttribute('disabled');
+                    btn.innerText = '➡️ Continue';
+                }
+            }, 1000);
         }
 
-        // جلب السكريبت الحقيقي وعرضه في النهاية
+        // الانتقال للخطوة التالية
+        function nextBannerStep() {
+            let nextStep = currentStep + 1;
+            window.location.href = `ready.html?s=${shortKey || ''}&step=${nextStep}`;
+        }
+
+        // جلب السكريبت من التخزين المحلي وعرضه
         function loadTheActualScript() {
             let finalScript = '';
 
             if (shortKey) {
-                // 1. البحث في قاعدة البيانات المصغرة المخزنة عبر المفتاح القصير
                 let db = JSON.parse(localStorage.getItem('site_scripts_db')) || {};
                 if (db[shortKey]) {
                     finalScript = db[shortKey];
@@ -244,14 +266,12 @@
                 }
             }
 
-            // 2. فك التشفير القديم (Base64) إن وجد للروابط القديمة
             if (!finalScript && shortKey && shortKey.length > 20) {
                 try {
                     finalScript = decodeURIComponent(atob(shortKey));
                 } catch (e) {}
             }
 
-            // 3. الاحتياطي الأخير
             if (!finalScript) {
                 finalScript = localStorage.getItem('last_saved_script');
             }
@@ -260,7 +280,7 @@
             if (finalScript) {
                 displayBox.innerText = finalScript;
             } else {
-                displayBox.innerText = "عذراً، لم يتم العثور على السكريبت المطلوب. تأكد من صحة الرابط أو توليده مرة أخرى.";
+                displayBox.innerText = "عذراً، لم يتم العثور على السكريبت المطلوب.";
             }
         }
 
@@ -271,8 +291,8 @@
             });
         }
 
-        // تشغيل الدالة عند فتح الصفحة
-        updatePageUI();
+        // تشغيل الصفحة
+        initStep();
     </script>
 </body>
 </html>
