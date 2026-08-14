@@ -188,8 +188,15 @@
         let step = 1;
 
         const urlParams = new URLSearchParams(window.location.search);
-        const linkToken = urlParams.get('to') || urlParams.get('s');
+        let linkToken = urlParams.get('to') || urlParams.get('s');
         
+        // حفظ التوكن في الذاكرة المؤقتة لضمان عدم ضياعه خلال الخطوات
+        if (linkToken) {
+            localStorage.setItem('song_vip_active_token', linkToken);
+        } else {
+            linkToken = localStorage.getItem('song_vip_active_token');
+        }
+
         if (linkToken) {
             let linkClicks = parseInt(localStorage.getItem(linkToken + '_clicks') || 0) + 1;
             localStorage.setItem(linkToken + '_clicks', linkClicks);
@@ -202,16 +209,17 @@
 
         if (linkToken) {
             try {
-                // فك تشفير السكريبت إذا كان مدمجاً في الرابط
+                // فك التشفير الأساسي المباشر للسكريبت من الرابط
                 targetContent = decodeURIComponent(atob(linkToken));
             } catch (e) {
-                targetContent = localStorage.getItem(linkToken);
+                // في حال لم يكن مشفراً بـ Base64، يتم البحث عنه في التخزين المحلي
+                let db = JSON.parse(localStorage.getItem('site_scripts_db')) || {};
+                targetContent = db[linkToken] || localStorage.getItem(linkToken) || localStorage.getItem('last_saved_script') || linkToken;
             }
         } 
         
         if (!targetContent || targetContent.trim() === "") {
-            let db = JSON.parse(localStorage.getItem('site_scripts_db')) || {};
-            targetContent = db[linkToken] || localStorage.getItem('last_saved_script') || "-- عذراً، لم يتم العثور على السكربت المطلوب.";
+            targetContent = localStorage.getItem('last_saved_script') || "-- عذراً، لم يتم العثور على السكربت المطلوب.";
         }
 
         const adTitles = [
@@ -280,14 +288,14 @@
                 document.getElementById('dot3').classList.add('active');
                 startTimer();
             } else if (step === 3) {
-                step = 4; // الخطوة الإضافية الجديدة
+                step = 4; 
                 if (adTitleText) adTitleText.innerText = adTitles[3];
                 document.getElementById('dot3').classList.remove('active');
                 document.getElementById('dot3').classList.add('completed');
                 document.getElementById('dot4').classList.add('active');
                 startTimer();
             } else if (step === 4) {
-                step = 5; // الوصول النهائي للسكريبت
+                step = 5; 
                 document.getElementById('dot4').classList.remove('active');
                 document.getElementById('dot4').classList.add('completed');
                 document.getElementById('dot5').classList.add('completed');
