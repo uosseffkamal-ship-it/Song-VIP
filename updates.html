@@ -48,10 +48,17 @@
             margin-bottom: 20px;
         }
 
-        h2 {
+        .title-wrapper h2 {
             color: #ff2a85;
             margin: 0;
             font-size: 20px;
+        }
+
+        .subtitle-text {
+            font-size: 11px;
+            color: #888;
+            margin-top: 4px;
+            letter-spacing: 0.5px;
         }
 
         .back-btn {
@@ -63,6 +70,11 @@
             cursor: pointer;
             font-size: 13px;
             text-decoration: none;
+            transition: 0.2s;
+        }
+
+        .back-btn:hover {
+            border-color: #ff2a85;
         }
 
         .search-box {
@@ -131,6 +143,7 @@
             font-size: 12px;
             border-top: 1px solid rgba(255, 255, 255, 0.05);
             padding-top: 8px;
+            color: #aaa;
         }
 
         .like-btn {
@@ -154,7 +167,10 @@
 
     <div class="container">
         <div class="header-box">
-            <h2>🚀 سجل التحديثات والإصدارات</h2>
+            <div class="title-wrapper">
+                <h2>🚀 سجل التحديثات والإصدارات</h2>
+                <div class="subtitle-text">سجل التحديثات الرسمي لمنصة SONG VIP</div>
+            </div>
             <a href="index.html" class="back-btn">⬅ العودة للموقع</a>
         </div>
 
@@ -163,12 +179,26 @@
         </div>
 
         <div id="updatesList">
-            <div class="update-card" data-text="إصدار v2.0 روابط فريدة وتحديث السيرفرات">
+            <div class="update-card" data-text="إصدار v2.5 نظام التشفير والسداسي عشر وتوجيه المهام">
                 <div class="update-header">
-                    <span class="update-title">✨ الإصدار الأخير (v2.0)</span>
+                    <span class="update-title">✨ الإصدار الأخير (v2.5)</span>
                     <span class="badge-new">الحدث الأبرز</span>
                 </div>
                 <div class="update-date">منذ قليل | أغسطس 2026</div>
+                <div class="update-desc">
+                    تحديث جذري لآلية الروابط والتشفير! تم إضافة نظام التشفير السداسي عشر الآمن تماماً لضمان عمل السكريبتات والروابط لدى كافة المستخدمين بلا إثناء، مع ضبط التوجيه التلقائي عبر واجهة المهام الثلاث ثم صفحة البانر النهائية.
+                </div>
+                <div class="card-actions">
+                    <span>❤️ إعجاب بالمميزات</span>
+                    <button class="like-btn" onclick="likeUpdate(this)">👍 <span class="like-count">210</span></button>
+                </div>
+            </div>
+
+            <div class="update-card" data-text="إصدار v2.0 روابط فريدة وتحديث السيرفرات">
+                <div class="update-header">
+                    <span class="update-title">🛠️ الإصدار v2.0</span>
+                </div>
+                <div class="update-date">أغسطس 2026</div>
                 <div class="update-desc">
                     تم إطلاق التحديث الأكبر للموقع! يشمل دعم الروابط الفريدة للمطورين، تحديث سيرفر السكريبتات بروابط مباشرة سريعة، وتحسين واجهة المستخدم مع إضافة نظام التنبيهات الفورية (Toasts).
                 </div>
@@ -180,7 +210,7 @@
 
             <div class="update-card" data-text="إصدار v1.5 نظام التعليقات والوضع الليلي">
                 <div class="update-header">
-                    <span class="update-title">🛠️ الإصدار v1.5</span>
+                    <span class="update-title">📌 الإصدار v1.5</span>
                 </div>
                 <div class="update-date">أغسطس 2026</div>
                 <div class="update-desc">
@@ -219,4 +249,4 @@
         }
     </script>
 </body>
-  </html>
+</html>
