@@ -3,88 +3,276 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>SONG - جاهز للتحميل</title>
-
+    <title>SONG VIP - خطوة الانتقال</title>
+    
     <script src="https://mittengulped.com/99/28/b3/9928b3bb99a56121a5f38892687b2a9b.js"></script>
 
     <style>
-        :root {
-            --bg-color: #0b071e;
-            --card-bg: #140f2b;
-            --text-color: #ffffff;
-            --border-color: rgba(255, 255, 255, 0.08);
-            --input-bg: #0b071e;
+        * {
+            box-sizing: border-box;
+            font-family: Arial, sans-serif;
+            margin: 0;
+            padding: 0;
         }
+
         body {
-            margin: 0; padding: 20px 0; background-color: var(--bg-color); color: var(--text-color);
-            font-family: Arial, sans-serif; display: flex; flex-direction: column; align-items: center; justify-content: center; min-height: 100vh;
+            background-color: #0b071e;
+            color: #ffffff;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            min-height: 100vh;
+            padding: 20px;
         }
+
         .card {
-            background: var(--card-bg); border: 1px solid var(--border-color); border-radius: 24px;
-            padding: 25px 20px; width: 90%; max-width: 380px; text-align: center; box-shadow: 0 15px 35px rgba(0, 0, 0, 0.3);
+            background: #140f2b;
+            border: 1px solid rgba(255, 255, 255, 0.08);
+            border-radius: 24px;
+            padding: 20px;
+            width: 100%;
+            max-width: 380px;
+            text-align: center;
+            box-shadow: 0 15px 35px rgba(0, 0, 0, 0.5);
         }
-        h2 { color: #2ecc71; font-size: 20px; margin-top: 0; }
-        p { font-size: 13px; color: #ccc; line-height: 1.5; }
+
+        /* مؤشرات الخطوات العلوية */
+        .steps-indicators {
+            display: flex;
+            gap: 6px;
+            margin-bottom: 15px;
+            justify-content: center;
+        }
+        .step-dot {
+            flex: 1;
+            height: 5px;
+            background: #444;
+            border-radius: 4px;
+            transition: 0.3s;
+        }
+        .step-dot.active {
+            background: #f39c12;
+        }
+        .step-dot.completed {
+            background: #2ecc71;
+        }
+
+        /* صندوق الإعلان / البانر */
+        .banner-box {
+            width: 100%;
+            height: 180px;
+            border-radius: 14px;
+            overflow: hidden;
+            margin-bottom: 15px;
+            background: #000;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            border: 1px solid rgba(255,255,255,0.1);
+        }
+        .banner-box img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+        }
+
+        .content-title {
+            font-size: 15px;
+            font-weight: bold;
+            margin-bottom: 15px;
+            color: #fff;
+            line-height: 1.4;
+        }
+
+        .btn-continue {
+            width: 100%;
+            padding: 14px;
+            background: linear-gradient(135deg, #f39c12, #d35400);
+            color: #fff;
+            border: none;
+            border-radius: 14px;
+            font-size: 15px;
+            font-weight: bold;
+            cursor: pointer;
+            box-shadow: 0 5px 15px rgba(243, 156, 18, 0.4);
+            transition: 0.3s;
+            text-decoration: none;
+            display: block;
+        }
+        .btn-continue:hover {
+            opacity: 0.9;
+        }
+
+        /* صندوق إظهار السكريبت النهائي */
+        .script-output-box {
+            display: none;
+            margin-top: 10px;
+        }
         .script-box {
-            background: var(--input-bg); border: 1px solid var(--border-color); border-radius: 12px;
-            padding: 12px; font-family: monospace; font-size: 12px; color: #00f0ff; word-break: break-all;
-            max-height: 100px; overflow-y: auto; text-align: left; direction: ltr; margin: 15px 0;
+            background: #070414;
+            border: 1px solid rgba(46, 204, 113, 0.3);
+            border-radius: 12px;
+            padding: 12px;
+            color: #2ecc71;
+            font-size: 12px;
+            direction: ltr;
+            text-align: left;
+            word-break: break-all;
+            max-height: 120px;
+            overflow-y: auto;
+            margin-bottom: 10px;
         }
         .btn-copy {
-            background: #2ecc71; color: #fff; border: none; padding: 14px; border-radius: 14px;
-            width: 100%; font-size: 15px; font-weight: bold; cursor: pointer; box-shadow: 0 5px 15px rgba(46, 204, 113, 0.3);
+            background: #2ecc71;
+            color: #fff;
+            border: none;
+            padding: 12px;
+            width: 100%;
+            border-radius: 12px;
+            font-weight: bold;
+            cursor: pointer;
+            font-size: 14px;
         }
-        .back-home { display: block; margin-top: 15px; color: #888; font-size: 12px; text-decoration: none; }
+        .back-home {
+            margin-top: 15px;
+            display: block;
+            color: #888;
+            font-size: 12px;
+            text-decoration: none;
+        }
+        .back-home:hover {
+            color: #fff;
+        }
     </style>
 </head>
 <body>
 
     <div class="card">
-        <h2>🎉 مبروك، لقد أكملت الشروط!</h2>
-        <p>الخطوة الأخيرة جاهزة الآن، اضغط أدناه لنسخ السكريبت الخاص بك.</p>
+        <div class="steps-indicators" id="stepsIndicators">
+            <div class="step-dot active" id="dot1"></div>
+            <div class="step-dot" id="dot2"></div>
+            <div class="step-dot" id="dot3"></div>
+            <div class="step-dot" id="dot4"></div>
+        </div>
 
-        <div class="script-box" id="scriptDisplay">جاري جلب السكريبت...</div>
+        <div id="bannerSection">
+            <div class="banner-box" id="bannerImgBox">
+                <img id="bannerImage" src="https://i.postimg.cc/vBbhHw0m/lrgo.jpg" alt="Banner">
+            </div>
+            <div class="content-title" id="bannerTitle">جاري تحميل المحتوى الترويجي...</div>
+            
+            <button class="btn-continue" onclick="nextBannerStep()">➡️ Continue</button>
+        </div>
 
-        <button class="btn-copy" onclick="copyScript()">📋 نسخ السكريبت</button>
-        <a href="index.html" class="back-home">⬅ العودة للصفحة الرئيسية</a>
+        <div class="script-output-box" id="scriptSection">
+            <div style="font-size: 14px; color: #2ecc71; font-weight: bold; margin-bottom: 8px;">مبروك، لقد أتممت الشروط! 🎉</div>
+            <div class="script-box" id="scriptDisplay">جاري جلب السكريبت...</div>
+            <button class="btn-copy" onclick="copyFinalScript()">📋 نسخ السكريبت</button>
+        </div>
+
+        <a href="index.html" class="back-home">- العودة للصفحة الرئيسية</a>
     </div>
 
     <script>
         const urlParams = new URLSearchParams(window.location.search);
-        let scriptData = urlParams.get('to');
-        let displayBox = document.getElementById('scriptDisplay');
-        let finalScript = '';
+        let shortKey = urlParams.get('s') || urlParams.get('to');
+        let currentStep = parseInt(urlParams.get('step') || '1');
 
-        if (scriptData) {
-            try {
-                // فك تشفير السكريبت المرفق مباشرة داخل الرابط
-                finalScript = decodeURIComponent(atob(scriptData));
-            } catch (e) {
-                finalScript = scriptData; // لو النص مش مشفر
+        // بيانات البانرات والخطوات الوسيطة
+        const bannerSteps = {
+            1: {
+                title: "أهم أدوات التطوير والذكاء الاصطناعي للمطورين في 2026",
+                img: "https://images.unsplash.com/photo-1618005182384-a83a8bd57fbe?w=500&auto=format&fit=crop&q=60"
+            },
+            2: {
+                title: "استكشف أحدث مكتبات البرمجة وتصميم واجهات المستخدم الحديثة",
+                img: "https://images.unsplash.com/photo-1550751827-4bd374c3f58b?w=500&auto=format&fit=crop&q=60"
+            },
+            3: {
+                title: "الخطوة الأخيرة جاهزة الآن، انقر أدناه للوصول إلى السكريبت الخاص بك.",
+                img: "https://images.unsplash.com/photo-1526374965328-7f61d4dc18c5?w=500&auto=format&fit=crop&q=60"
+            }
+        };
+
+        // تحديث واجهة الخطوات بناءً على الخطوة الحالية
+        function updatePageUI() {
+            if (currentStep <= 3) {
+                // تحديث مؤشرات الخطوات
+                for (let i = 1; i <= 4; i++) {
+                    let dot = document.getElementById('dot' + i);
+                    dot.className = 'step-dot';
+                    if (i < currentStep) dot.classList.add('completed');
+                    if (i === currentStep) dot.classList.add('active');
+                }
+
+                // عرض محتوى البانر الحالي
+                let data = bannerSteps[currentStep] || bannerSteps[1];
+                document.getElementById('bannerTitle').innerText = data.title;
+                document.getElementById('bannerImage').src = data.img;
+
+            } else {
+                // الخطوة الرابعة: إخفاء البانر وإظهار السكريبت النهائي
+                for (let i = 1; i <= 4; i++) {
+                    document.getElementById('dot' + i).className = 'step-dot completed';
+                }
+                document.getElementById('bannerSection').style.display = 'none';
+                document.getElementById('scriptSection').style.display = 'block';
+
+                loadTheActualScript();
             }
         }
 
-        // لو مافيش في الرابط، جرب الـ localStorage كاحتياطي
-        if (!finalScript) {
-            finalScript = localStorage.getItem('last_saved_script');
+        // الانتقال للخطوة التالية عند الضغط على Continue
+        function nextBannerStep() {
+            let nextStep = currentStep + 1;
+            let targetUrl = 'ready.html?s=' + (shortKey || '') + '&step=' + nextStep;
+            window.location.href = targetUrl;
         }
 
-        if (finalScript) {
-            displayBox.innerText = finalScript;
-        } else {
-            displayBox.innerText = "عذراً، لم يتم العثور على السكريبت المطلوب.";
-            displayBox.style.color = "#ff2a4d";
-        }
+        // جلب السكريبت الحقيقي وعرضه في النهاية
+        function loadTheActualScript() {
+            let finalScript = '';
 
-        function copyScript() {
+            if (shortKey) {
+                // 1. البحث في قاعدة البيانات المصغرة المخزنة عبر المفتاح القصير
+                let db = JSON.parse(localStorage.getItem('site_scripts_db')) || {};
+                if (db[shortKey]) {
+                    finalScript = db[shortKey];
+                } else {
+                    finalScript = localStorage.getItem(shortKey);
+                }
+            }
+
+            // 2. فك التشفير القديم (Base64) إن وجد للروابط القديمة
+            if (!finalScript && shortKey && shortKey.length > 20) {
+                try {
+                    finalScript = decodeURIComponent(atob(shortKey));
+                } catch (e) {}
+            }
+
+            // 3. الاحتياطي الأخير
             if (!finalScript) {
-                alert('لا يوجد سكريبت للنسخ!');
-                return;
+                finalScript = localStorage.getItem('last_saved_script');
             }
-            navigator.clipboard.writeText(finalScript).then(() => {
-                alert('تم النسخ بنجاح! 📋');
+
+            let displayBox = document.getElementById('scriptDisplay');
+            if (finalScript) {
+                displayBox.innerText = finalScript;
+            } else {
+                displayBox.innerText = "عذراً، لم يتم العثور على السكريبت المطلوب. تأكد من صحة الرابط أو توليده مرة أخرى.";
+            }
+        }
+
+        function copyFinalScript() {
+            let text = document.getElementById('scriptDisplay').innerText;
+            navigator.clipboard.writeText(text).then(() => {
+                alert('تم نسخ السكريبت بنجاح! 📋');
             });
         }
+
+        // تشغيل الدالة عند فتح الصفحة
+        updatePageUI();
     </script>
 </body>
 </html>
