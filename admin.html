@@ -267,11 +267,11 @@
             <textarea id="updateTextInput" placeholder="أحدث إضافة: تم تحديث السيرفر..."></textarea>
         </div>
 
-        <button class="btn-main" onclick="generateShortLink()">✨ توليد رابط قصير واحترافي</button>
+        <button class="btn-main" onclick="generateDirectLink()">✨ توليد رابط قصير مباشر</button>
 
         <div class="output-box" id="outputContainer">
             <input type="text" id="resultLinkInput" readonly onclick="this.select()">
-            <button class="btn-copy-link" id="copyBtn" onclick="copyGeneratedLink()">📋 نسخ الرابط</button>
+            <button class="btn-copy-link" id="copyBtn" onclick="copyGeneratedLink()">📋 نسخ الرابط القصير</button>
         </div>
 
         <div class="admin-messages-section">
@@ -295,7 +295,7 @@
             setTimeout(() => { box.innerHTML = ''; }, 2500);
         }
 
-        function generateShortLink() {
+        function generateDirectLink() {
             let linkVal = document.getElementById('targetLinkInput').value.trim();
             let updateVal = document.getElementById('updateTextInput').value.trim();
 
@@ -304,7 +304,15 @@
                 return;
             }
 
-            // حفظ كاحتياطي دائم
+            // توليد مفتاح قصير فريد (مثل s_xxxx)
+            let shortKey = 's_' + Math.random().toString(36).substring(2, 8);
+
+            // حفظ السكريبت في قاعدة بيانات المخزن المحلي المرتبطة بهذا المفتاح القصير
+            let scriptsDB = JSON.parse(localStorage.getItem('site_scripts_db')) || {};
+            scriptsDB[shortKey] = linkVal;
+            localStorage.setItem('site_scripts_db', JSON.stringify(scriptsDB));
+
+            // الاحتفاظ بنسخة احتياطية أيضاً
             localStorage.setItem('last_saved_script', linkVal);
 
             if (updateVal) {
@@ -313,19 +321,9 @@
                 localStorage.setItem('cfg', JSON.stringify(cfg));
             }
 
-            // إنشاء مفتاح قصير جداً عشوائي (مثلاً s_ ثم 4 حروف)
-            let shortCode = 's_' + Math.random().toString(36).substring(2, 6);
-
-            // حفظ السكريبت محلياً وفي قاعدة بيانات مصغرة داخل الـ localStorage
-            localStorage.setItem(shortCode, linkVal);
-            let scriptDb = JSON.parse(localStorage.getItem('site_scripts_db')) || {};
-            scriptDb[shortCode] = linkVal;
-            localStorage.setItem('site_scripts_db', JSON.stringify(scriptDb));
-
+            // بناء الرابط القصير النظيف
             let currentPath = window.location.pathname.substring(0, window.location.pathname.lastIndexOf('/') + 1);
-            
-            // الرابط النهائي سيكون قصير جداً ومنسق مثل: index.html?s=s_xxxx
-            let finalUrl = window.location.origin + currentPath + 'index.html?s=' + shortCode;
+            let finalUrl = window.location.origin + currentPath + 'index.html?s=' + shortKey;
 
             document.getElementById('outputContainer').style.display = 'block';
             document.getElementById('resultLinkInput').value = finalUrl;
@@ -341,7 +339,7 @@
             let btn = document.getElementById('copyBtn');
             btn.innerText = '✨ تم النسخ بنجاح!';
             showNotification('تم نسخ الرابط إلى الحافظة');
-            setTimeout(() => { btn.innerText = '📋 نسخ الرابط'; }, 2000);
+            setTimeout(() => { btn.innerText = '📋 نسخ الرابط القصير'; }, 2000);
         }
 
         function loadAdminMessages() {
