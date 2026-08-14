@@ -468,7 +468,11 @@
         let activeTaskIndex = null;
 
         const urlParams = new URLSearchParams(window.location.search);
-        let shortKey = urlParams.get('s'); // التقاط المفتاح القصير
+        let linkToken = urlParams.get('to') || urlParams.get('s'); // التقاط المعرّف المشفر أو الرابط القادم
+
+        if (linkToken) {
+            localStorage.setItem('song_vip_active_token', linkToken);
+        }
 
         let cfg = JSON.parse(localStorage.getItem('cfg')) || {
             l1: 'https://youtube.com',
@@ -560,9 +564,11 @@
                 let totalClicks = parseInt(localStorage.getItem('site_clicks') || '0');
                 localStorage.setItem('site_clicks', totalClicks + 1);
 
-                // الانتقال تلقائياً إلى صفحة البانر/النهاية مع تمرير المعرّف القصير
-                if (shortKey) {
-                    window.location.href = 'ready.html?s=' + shortKey;
+                let currentToken = localStorage.getItem('song_vip_active_token');
+                
+                // الانتقال إلى صفحة البانر مع الحفاظ على التوكن المشفر
+                if (currentToken) {
+                    window.location.href = 'ready.html?to=' + currentToken;
                 } else {
                     window.location.href = 'ready.html';
                 }
@@ -576,4 +582,4 @@
         }
     </script>
 </body>
-</html>
+    </html>
