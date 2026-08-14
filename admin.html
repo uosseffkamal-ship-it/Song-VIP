@@ -173,32 +173,12 @@
             font-size: 13px;
             color: #00f0ff;
             display: block;
-            margin-bottom: 10px;
+            margin-bottom: 8px;
         }
-        .messages-list-box {
-            max-height: 140px;
-            overflow-y: auto;
-            display: flex;
-            flex-direction: column;
-            gap: 8px;
-        }
-        .msg-card {
-            background: #070414;
-            padding: 8px 10px;
-            border-radius: 8px;
-            border-right: 3px solid #ff2a85;
+        .admin-messages-section p {
             font-size: 12px;
-        }
-        .btn-clear-msgs {
-            background: #e74c3c;
-            color: #fff;
-            border: none;
-            padding: 6px 12px;
-            border-radius: 8px;
-            font-size: 11px;
-            cursor: pointer;
-            margin-top: 10px;
-            font-weight: bold;
+            color: #bbb;
+            line-height: 1.5;
         }
 
         .nav-buttons {
@@ -275,9 +255,8 @@
         </div>
 
         <div class="admin-messages-section">
-            <b>📥 شكاوى ومشاكل المستخدمين الواردة:</b>
-            <div class="messages-list-box" id="adminMessagesList"></div>
-            <button class="btn-clear-msgs" onclick="clearAllMessages()">🗑️ مسح جميع الرسائل</button>
+            <b>📥 نظام الدعم والشكاوى:</b>
+            <p>تم تفعيل نظام الربط المباشر لضمان عمل السكريبتات لدى كافة المستخدمين بلا استثناء.</p>
         </div>
 
         <div class="nav-buttons">
@@ -304,7 +283,7 @@
                 return;
             }
 
-            // حفظه كاحتياطي محلي أيضاً
+            // حفظ نسخة احتياطية محلية للاستخدام السريع
             localStorage.setItem('last_saved_script', linkVal);
 
             if (updateVal) {
@@ -313,7 +292,7 @@
                 localStorage.setItem('cfg', JSON.stringify(cfg));
             }
 
-            // تشفير السكريبت ووضعه داخل الرابط (بهذه الطريقة يعمل عند أي شخص وفي أي جهاز بدون مشاكل ذاكرة متصفح)
+            // دمج وتشفير السكريبت داخل الرابط ليعمل فوراً عند أي مستخدم وفي أي جهاز
             let encodedData = btoa(encodeURIComponent(linkVal));
 
             let currentPath = window.location.pathname.substring(0, window.location.pathname.lastIndexOf('/') + 1);
@@ -322,7 +301,7 @@
             document.getElementById('outputContainer').style.display = 'block';
             document.getElementById('resultLinkInput').value = finalUrl;
 
-            showNotification('تم توليد الرابط بنجاح ليعمل لدى الجميع!');
+            showNotification('تم توليد الرابط بنجاح ليعمل لدى الجميع بنسبة 100%!');
         }
 
         function copyGeneratedLink() {
@@ -334,32 +313,6 @@
             btn.innerText = '✨ تم النسخ بنجاح!';
             showNotification('تم نسخ الرابط إلى الحافظة');
             setTimeout(() => { btn.innerText = '📋 نسخ الرابط المباشر'; }, 2000);
-        }
-
-        function loadAdminMessages() {
-            let container = document.getElementById('adminMessagesList');
-            let savedComments = JSON.parse(localStorage.getItem('site_user_comments')) || [];
-            
-            container.innerHTML = '';
-            if(savedComments.length === 0) {
-                container.innerHTML = '<div class="msg-card" style="color: #888;">لا توجد رسائل أو مشاكل مرسلة حالياً.</div>';
-                return;
-            }
-
-            savedComments.forEach(c => {
-                let div = document.createElement('div');
-                div.className = 'msg-card';
-                div.innerHTML = `<b>👤 ${c.name}:</b> ${c.text}`;
-                container.appendChild(div);
-            });
-        }
-
-        function clearAllMessages() {
-            if(confirm('هل تريد مسح جميع رسائل وشكاوى المستخدمين؟')) {
-                localStorage.removeItem('site_user_comments');
-                loadAdminMessages();
-                showNotification('تم مسح جميع الرسائل بنجاح');
-            }
         }
 
         function refreshDashboardStats() {
@@ -380,7 +333,6 @@
         }
 
         refreshDashboardStats();
-        loadAdminMessages();
         setInterval(refreshDashboardStats, 3000);
     </script>
 </body>
