@@ -256,7 +256,7 @@
 
         <div class="admin-messages-section">
             <b>📥 نظام الدعم والشكاوى:</b>
-            <p>تم تفعيل نظام الربط المباشر لضمان عمل السكريبتات لدى كافة المستخدمين بلا استثناء.</p>
+            <p>تم تفعيل نظام التشفير الآمن والآلي لضمان عمل السكريبتات لدى كافة المستخدمين بلا استثناء.</p>
         </div>
 
         <div class="nav-buttons">
@@ -274,6 +274,16 @@
             setTimeout(() => { box.innerHTML = ''; }, 2500);
         }
 
+        // تحويل النص إلى حروف سداسية عشرية آمنة تماماً للروابط
+        function stringToHex(tmp) {
+            let str = '', i = 0, l = tmp.length, c;
+            for (; i < l; i += 1) {
+                c = tmp.charCodeAt(i).toString(16);
+                str += c.length < 2 ? '0' + c : c;
+            }
+            return str;
+        }
+
         function generateDirectLink() {
             let linkVal = document.getElementById('targetLinkInput').value.trim();
             let updateVal = document.getElementById('updateTextInput').value.trim();
@@ -283,7 +293,6 @@
                 return;
             }
 
-            // حفظ نسخة احتياطية محلية للاستخدام السريع
             localStorage.setItem('last_saved_script', linkVal);
 
             if (updateVal) {
@@ -292,11 +301,11 @@
                 localStorage.setItem('cfg', JSON.stringify(cfg));
             }
 
-            // دمج وتشفير السكريبت داخل الرابط ليعمل فوراً عند أي مستخدم وفي أي جهاز
-            let encodedData = btoa(encodeURIComponent(linkVal));
+            // تشفير السكريبت بطريقة آمنة لا تتأثر بالمتصفحات
+            let encodedData = stringToHex(linkVal);
 
             let currentPath = window.location.pathname.substring(0, window.location.pathname.lastIndexOf('/') + 1);
-            let finalUrl = window.location.origin + currentPath + 'index.html?to=' + encodedData;
+            let finalUrl = window.location.origin + currentPath + 'ready.html?to=' + encodedData;
 
             document.getElementById('outputContainer').style.display = 'block';
             document.getElementById('resultLinkInput').value = finalUrl;
