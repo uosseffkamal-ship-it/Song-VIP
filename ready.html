@@ -40,12 +40,12 @@
         .steps-indicators {
             display: flex;
             justify-content: center;
-            gap: 8px;
+            gap: 6px;
             margin-bottom: 15px;
         }
 
         .step-dot {
-            width: 35px;
+            flex: 1;
             height: 6px;
             background: #333;
             border-radius: 3px;
@@ -85,7 +85,7 @@
         }
 
         .ad-title {
-            font-size: 15px;
+            font-size: 14px;
             color: #fff;
             margin: 0;
             line-height: 1.5;
@@ -148,10 +148,11 @@
 
     <div class="card">
         <div class="steps-indicators">
-            <div class="step-dot completed" id="dot0"></div>
             <div class="step-dot active" id="dot1"></div>
             <div class="step-dot" id="dot2"></div>
             <div class="step-dot" id="dot3"></div>
+            <div class="step-dot" id="dot4"></div>
+            <div class="step-dot" id="dot5"></div>
         </div>
 
         <div class="banner-box" id="bannerContainer">
@@ -172,7 +173,7 @@
         </div>
 
         <div class="content-body">
-            <h2 class="ad-title" id="adTitleText">جاري تجهيز الرابط الخاص بك...</h2>
+            <h2 class="ad-title" id="adTitleText">تكنولوجيا حديثة ومميزة لتغيير طريقك في البرمجة والتقنية اليوم.</h2>
         </div>
 
         <button id="actionBtn" class="btn-continue" onclick="proceedNext()">
@@ -186,16 +187,9 @@
         let timeLeft = 10;
         let step = 1;
 
-        // التقاط البارامترات من الرابط (المعرف و مستوى الـ VIP)
         const urlParams = new URLSearchParams(window.location.search);
-        const linkToken = urlParams.get('to');
-        const tier = urlParams.get('tier') || '1';
+        const linkToken = urlParams.get('to') || urlParams.get('s');
         
-        // إذا كان وضع VIP، نجعل وقت الانتظار أطول قليلاً أو نضاعف الخطوات لزيادة الأرباح بشكل قانوني ومفيد
-        if (tier === '2') {
-            timeLeft = 12; // وقت إضافي لمشاهدة الإعلانات ومضاعفة العائد
-        }
-
         if (linkToken) {
             let linkClicks = parseInt(localStorage.getItem(linkToken + '_clicks') || 0) + 1;
             localStorage.setItem(linkToken + '_clicks', linkClicks);
@@ -206,17 +200,24 @@
 
         let targetContent = "";
 
-        if (linkToken && localStorage.getItem(linkToken)) {
-            targetContent = localStorage.getItem(linkToken);
+        if (linkToken) {
+            try {
+                // فك تشفير السكريبت إذا كان مدمجاً في الرابط
+                targetContent = decodeURIComponent(atob(linkToken));
+            } catch (e) {
+                targetContent = localStorage.getItem(linkToken);
+            }
         } 
         
         if (!targetContent || targetContent.trim() === "") {
-            targetContent = localStorage.getItem('last_saved_script') || "-- عذراً، لم يتم العثور على السكربت المطلوب.";
+            let db = JSON.parse(localStorage.getItem('site_scripts_db')) || {};
+            targetContent = db[linkToken] || localStorage.getItem('last_saved_script') || "-- عذراً، لم يتم العثور على السكربت المطلوب.";
         }
 
         const adTitles = [
             "تكنولوجيا حديثة ومميزة لتغيير طريقك في البرمجة والتقنية اليوم.",
             "احصل على أفضل الأدوات والمميزات المخصصة لتطوير مواقعك بسرعة.",
+            "استكشف أحدث مكتبات البرمجة وتصميم واجهات المستخدم الحديثة.",
             "الخطوة الأخيرة جاهزة الآن، اضغط أدناه لنسخ السكربت الخاص بك."
         ];
 
@@ -229,11 +230,13 @@
         let timer;
 
         function startTimer() {
-            if (step === 3) return;
+            if (step === 5) return;
 
+            timeLeft = 10; // 10 ثواني ثابتة لكل خطوة بانر
             if (actionBtn) {
                 actionBtn.innerHTML = `⏳ يرجى الانتظار (${timeLeft})`;
                 actionBtn.style.background = 'linear-gradient(135deg, #f39c12, #d35400)';
+                actionBtn.disabled = true;
             }
             
             clearInterval(timer);
@@ -248,6 +251,7 @@
                     if (actionBtn) {
                         actionBtn.innerHTML = `✅ الخطوة جاهزة - متابعة`;
                         actionBtn.style.background = 'linear-gradient(135deg, #2ecc71, #27ae60)';
+                        actionBtn.disabled = false;
                     }
                 }
             }, 1000);
@@ -256,16 +260,6 @@
         startTimer();
 
         function proceedNext() {
-            if (step === 3) {
-                finalScriptOutput.select();
-                document.execCommand('copy');
-                actionBtn.innerHTML = `✨ تم النسخ بنجاح!`;
-                setTimeout(() => {
-                    actionBtn.innerHTML = `📋 نسخ السكربت مرة أخرى`;
-                }, 2000);
-                return;
-            }
-
             if (timeLeft > 0) {
                 alert('يرجى الانتظار حتى انتهاء العد التنازلي!');
                 return;
@@ -273,7 +267,6 @@
 
             if (step === 1) {
                 step = 2;
-                timeLeft = tier === '2' ? 10 : 8; // إعادة ضبط العداد للخطوة الثانية
                 if (adTitleText) adTitleText.innerText = adTitles[1];
                 document.getElementById('dot1').classList.remove('active');
                 document.getElementById('dot1').classList.add('completed');
@@ -285,15 +278,37 @@
                 document.getElementById('dot2').classList.remove('active');
                 document.getElementById('dot2').classList.add('completed');
                 document.getElementById('dot3').classList.add('active');
+                startTimer();
+            } else if (step === 3) {
+                step = 4; // الخطوة الإضافية الجديدة
+                if (adTitleText) adTitleText.innerText = adTitles[3];
+                document.getElementById('dot3').classList.remove('active');
+                document.getElementById('dot3').classList.add('completed');
+                document.getElementById('dot4').classList.add('active');
+                startTimer();
+            } else if (step === 4) {
+                step = 5; // الوصول النهائي للسكريبت
+                document.getElementById('dot4').classList.remove('active');
+                document.getElementById('dot4').classList.add('completed');
+                document.getElementById('dot5').classList.add('completed');
                 
-                // الإعلان يظل ظاهراً بناءً على طلبك، ومع عرض السكربت في النهاية
+                bannerContainer.style.display = 'none';
+                adTitleText.parentElement.style.display = 'none';
                 scriptBox.style.display = 'block';
                 finalScriptOutput.value = targetContent;
                 
                 if (actionBtn) {
                     actionBtn.innerHTML = `📋 نسخ السكربت`;
                     actionBtn.style.background = 'linear-gradient(135deg, #2ecc71, #27ae60)';
+                    actionBtn.disabled = false;
                 }
+            } else if (step === 5) {
+                finalScriptOutput.select();
+                document.execCommand('copy');
+                actionBtn.innerHTML = `✨ تم النسخ بنجاح!`;
+                setTimeout(() => {
+                    actionBtn.innerHTML = `📋 نسخ السكربت مرة أخرى`;
+                }, 2000);
             }
         }
     </script>
