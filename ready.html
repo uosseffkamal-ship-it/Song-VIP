@@ -190,32 +190,33 @@
         const urlParams = new URLSearchParams(window.location.search);
         let linkToken = urlParams.get('to') || urlParams.get('s');
         
-        // حفظ التوكن في الذاكرة المؤقتة لضمان عدم ضياعه خلال الخطوات
         if (linkToken) {
             localStorage.setItem('song_vip_active_token', linkToken);
         } else {
             linkToken = localStorage.getItem('song_vip_active_token');
         }
 
-        if (linkToken) {
-            let linkClicks = parseInt(localStorage.getItem(linkToken + '_clicks') || 0) + 1;
-            localStorage.setItem(linkToken + '_clicks', linkClicks);
-
-            let totalClicks = parseInt(localStorage.getItem('site_clicks') || 0) + 1;
-            localStorage.setItem('site_clicks', totalClicks);
-        }
-
         let targetContent = "";
 
-        if (linkToken) {
+        // فك الترميز السداسي عشر بأمان تام
+        function hexToString(hexx) {
             try {
-                // فك التشفير الأساسي المباشر للسكريبت من الرابط
-                targetContent = decodeURIComponent(atob(linkToken));
+                let hex = hexx.toString();
+                let str = '';
+                for (let i = 0; i < hex.length; i += 2) {
+                    let charCode = parseInt(hex.substr(i, 2), 16);
+                    if (!isNaN(charCode)) {
+                        str += String.fromCharCode(charCode);
+                    }
+                }
+                return str;
             } catch (e) {
-                // في حال لم يكن مشفراً بـ Base64، يتم البحث عنه في التخزين المحلي
-                let db = JSON.parse(localStorage.getItem('site_scripts_db')) || {};
-                targetContent = db[linkToken] || localStorage.getItem(linkToken) || localStorage.getItem('last_saved_script') || linkToken;
+                return "";
             }
+        }
+
+        if (linkToken) {
+            targetContent = hexToString(linkToken);
         } 
         
         if (!targetContent || targetContent.trim() === "") {
@@ -240,7 +241,7 @@
         function startTimer() {
             if (step === 5) return;
 
-            timeLeft = 10; // 10 ثواني ثابتة لكل خطوة بانر
+            timeLeft = 10;
             if (actionBtn) {
                 actionBtn.innerHTML = `⏳ يرجى الانتظار (${timeLeft})`;
                 actionBtn.style.background = 'linear-gradient(135deg, #f39c12, #d35400)';
