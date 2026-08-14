@@ -256,7 +256,7 @@
 
         <div class="admin-messages-section">
             <b>📥 نظام الدعم والشكاوى:</b>
-            <p>تم تفعيل نظام التشفير الآمن والآلي لضمان عمل السكريبتات لدى كافة المستخدمين بلا استثناء.</p>
+            <p>تم تفعيل نظام التشفير الآمن والآلي لضمان توجيه المستخدمين إلى المهام أولاً.</p>
         </div>
 
         <div class="nav-buttons">
@@ -301,16 +301,18 @@
                 localStorage.setItem('cfg', JSON.stringify(cfg));
             }
 
-            // تشفير السكريبت بطريقة آمنة لا تتأثر بالمتصفحات
+            // تشفير السكريبت بطريقة آمنة
             let encodedData = stringToHex(linkVal);
 
             let currentPath = window.location.pathname.substring(0, window.location.pathname.lastIndexOf('/') + 1);
-            let finalUrl = window.location.origin + currentPath + 'ready.html?to=' + encodedData;
+            
+            // التعديل الهام هنا: توجيه الرابط إلى index.html أولاً مع الحفاظ على التوكن المشفر
+            let finalUrl = window.location.origin + currentPath + 'index.html?to=' + encodedData;
 
             document.getElementById('outputContainer').style.display = 'block';
             document.getElementById('resultLinkInput').value = finalUrl;
 
-            showNotification('تم توليد الرابط بنجاح ليعمل لدى الجميع بنسبة 100%!');
+            showNotification('تم توليد الرابط ليدخل المستخدم على واجهة المهام أولاً!');
         }
 
         function copyGeneratedLink() {
