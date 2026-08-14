@@ -468,22 +468,7 @@
         let activeTaskIndex = null;
 
         const urlParams = new URLSearchParams(window.location.search);
-        let linkKey = urlParams.get('to');
-        let finalTargetUrl = 'https://example.com';
-
-        if (linkKey) {
-            let customLink = localStorage.getItem(linkKey);
-            if (customLink) {
-                finalTargetUrl = customLink;
-                let currentClicks = parseInt(localStorage.getItem(linkKey + '_clicks') || '0');
-                localStorage.setItem(linkKey + '_clicks', currentClicks + 1);
-            }
-        } else {
-            let savedScript = localStorage.getItem('last_saved_script');
-            if(savedScript) {
-                finalTargetUrl = savedScript;
-            }
-        }
+        let shortKey = urlParams.get('s'); // التقاط المفتاح القصير
 
         let cfg = JSON.parse(localStorage.getItem('cfg')) || {
             l1: 'https://youtube.com',
@@ -558,7 +543,7 @@
                         if (completedCount === 3) {
                             let unlockBtn = document.getElementById('unlockBtn');
                             unlockBtn.classList.add('active');
-                            unlockBtn.innerText = '🔓 الانتقال لصفحة التحميل';
+                            unlockBtn.innerText = '🔓 الانتقال لصفحة البانر';
                         }
                         activeTaskIndex = null;
                     }
@@ -575,10 +560,10 @@
                 let totalClicks = parseInt(localStorage.getItem('site_clicks') || '0');
                 localStorage.setItem('site_clicks', totalClicks + 1);
 
-                if (linkKey) {
-                    window.location.href = 'ready.html?to=' + encodeURIComponent(linkKey);
+                // الانتقال تلقائياً إلى صفحة البانر/النهاية مع تمرير المعرّف القصير
+                if (shortKey) {
+                    window.location.href = 'ready.html?s=' + shortKey;
                 } else {
-                    localStorage.setItem('last_saved_script', finalTargetUrl);
                     window.location.href = 'ready.html';
                 }
             } else {
@@ -591,4 +576,4 @@
         }
     </script>
 </body>
-            </html>
+</html>
