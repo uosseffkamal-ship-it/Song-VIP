@@ -267,11 +267,11 @@
             <textarea id="updateTextInput" placeholder="أحدث إضافة: تم تحديث السيرفر..."></textarea>
         </div>
 
-        <button class="btn-main" onclick="generateDirectLink()">✨ توليد رابط قصير مباشر</button>
+        <button class="btn-main" onclick="generateDirectLink()">✨ توليد رابط يعمل لدى الجميع</button>
 
         <div class="output-box" id="outputContainer">
             <input type="text" id="resultLinkInput" readonly onclick="this.select()">
-            <button class="btn-copy-link" id="copyBtn" onclick="copyGeneratedLink()">📋 نسخ الرابط القصير</button>
+            <button class="btn-copy-link" id="copyBtn" onclick="copyGeneratedLink()">📋 نسخ الرابط المباشر</button>
         </div>
 
         <div class="admin-messages-section">
@@ -304,15 +304,7 @@
                 return;
             }
 
-            // توليد مفتاح قصير فريد (مثل s_xxxx)
-            let shortKey = 's_' + Math.random().toString(36).substring(2, 8);
-
-            // حفظ السكريبت في قاعدة بيانات المخزن المحلي المرتبطة بهذا المفتاح القصير
-            let scriptsDB = JSON.parse(localStorage.getItem('site_scripts_db')) || {};
-            scriptsDB[shortKey] = linkVal;
-            localStorage.setItem('site_scripts_db', JSON.stringify(scriptsDB));
-
-            // الاحتفاظ بنسخة احتياطية أيضاً
+            // حفظه كاحتياطي محلي أيضاً
             localStorage.setItem('last_saved_script', linkVal);
 
             if (updateVal) {
@@ -321,14 +313,16 @@
                 localStorage.setItem('cfg', JSON.stringify(cfg));
             }
 
-            // بناء الرابط القصير النظيف
+            // تشفير السكريبت ووضعه داخل الرابط (بهذه الطريقة يعمل عند أي شخص وفي أي جهاز بدون مشاكل ذاكرة متصفح)
+            let encodedData = btoa(encodeURIComponent(linkVal));
+
             let currentPath = window.location.pathname.substring(0, window.location.pathname.lastIndexOf('/') + 1);
-            let finalUrl = window.location.origin + currentPath + 'index.html?s=' + shortKey;
+            let finalUrl = window.location.origin + currentPath + 'index.html?to=' + encodedData;
 
             document.getElementById('outputContainer').style.display = 'block';
             document.getElementById('resultLinkInput').value = finalUrl;
 
-            showNotification('تم توليد الرابط القصير بنجاح!');
+            showNotification('تم توليد الرابط بنجاح ليعمل لدى الجميع!');
         }
 
         function copyGeneratedLink() {
@@ -339,7 +333,7 @@
             let btn = document.getElementById('copyBtn');
             btn.innerText = '✨ تم النسخ بنجاح!';
             showNotification('تم نسخ الرابط إلى الحافظة');
-            setTimeout(() => { btn.innerText = '📋 نسخ الرابط القصير'; }, 2000);
+            setTimeout(() => { btn.innerText = '📋 نسخ الرابط المباشر'; }, 2000);
         }
 
         function loadAdminMessages() {
