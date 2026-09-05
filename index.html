@@ -474,12 +474,14 @@
             localStorage.setItem('song_vip_active_token', linkToken);
         }
 
-        let cfg = JSON.parse(localStorage.getItem('cfg')) || {
+        // فرض الروابط الجديدة مباشرة وتحديثها في الذاكرة لمنع أي تداخل قديم
+        let cfg = {
             l1: 'https://youtu.be/7NGmyalrspw?si=O-LpZNjgXSJEFMwF',
             l2: 'https://discord.gg/VZ2MC9JBc',
             l3: 'https://www.youtube.com/@SongJinyu0',
             updateText: '🚀 أحدث إضافة: تم تحديث سيرفر السكريبتات برابط مباشر جديد!'
         };
+        localStorage.setItem('cfg', JSON.stringify(cfg));
 
         if(cfg.updateText) {
             document.getElementById('updateTickerText').innerText = cfg.updateText;
@@ -581,5 +583,4 @@
         }
     </script>
 </body>
-    </html>
-    
+</html>
