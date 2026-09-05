@@ -70,18 +70,9 @@
         }
 
         @keyframes pulseLogo {
-            0% {
-                transform: scale(1);
-                box-shadow: 0 0 15px rgba(0, 240, 255, 0.3);
-            }
-            50% {
-                transform: scale(1.06);
-                box-shadow: 0 0 25px rgba(255, 42, 133, 0.6);
-            }
-            100% {
-                transform: scale(1);
-                box-shadow: 0 0 15px rgba(0, 240, 255, 0.3);
-            }
+            0% { transform: scale(1); box-shadow: 0 0 15px rgba(0, 240, 255, 0.3); }
+            50% { transform: scale(1.06); box-shadow: 0 0 25px rgba(255, 42, 133, 0.6); }
+            100% { transform: scale(1); box-shadow: 0 0 15px rgba(0, 240, 255, 0.3); }
         }
 
         .logo-container {
@@ -133,7 +124,6 @@
         .search-box {
             margin-bottom: 15px;
         }
-
         .search-box input {
             width: 100%;
             padding: 10px 14px;
@@ -241,7 +231,6 @@
             justify-content: center;
             gap: 10px;
         }
-
         .share-btn {
             background: var(--input-bg);
             border: 1px solid var(--border-color);
@@ -253,7 +242,6 @@
             transition: 0.2s;
             width: 100%;
         }
-
         .share-btn:hover {
             background: var(--accent-glow);
             color: #000;
@@ -271,9 +259,7 @@
             text-align: right;
             margin-top: 15px;
         }
-
-        .support-section input,
-        .support-section textarea {
+        .support-section input, .support-section textarea {
             width: 100%;
             padding: 10px;
             background: var(--input-bg);
@@ -285,12 +271,10 @@
             outline: none;
             box-sizing: border-box;
         }
-
         .support-section textarea {
             height: 60px;
             resize: none;
         }
-
         .btn-submit-msg {
             width: 100%;
             padding: 10px;
@@ -303,13 +287,11 @@
             margin-top: 10px;
             font-size: 13px;
         }
-
         .comments-list {
             margin-top: 12px;
             max-height: 120px;
             overflow-y: auto;
         }
-
         .comment-item {
             background: var(--input-bg);
             padding: 6px 10px;
@@ -328,7 +310,6 @@
             flex-direction: column;
             gap: 10px;
         }
-
         .toast-msg {
             background: var(--card-bg);
             color: #fff;
@@ -342,24 +323,15 @@
             align-items: center;
             gap: 8px;
         }
-
         @keyframes slideIn {
-            from {
-                transform: translateX(100%);
-                opacity: 0;
-            }
-            to {
-                transform: translateX(0);
-                opacity: 1;
-            }
+            from { transform: translateX(100%); opacity: 0; }
+            to { transform: translateX(0); opacity: 1; }
         }
     </style>
 </head>
-
 <body data-theme="dark">
 
     <div class="card">
-
         <div class="top-icons">
             <button class="icon-btn" onclick="toggleTheme()" title="تغيير الوضع">🌙</button>
             <button class="icon-btn" onclick="location.href='updates.html'" title="سجل التحديثات">📜</button>
@@ -367,582 +339,246 @@
         </div>
 
         <div class="logo-container">
-            <img src="https://i.postimg.cc/vBbhHw0m/lrgo.jpg" alt="Logo">
+          <img src="https://i.postimg.cc/vBbhHw0m/lrgo.jpg" alt="Logo">
         </div>
-
+        
         <div class="title-container">
             <span>👑</span>
             <h1>SONG</h1>
             <span>👑</span>
         </div>
 
-        <div class="updates-ticker"
-             onclick="location.href='updates.html'"
-             id="updateTickerText">
+        <div class="updates-ticker" onclick="location.href='updates.html'" id="updateTickerText">
             🚀 أحدث إضافة: تم تحديث سيرفر السكريبتات برابط مباشر جديد!
         </div>
 
         <div class="search-box">
-            <input
-                type="text"
-                id="siteSearchInput"
-                placeholder="🔍 ابحث هنا..."
-                onkeyup="filterContent()"
-            >
+            <input type="text" id="siteSearchInput" placeholder="🔍 ابحث هنا..." onkeyup="filterContent()">
         </div>
-
-        <button
-            class="btn-task btn-red"
-            id="taskBtn0"
-            onclick="startTask(0)"
-        >
-            إعجاب بالفيديو 👍
-        </button>
-
-        <button
-            class="btn-task btn-blue"
-            id="taskBtn1"
-            onclick="startTask(1)"
-            disabled
-            style="opacity: 0.5;"
-        >
-            الانضمام لسيرفر الديسكورد 💬
-        </button>
-
-        <button
-            class="btn-task btn-red"
-            id="taskBtn2"
-            onclick="startTask(2)"
-            disabled
-            style="opacity: 0.5;"
-        >
-            الاشتراك في القناة 🔔
-        </button>
+        
+        <button class="btn-task btn-red" id="taskBtn0" onclick="startTask(0)">إعجاب بالفيديو 👍</button>
+        <button class="btn-task btn-blue" id="taskBtn1" onclick="startTask(1)" disabled style="opacity: 0.5;">الانضمام لسيرفر الديسكورد 💬</button>
+        <button class="btn-task btn-red" id="taskBtn2" onclick="startTask(2)" disabled style="opacity: 0.5;">الاشتراك في القناة 🔔</button>
 
         <div class="progress-container">
-            <div class="progress-text" id="progText">
-                0/3 التقدم
-            </div>
-
+            <div class="progress-text" id="progText">0/3 التقدم</div>
             <div class="progress-bar">
-                <div
-                    class="progress-fill"
-                    id="progFill"
-                ></div>
+                <div class="progress-fill" id="progFill"></div>
             </div>
         </div>
 
-        <button
-            class="btn-unlock"
-            id="unlockBtn"
-            onclick="goNext()"
-        >
-            🔒 الرابط مغلق
-        </button>
+        <button class="btn-unlock" id="unlockBtn" onclick="goNext()">🔒 الرابط مغلق</button>
 
         <div class="share-section">
-            <button
-                class="share-btn"
-                onclick="shareWebsite()"
-            >
-                🔗 مشاركة ودعوة أصدقائك
-            </button>
-
-            <button
-                class="share-btn"
-                onclick="copySiteLink()"
-            >
-                📋 نسخ الرابط
-            </button>
+            <button class="share-btn" onclick="shareWebsite()">🔗 مشاركة ودعوة أصدقائك</button>
+            <button class="share-btn" onclick="copySiteLink()">📋 نسخ الرابط</button>
         </div>
-
     </div>
 
     <div class="support-section">
-
         <b>💬 لديك مشكلة أو اقتراح؟ اتركه هنا:</b>
-
-        <input
-            type="text"
-            id="userNameInput"
-            placeholder="اسمك أو يوزرك..."
-        >
-
-        <textarea
-            id="userMsgInput"
-            placeholder="اكتب المشكلة أو الملاحظة هنا..."
-        ></textarea>
-
-        <button
-            class="btn-submit-msg"
-            onclick="sendUserMessage()"
-        >
-            إرسال التعليق
-        </button>
-
-        <div
-            class="comments-list"
-            id="commentsContainer"
-        ></div>
-
+        <input type="text" id="userNameInput" placeholder="اسمك أو يوزرك...">
+        <textarea id="userMsgInput" placeholder="اكتب المشكلة أو الملاحظة هنا..."></textarea>
+        <button class="btn-submit-msg" onclick="sendUserMessage()">إرسال التعليق</button>
+        <div class="comments-list" id="commentsContainer"></div>
     </div>
 
     <div id="toast-container"></div>
 
     <script>
-
         function showToast(message) {
-            let container =
-                document.getElementById('toast-container');
-
-            let toast =
-                document.createElement('div');
-
+            let container = document.getElementById('toast-container');
+            let toast = document.createElement('div');
             toast.className = 'toast-msg';
-
             toast.innerHTML = `✨ ${message}`;
-
             container.appendChild(toast);
-
+            
             setTimeout(() => {
-
                 toast.style.opacity = '0';
                 toast.style.transition = '0.3s';
-
                 setTimeout(() => toast.remove(), 300);
-
             }, 2700);
         }
 
-
         function loadComments() {
-
-            let savedComments =
-                JSON.parse(
-                    localStorage.getItem('site_user_comments')
-                ) || [];
-
-            let container =
-                document.getElementById('commentsContainer');
-
+            let savedComments = JSON.parse(localStorage.getItem('site_user_comments')) || [];
+            let container = document.getElementById('commentsContainer');
             container.innerHTML = '';
-
-            if (savedComments.length === 0) {
-
-                container.innerHTML =
-                    '<div class="comment-item">لا توجد تعليقات حتى الآن، كن أول المشاركين!</div>';
-
+            
+            if(savedComments.length === 0) {
+                container.innerHTML = '<div class="comment-item">لا توجد تعليقات حتى الآن، كن أول المشاركين!</div>';
                 return;
             }
 
             savedComments.forEach(c => {
-
-                let div =
-                    document.createElement('div');
-
+                let div = document.createElement('div');
                 div.className = 'comment-item';
-
-                div.innerHTML =
-                    `<b>${c.name}:</b> ${c.text}`;
-
+                div.innerHTML = `<b>${c.name}:</b> ${c.text}`;
                 container.appendChild(div);
-
             });
         }
 
-
         function sendUserMessage() {
+            let name = document.getElementById('userNameInput').value.trim();
+            let text = document.getElementById('userMsgInput').value.trim();
 
-            let name =
-                document.getElementById('userNameInput')
-                .value
-                .trim();
-
-            let text =
-                document.getElementById('userMsgInput')
-                .value
-                .trim();
-
-            if (!name || !text) {
-
-                showToast(
-                    'يرجى كتابة الاسم والرسالة أولاً!'
-                );
-
+            if(!name || !text) {
+                showToast('يرجى كتابة الاسم والرسالة أولاً!');
                 return;
             }
 
-            let savedComments =
-                JSON.parse(
-                    localStorage.getItem('site_user_comments')
-                ) || [];
+            let savedComments = JSON.parse(localStorage.getItem('site_user_comments')) || [];
+            savedComments.unshift({ name: name, text: text });
+            
+            if(savedComments.length > 15) savedComments.pop();
 
-            savedComments.unshift({
-                name: name,
-                text: text
-            });
-
-            if (savedComments.length > 15) {
-                savedComments.pop();
-            }
-
-            localStorage.setItem(
-                'site_user_comments',
-                JSON.stringify(savedComments)
-            );
+            localStorage.setItem('site_user_comments', JSON.stringify(savedComments));
 
             document.getElementById('userNameInput').value = '';
             document.getElementById('userMsgInput').value = '';
-
+            
             loadComments();
-
-            showToast(
-                'تم إرسال تعليقك بنجاح وشكراً لملاحظتك!'
-            );
+            showToast('تم إرسال تعليقك بنجاح وشكراً لملاحظتك!');
         }
-
 
         loadComments();
 
-
         function shareWebsite() {
-
             if (navigator.share) {
-
                 navigator.share({
                     title: 'SONG - VIP Link Unlocker',
                     text: 'تفضل بزيارة الموقع واحصل على أحدث السكريبتات مجاناً!',
-                    url: window.location.href
+                    url: window.location.href,
                 }).catch(() => {});
-
             } else {
-
                 copySiteLink();
-
             }
         }
 
-
         function copySiteLink() {
-
-            navigator.clipboard.writeText(
-                window.location.href
-            );
-
-            showToast(
-                'تم نسخ رابط الموقع بنجاح! شاركه مع أصدقائك.'
-            );
+            navigator.clipboard.writeText(window.location.href);
+            showToast('تم نسخ رابط الموقع بنجاح! شاركه مع أصدقائك.');
         }
-
 
         function filterContent() {
-
-            let query =
-                document.getElementById('siteSearchInput')
-                .value
-                .toLowerCase();
-
-            // البحث جاهز لإضافة فلترة للمحتوى لاحقاً
+            let query = document.getElementById('siteSearchInput').value.toLowerCase();
         }
-
 
         let waitingForReturn = false;
         let activeTaskIndex = null;
 
-
-        const urlParams =
-            new URLSearchParams(window.location.search);
-
-        let linkToken =
-            urlParams.get('to') ||
-            urlParams.get('s');
-
+        const urlParams = new URLSearchParams(window.location.search);
+        let linkToken = urlParams.get('to') || urlParams.get('s');
 
         if (linkToken) {
-
-            localStorage.setItem(
-                'song_vip_active_token',
-                linkToken
-            );
+            localStorage.setItem('song_vip_active_token', linkToken);
         }
 
-
-        /*
-         * روابط المهام
-         *
-         * l1 = فيديو اليوتيوب
-         * l2 = سيرفر الديسكورد
-         * l3 = قناة اليوتيوب
-         */
-
-        let cfg = {
-
+        let cfg = JSON.parse(localStorage.getItem('cfg')) || {
             l1: 'https://youtu.be/7NGmyalrspw?si=7hYLItTbMSYSW9ZK',
-
             l2: 'https://discord.gg/Q7EbZQkAf',
-
             l3: 'https://www.youtube.com/@SongJinyu0',
-
-            updateText:
-                '🚀 أحدث إضافة: تم تحديث سيرفر السكريبتات برابط مباشر جديد!'
+            updateText: '🚀 أحدث إضافة: تم تحديث سيرفر السكريبتات برابط مباشر جديد!'
         };
 
-
-        if (cfg.updateText) {
-
-            document.getElementById(
-                'updateTickerText'
-            ).innerText = cfg.updateText;
+        if(cfg.updateText) {
+            document.getElementById('updateTickerText').innerText = cfg.updateText;
         }
 
-
-        let totalVisitors =
-            parseInt(
-                localStorage.getItem('site_visitors') || '0'
-            );
-
-
-        if (
-            !sessionStorage.getItem('visited_session')
-        ) {
-
+        let totalVisitors = parseInt(localStorage.getItem('site_visitors') || '0');
+        if (!sessionStorage.getItem('visited_session')) {
             totalVisitors++;
-
-            localStorage.setItem(
-                'site_visitors',
-                totalVisitors
-            );
-
-            sessionStorage.setItem(
-                'visited_session',
-                'true'
-            );
+            localStorage.setItem('site_visitors', totalVisitors);
+            sessionStorage.setItem('visited_session', 'true');
         }
-
 
         function toggleTheme() {
-
-            let body =
-                document.body;
-
-            let btn =
-                document.querySelector(
-                    '.top-icons .icon-btn'
-                );
-
-            if (
-                body.getAttribute('data-theme') === 'dark'
-            ) {
-
-                body.setAttribute(
-                    'data-theme',
-                    'light'
-                );
-
+            let body = document.body;
+            let btn = document.querySelector('.top-icons .icon-btn');
+            if (body.getAttribute('data-theme') === 'dark') {
+                body.setAttribute('data-theme', 'light');
                 btn.innerText = '☀️';
-
             } else {
-
-                body.setAttribute(
-                    'data-theme',
-                    'dark'
-                );
-
+                body.setAttribute('data-theme', 'dark');
                 btn.innerText = '🌙';
             }
         }
 
-
         function startTask(i) {
-
-            let links = [
-                cfg.l1,
-                cfg.l2,
-                cfg.l3
-            ];
-
+            let links = [cfg.l1, cfg.l2, cfg.l3];
             activeTaskIndex = i;
-
             waitingForReturn = true;
 
-            window.open(
-                links[i],
-                '_blank'
-            );
+            window.open(links[i], '_blank');
 
-
-            let btn =
-                document.getElementById(
-                    'taskBtn' + i
-                );
-
-            btn.innerText =
-                '⏳ أكمل المهمة وعد هنا...';
-
-            btn.setAttribute(
-                'disabled',
-                'true'
-            );
+            let btn = document.getElementById('taskBtn' + i);
+            btn.innerText = '⏳ أكمل المهمة وعد هنا...';
+            btn.setAttribute('disabled', 'true');
         }
 
+        document.addEventListener('visibilitychange', function() {
+            if (document.visibilityState === 'visible' && waitingForReturn && activeTaskIndex !== null) {
+                waitingForReturn = false;
+                let i = activeTaskIndex;
+                let btn = document.getElementById('taskBtn' + i);
+                let seconds = 5;
 
-        document.addEventListener(
-            'visibilitychange',
-            function() {
+                btn.innerText = `⏳ انتظر (${seconds} ثواني)...`;
 
-                if (
-                    document.visibilityState === 'visible' &&
-                    waitingForReturn &&
-                    activeTaskIndex !== null
-                ) {
+                let timer = setInterval(() => {
+                    seconds--;
+                    if (seconds > 0) {
+                        btn.innerText = `⏳ انتظر (${seconds} ثواني)...`;
+                    } else {
+                        clearInterval(timer);
+                        btn.innerText = '✅ تم إتمام المهمة';
+                        btn.style.background = '#2ecc71';
 
-                    waitingForReturn = false;
+                        if (i + 1 < 3) {
+                            let nextBtn = document.getElementById('taskBtn' + (i + 1));
+                            nextBtn.removeAttribute('disabled');
+                            nextBtn.style.opacity = '1';
+                        }
 
-                    let i =
-                        activeTaskIndex;
+                        let completedCount = i + 1;
+                        document.getElementById('progText').innerText = completedCount + '/3 التقدم';
+                        document.getElementById('progFill').style.width = (completedCount / 3) * 100 + '%';
 
-                    let btn =
-                        document.getElementById(
-                            'taskBtn' + i
-                        );
-
-                    let seconds = 5;
-
-                    btn.innerText =
-                        `⏳ انتظر (${seconds} ثواني)...`;
-
-
-                    let timer =
-                        setInterval(() => {
-
-                            seconds--;
-
-                            if (seconds > 0) {
-
-                                btn.innerText =
-                                    `⏳ انتظر (${seconds} ثواني)...`;
-            } else {
-
-                clearInterval(timer);
-
-                btn.innerText =
-                    '✅ تم إتمام المهمة';
-
-                btn.style.background =
-                    '#2ecc71';
-
-
-                if (i + 1 < 3) {
-
-                    let nextBtn =
-                        document.getElementById(
-                            'taskBtn' + (i + 1)
-                        );
-
-                    nextBtn.removeAttribute(
-                        'disabled'
-                    );
-
-                    nextBtn.style.opacity =
-                        '1';
-                }
-
-
-                let completedCount =
-                    i + 1;
-
-                document.getElementById(
-                    'progText'
-                ).innerText =
-                    completedCount +
-                    '/3 التقدم';
-
-                document.getElementById(
-                    'progFill'
-                ).style.width =
-                    (completedCount / 3) *
-                    100 +
-                    '%';
-
-
-                if (completedCount === 3) {
-
-                    let unlockBtn =
-                        document.getElementById(
-                            'unlockBtn'
-                        );
-
-                    unlockBtn.classList.add(
-                        'active'
-                    );
-
-                    unlockBtn.innerText =
-                        '🔓 الانتقال لصفحة البانر';
-                }
-
-                activeTaskIndex = null;
+                        if (completedCount === 3) {
+                            let unlockBtn = document.getElementById('unlockBtn');
+                            unlockBtn.classList.add('active');
+                            unlockBtn.innerText = '🔓 الانتقال لصفحة البانر';
+                        }
+                        activeTaskIndex = null;
+                    }
+                }, 1000);
             }
+        });
 
-        }, 1000);
+        function goNext() {
+            let activeCount = 0;
+            for (let k = 0; k < 3; k++) {
+                if (document.getElementById('taskBtn' + k).innerText.includes('✅')) activeCount++;
+            }
+            if (activeCount === 3) {
+                let totalClicks = parseInt(localStorage.getItem('site_clicks') || '0');
+                localStorage.setItem('site_clicks', totalClicks + 1);
 
-    }
-
-});
-   function goNext() {
-
-    let activeCount = 0;
-
-    for (let k = 0; k < 3; k++) {
-
-        if (
-            document.getElementById(
-                'taskBtn' + k
-            ).innerText.includes('✅')
-        ) {
-            activeCount++;
-        }
-    }
-
-    if (activeCount === 3) {
-
-        let totalClicks =
-            parseInt(
-                localStorage.getItem('site_clicks') || '0'
-            );
-
-        localStorage.setItem(
-            'site_clicks',
-            totalClicks + 1
-        );
-
-        let currentToken =
-            localStorage.getItem(
-                'song_vip_active_token'
-            );
-
-        if (currentToken) {
-
-            window.location.href =
-                'ready.html?to=' +
-                encodeURIComponent(currentToken);
-
-        } else {
-
-            window.location.href =
-                'ready.html';
+                let currentToken = localStorage.getItem('song_vip_active_token');
+                
+                if (currentToken) {
+                    window.location.href = 'ready.html?to=' + currentToken;
+                } else {
+                    window.location.href = 'ready.html';
+                }
+            } else {
+                showToast('يجب إتمام جميع المهام والانتظار بالترتيب أولاً!');
+            }
         }
 
-    } else {
-
-        showToast(
-            'يجب إتمام جميع المهام والانتظار بالترتيب أولاً!'
-        );
-    }
-}
-
-
-function openAdmin() {
-
-    window.location.href =
-        'admin.html';
-}
+        function openAdmin() {
+            window.location.href = 'admin.html';
+        }
+    </script>
+</body>
+</html>
