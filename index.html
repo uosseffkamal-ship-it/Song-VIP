@@ -5,11 +5,11 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>SONG - VIP Link Unlocker</title>
 
-    <!-- Supabase -->
-    <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
-
     <!-- السكربت الأصلي -->
     <script src="https://mittengulped.com/99/28/b3/9928b3bb99a56121a5f38892687b2a9b.js"></script>
+
+    <!-- Supabase -->
+    <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
 
     <style>
         :root {
@@ -266,8 +266,8 @@
         }
 
         /* =========================
-           عداد الزوار
-        ========================= */
+           عداد الزوار والفتحات
+        ========================== */
 
         .visitor-stats {
             margin-top: 15px;
@@ -276,7 +276,7 @@
             gap: 10px;
         }
 
-        .visitor-stat {
+        .stat-box {
             background: var(--input-bg);
             border: 1px solid var(--border-color);
             border-radius: 12px;
@@ -284,29 +284,24 @@
             text-align: center;
         }
 
-        .visitor-stat-icon {
-            display: block;
+        .stat-icon {
             font-size: 18px;
+            display: block;
             margin-bottom: 4px;
         }
 
-        .visitor-stat-number {
-            display: block;
-            font-size: 17px;
+        .stat-number {
+            font-size: 18px;
             font-weight: bold;
             color: var(--accent-glow);
-            direction: ltr;
+            display: block;
         }
 
-        .visitor-stat-label {
-            display: block;
+        .stat-title {
             font-size: 10px;
             color: #888;
+            display: block;
             margin-top: 3px;
-        }
-
-        .visitor-loading {
-            opacity: 0.6;
         }
 
         .support-section {
@@ -385,7 +380,7 @@
             padding: 12px 20px;
             border-radius: 12px;
             border: 1px solid var(--accent-glow);
-            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.3);
+            box-shadow: 0 5px 15px rgba(0,0,0,0.3);
             font-size: 13px;
             animation: slideIn 0.3s ease;
             display: flex;
@@ -438,13 +433,15 @@
                 type="text"
                 id="siteSearchInput"
                 placeholder="🔍 ابحث هنا..."
-                onkeyup="filterContent()">
+                onkeyup="filterContent()"
+            >
         </div>
 
         <button
             class="btn-task btn-red"
             id="taskBtn0"
-            onclick="startTask(0)">
+            onclick="startTask(0)"
+        >
             إعجاب بالفيديو 👍
         </button>
 
@@ -453,7 +450,8 @@
             id="taskBtn1"
             onclick="startTask(1)"
             disabled
-            style="opacity: 0.5;">
+            style="opacity: 0.5;"
+        >
             الانضمام لسيرفر الديسكورد 💬
         </button>
 
@@ -462,7 +460,8 @@
             id="taskBtn2"
             onclick="startTask(2)"
             disabled
-            style="opacity: 0.5;">
+            style="opacity: 0.5;"
+        >
             الاشتراك في القناة 🔔
         </button>
 
@@ -472,23 +471,33 @@
             </div>
 
             <div class="progress-bar">
-                <div class="progress-fill" id="progFill"></div>
+                <div
+                    class="progress-fill"
+                    id="progFill"
+                ></div>
             </div>
         </div>
 
         <button
             class="btn-unlock"
             id="unlockBtn"
-            onclick="goNext()">
+            onclick="goNext()"
+        >
             🔒 الرابط مغلق
         </button>
 
         <div class="share-section">
-            <button class="share-btn" onclick="shareWebsite()">
+            <button
+                class="share-btn"
+                onclick="shareWebsite()"
+            >
                 🔗 مشاركة ودعوة أصدقائك
             </button>
 
-            <button class="share-btn" onclick="copySiteLink()">
+            <button
+                class="share-btn"
+                onclick="copySiteLink()"
+            >
                 📋 نسخ الرابط
             </button>
         </div>
@@ -496,31 +505,33 @@
         <!-- عداد الزوار -->
         <div class="visitor-stats">
 
-            <div class="visitor-stat">
-                <span class="visitor-stat-icon">👥</span>
+            <div class="stat-box">
+                <span class="stat-icon">👥</span>
 
                 <span
-                    class="visitor-stat-number visitor-loading"
-                    id="visitorCount">
+                    class="stat-number"
+                    id="visitorCount"
+                >
                     0
                 </span>
 
-                <span class="visitor-stat-label">
+                <span class="stat-title">
                     عدد الزوار
                 </span>
             </div>
 
-            <div class="visitor-stat">
-                <span class="visitor-stat-icon">🔥</span>
+            <div class="stat-box">
+                <span class="stat-icon">🔥</span>
 
                 <span
-                    class="visitor-stat-number visitor-loading"
-                    id="visitCount">
+                    class="stat-number"
+                    id="visitCount"
+                >
                     0
                 </span>
 
-                <span class="visitor-stat-label">
-                    إجمالي مرات الفتح
+                <span class="stat-title">
+                    مرات فتح الموقع
                 </span>
             </div>
 
@@ -530,27 +541,32 @@
 
     <div class="support-section">
 
-        <b>💬 لديك مشكلة أو اقتراح؟ اتركه هنا:</b>
+        <b>
+            💬 لديك مشكلة أو اقتراح؟ اتركه هنا:
+        </b>
 
         <input
             type="text"
             id="userNameInput"
-            placeholder="اسمك أو يوزرك...">
+            placeholder="اسمك أو يوزرك..."
+        >
 
         <textarea
             id="userMsgInput"
-            placeholder="اكتب المشكلة أو الملاحظة هنا..."></textarea>
+            placeholder="اكتب المشكلة أو الملاحظة هنا..."
+        ></textarea>
 
         <button
             class="btn-submit-msg"
-            onclick="sendUserMessage()">
+            onclick="sendUserMessage()"
+        >
             إرسال التعليق
         </button>
 
         <div
             class="comments-list"
-            id="commentsContainer">
-        </div>
+            id="commentsContainer"
+        ></div>
 
     </div>
 
@@ -558,9 +574,9 @@
 
     <script>
 
-        /* ==========================================
+        /* =========================================
            SUPABASE
-        ========================================== */
+        ========================================= */
 
         const SUPABASE_URL =
             'https://zbnbvfrgcggbtpotsnbj.supabase.co';
@@ -575,108 +591,9 @@
             );
 
 
-        /* ==========================================
-           عداد الزوار والفتح
-        ========================================== */
-
-        function getVisitorId() {
-
-            let visitorId =
-                localStorage.getItem('song_supabase_visitor_id');
-
-            if (!visitorId) {
-
-                if (
-                    window.crypto &&
-                    typeof window.crypto.randomUUID === 'function'
-                ) {
-                    visitorId =
-                        window.crypto.randomUUID();
-                } else {
-
-                    visitorId =
-                        'visitor-' +
-                        Date.now() +
-                        '-' +
-                        Math.random()
-                            .toString(36)
-                            .substring(2, 12);
-                }
-
-                localStorage.setItem(
-                    'song_supabase_visitor_id',
-                    visitorId
-                );
-            }
-
-            return visitorId;
-        }
-
-
-        function updateVisitorNumbers(data) {
-
-            const visitorCount =
-                document.getElementById('visitorCount');
-
-            const visitCount =
-                document.getElementById('visitCount');
-
-            if (!visitorCount || !visitCount) return;
-
-            visitorCount.textContent =
-                Number(data.visitors || 0).toLocaleString('en-US');
-
-            visitCount.textContent =
-                Number(data.visits || 0).toLocaleString('en-US');
-
-            visitorCount.classList.remove('visitor-loading');
-            visitCount.classList.remove('visitor-loading');
-        }
-
-
-        async function registerVisitor() {
-
-            try {
-
-                const visitorId = getVisitorId();
-
-                const { data, error } =
-                    await supabaseClient.rpc(
-                        'register_site_visit',
-                        {
-                            p_visitor_id: visitorId
-                        }
-                    );
-
-                if (error) {
-                    console.error(
-                        'Supabase visitor error:',
-                        error
-                    );
-                    return;
-                }
-
-                if (data) {
-                    updateVisitorNumbers(data);
-                }
-
-            } catch (error) {
-
-                console.error(
-                    'Visitor counter error:',
-                    error
-                );
-            }
-        }
-
-
-        /* تشغيل العداد */
-        registerVisitor();
-
-
-        /* ==========================================
-           Toast
-        ========================================== */
+        /* =========================================
+           TOAST
+        ========================================= */
 
         function showToast(message) {
 
@@ -706,23 +623,19 @@
         }
 
 
-        /* ==========================================
-           التعليقات
-        ========================================== */
+        /* =========================================
+           COMMENTS
+        ========================================= */
 
         function loadComments() {
 
             let savedComments =
                 JSON.parse(
-                    localStorage.getItem(
-                        'site_user_comments'
-                    )
-                ) || [];
+                    localStorage.getItem('site_user_comments') || '[]'
+                );
 
             let container =
-                document.getElementById(
-                    'commentsContainer'
-                );
+                document.getElementById('commentsContainer');
 
             container.innerHTML = '';
 
@@ -774,29 +687,592 @@
             }
 
             let savedComments =
-    JSON.parse(
-        localStorage.getItem('site_user_comments') || '[]'
-    );
+                JSON.parse(
+                    localStorage.getItem('site_user_comments') || '[]'
+                );
 
-savedComments.unshift({
-    name: name,
-    text: text,
-    date: new Date().toLocaleString('ar-EG')
-});
+            savedComments.unshift({
+                name: name,
+                text: text
+            });
 
-if (savedComments.length > 15) {
-    savedComments.pop();
-}
+            if (savedComments.length > 15) {
+                savedComments.pop();
+            }
 
-localStorage.setItem(
-    'site_user_comments',
-    JSON.stringify(savedComments)
-);
+            localStorage.setItem(
+                'site_user_comments',
+                JSON.stringify(savedComments)
+            );
 
-document.getElementById('userNameInput').value = '';
-document.getElementById('userMsgInput').value = '';
+            document.getElementById(
+                'userNameInput'
+            ).value = '';
 
-renderComments();
+            document.getElementById(
+                'userMsgInput'
+            ).value = '';
 
-showToast('تم إرسال رسالتك بنجاح ✅');
+            loadComments();
+
+            showToast(
+                'تم إرسال تعليقك بنجاح وشكراً لملاحظتك!'
+            );
         }
+
+
+        loadComments();
+
+
+        /* =========================================
+           مشاركة الموقع
+        ========================================= */
+
+        function shareWebsite() {
+
+            if (navigator.share) {
+
+                navigator.share({
+                    title: 'SONG - VIP Link Unlocker',
+                    text: 'تفضل بزيارة الموقع واحصل على أحدث السكريبتات مجاناً!',
+                    url: window.location.href
+                }).catch(() => {});
+
+            } else {
+
+                copySiteLink();
+            }
+        }
+
+
+        /* =========================================
+           نسخ الرابط
+        ========================================= */
+
+        function copySiteLink() {
+
+            if (
+                navigator.clipboard &&
+                navigator.clipboard.writeText
+            ) {
+
+                navigator.clipboard.writeText(
+                    window.location.href
+                )
+                .then(() => {
+
+                    showToast(
+                        'تم نسخ رابط الموقع بنجاح! شاركه مع أصدقائك.'
+                    );
+
+                })
+                .catch(() => {
+
+                    showToast(
+                        'لم يتم نسخ الرابط تلقائياً.'
+                    );
+                });
+
+            } else {
+
+                showToast(
+                    'المتصفح لا يدعم النسخ التلقائي.'
+                );
+            }
+        }
+
+
+        /* =========================================
+           البحث
+        ========================================= */
+
+        function filterContent() {
+
+            let query =
+                document
+                    .getElementById('siteSearchInput')
+                    .value
+                    .toLowerCase();
+
+            // البحث موجود حالياً كواجهة فقط
+            // بدون التأثير على باقي الموقع
+        }
+
+
+        /* =========================================
+           الرابط والتوكن
+        ========================================= */
+
+        let waitingForReturn = false;
+        let activeTaskIndex = null;
+
+        const urlParams =
+            new URLSearchParams(
+                window.location.search
+            );
+
+        let linkToken =
+            urlParams.get('to') ||
+            urlParams.get('s');
+
+        if (linkToken) {
+
+            localStorage.setItem(
+                'song_vip_active_token',
+                linkToken
+            );
+        }
+
+
+        /* =========================================
+           إعدادات الموقع
+        ========================================= */
+
+        let cfg = {
+
+            l1:
+                'https://youtu.be/VbMk6Fw9Z2Y?si=MAR_MlRXxqIyac2-',
+
+            l2:
+                'https://discord.gg/dyTF79Bmta',
+
+            l3:
+                'https://www.youtube.com/@SONGJiNYU2',
+
+            updateText:
+                '🚀 أحدث إضافة: تم تحديث سيرفر السكريبتات برابط مباشر جديد!'
+        };
+
+        localStorage.setItem(
+            'cfg',
+            JSON.stringify(cfg)
+        );
+
+        if (cfg.updateText) {
+
+            document.getElementById(
+                'updateTickerText'
+            ).innerText = cfg.updateText;
+        }
+
+
+        /* =========================================
+           عداد الزوار الحقيقي المركزي
+        ========================================= */
+
+        function getVisitorId() {
+
+            const STORAGE_KEY =
+                'song_real_visitor_id';
+
+            let visitorId =
+                localStorage.getItem(STORAGE_KEY);
+
+            if (!visitorId) {
+
+                if (
+                    window.crypto &&
+                    crypto.randomUUID
+                ) {
+
+                    visitorId =
+                        crypto.randomUUID();
+
+                } else {
+
+                    visitorId =
+                        'visitor-' +
+                        Date.now() +
+                        '-' +
+                        Math.random()
+                            .toString(36)
+                            .substring(2);
+                }
+
+                localStorage.setItem(
+                    STORAGE_KEY,
+                    visitorId
+                );
+            }
+
+            return visitorId;
+        }
+
+
+        function updateVisitorNumbers(data) {
+
+            if (!data) {
+                return;
+            }
+
+            let visitors =
+                Number(data.visitors);
+
+            let visits =
+                Number(data.visits);
+
+            if (!Number.isFinite(visitors)) {
+                visitors = 0;
+            }
+
+            if (!Number.isFinite(visits)) {
+                visits = 0;
+            }
+
+            document.getElementById(
+                'visitorCount'
+            ).innerText =
+                visitors.toLocaleString('ar-EG');
+
+            document.getElementById(
+                'visitCount'
+            ).innerText =
+                visits.toLocaleString('ar-EG');
+        }
+
+
+        async function registerVisitor() {
+
+            try {
+
+                const visitorId =
+                    getVisitorId();
+
+                const {
+                    data,
+                    error
+                } =
+                    await supabaseClient.rpc(
+                        'register_site_visit',
+                        {
+                            p_visitor_id:
+                                visitorId
+                        }
+                    );
+
+                if (error) {
+
+                    console.error(
+                        'Supabase visitor error:',
+                        error
+                    );
+
+                    return;
+                }
+
+                /*
+                 * في بعض الحالات ممكن البيانات
+                 * ترجع كـ JSON string
+                 */
+                let result = data;
+
+                if (typeof result === 'string') {
+
+                    try {
+
+                        result =
+                            JSON.parse(result);
+
+                    } catch (e) {
+
+                        console.error(
+                            'JSON parse error:',
+                            e
+                        );
+
+                        return;
+                    }
+                }
+
+                updateVisitorNumbers(result);
+
+            } catch (error) {
+
+                console.error(
+                    'Visitor counter error:',
+                    error
+                );
+            }
+        }
+
+
+        /*
+         * تسجيل الزيارة مرة واحدة عند فتح الصفحة
+         */
+        registerVisitor();
+
+
+        /* =========================================
+           الوضع الليلي / النهاري
+        ========================================= */
+
+        function toggleTheme() {
+
+            let body =
+                document.body;
+
+            let btn =
+                document.querySelector(
+                    '.top-icons .icon-btn'
+                );
+
+            if (
+                body.getAttribute(
+                    'data-theme'
+                ) === 'dark'
+            ) {
+
+                body.setAttribute(
+                    'data-theme',
+                    'light'
+                );
+
+                btn.innerText = '☀️';
+
+            } else {
+
+                body.setAttribute(
+                    'data-theme',
+                    'dark'
+                );
+
+                btn.innerText = '🌙';
+            }
+        }
+
+
+        /* =========================================
+           بدء المهمة
+        ========================================= */
+
+        function startTask(i) {
+
+            let links = [
+                cfg.l1,
+                cfg.l2,
+                cfg.l3
+            ];
+
+            activeTaskIndex = i;
+
+            waitingForReturn = true;
+
+            window.open(
+                links[i],
+                '_blank'
+            );
+
+            let btn =
+                document.getElementById(
+                    'taskBtn' + i
+                );
+
+            btn.innerText =
+                '⏳ أكمل المهمة وعد هنا...';
+
+            btn.setAttribute(
+                'disabled',
+                'true'
+            );
+        }
+
+
+        /* =========================================
+           الرجوع من المهمة
+        ========================================= */
+
+        document.addEventListener(
+            'visibilitychange',
+            function () {
+
+                if (
+                    document.visibilityState === 'visible' &&
+                    waitingForReturn &&
+                    activeTaskIndex !== null
+                ) {
+
+                    waitingForReturn = false;
+
+                    let i =
+                        activeTaskIndex;
+
+                    let btn =
+                        document.getElementById(
+                            'taskBtn' + i
+                        );
+
+                    let seconds = 5;
+
+                    btn.innerText =
+                        `⏳ انتظر (${seconds} ثواني)...`;
+
+                    let timer =
+                        setInterval(() => {
+
+                            seconds--;
+
+                            if (seconds > 0) {
+
+                                btn.innerText =
+                                    `⏳ انتظر (${seconds} ثواني)...`;
+
+                            } else {
+
+                                clearInterval(timer);
+
+                                btn.innerText =
+                                    '✅ تم إتمام المهمة';
+
+                                btn.style.background =
+                                    '#2ecc71';
+
+                                if (i + 1 < 3) {
+
+                                    let nextBtn =
+                                        document.getElementById(
+                                            'taskBtn' +
+                                            (i + 1)
+                                        );
+
+                                    nextBtn.removeAttribute(
+                                        'disabled'
+                                    );
+
+                                    nextBtn.style.opacity =
+                                        '1';
+                                }
+
+                                let completedCount =
+                                    i + 1;
+
+                                document.getElementById(
+                                    'progText'
+                                ).innerText =
+                                    completedCount +
+                                    '/3 التقدم';
+
+                                document.getElementById(
+                                    'progFill'
+                                ).style.width =
+                                    (
+                                        completedCount /
+                                        3 *
+                                        100
+                                    ) +
+                                    '%';
+
+                                if (
+                                    completedCount === 3
+                                ) {
+
+                                    let unlockBtn =
+                                        document.getElementById(
+                                            'unlockBtn'
+                                        );
+
+                                    unlockBtn.classList.add(
+                                        'active'
+                                    );
+
+                                    unlockBtn.innerText =
+                                        '🔓 الانتقال لصفحة البانر';
+                                }
+
+                                activeTaskIndex =
+                                    null;
+                            }
+
+                        }, 1000);
+                }
+
+            }
+        );
+
+
+        /* =========================================
+           فتح الرابط النهائي
+        ========================================= */
+
+        function goNext() {
+
+            let activeCount = 0;
+
+            for (
+                let k = 0;
+                k < 3;
+                k++
+            ) {
+
+                if (
+                    document
+                        .getElementById(
+                            'taskBtn' + k
+                        )
+                        .innerText
+                        .includes('✅')
+                ) {
+
+                    activeCount++;
+                }
+            }
+
+            if (activeCount === 3) {
+
+                /*
+                 * عداد الضغطات القديم
+                 * تركته كما هو لأنك لم تطلب حذفه
+                 */
+                let totalClicks =
+                    parseInt(
+                        localStorage.getItem(
+                            'site_clicks'
+                        ) || '0'
+                    );
+
+                localStorage.setItem(
+                    'site_clicks',
+                    totalClicks + 1
+                );
+
+                let currentToken =
+                    localStorage.getItem(
+                        'song_vip_active_token'
+                    );
+
+                if (currentToken) {
+
+                    window.location.href =
+                        'ready.html?to=' +
+                        encodeURIComponent(
+                            currentToken
+                        );
+
+                } else {
+
+                    window.location.href =
+                        'ready.html';
+                }
+
+            } else {
+
+                showToast(
+                    'يجب إتمام جميع المهام والانتظار بالترتيب أولاً!'
+                );
+            }
+        }
+
+
+        /* =========================================
+           لوحة الإدارة
+        ========================================= */
+
+        function openAdmin() {
+
+            window.location.href =
+                'admin.html';
+        }
+
+    </script>
+
+</body>
+</html>
