@@ -929,73 +929,41 @@
             ).innerText =
                 visits.toLocaleString('ar-EG');
         }
-
-
-        async function registerVisitor() {
-
-            try {
-
-                const visitorId =
-                    getVisitorId();
-
-                const {
-                    data,
-                    error
-                } =
-                    await supabaseClient.rpc(
-                        'register_site_visit',
-                        {
-                            p_visitor_id:
-                                visitorId
-                        }
-                    );
-
-                if (error) {
-
-                    console.error(
-                        'Supabase visitor error:',
-                        error
-                    );
-
-                    return;
-                }
-
-                /*
-                 * في بعض الحالات ممكن البيانات
-                 * ترجع كـ JSON string
-                 */
-                let result = data;
-
-                if (typeof result === 'string') {
-
-                    try {
-
-                        result =
-                            JSON.parse(result);
-
-                    } catch (e) {
-
-                        console.error(
-                            'JSON parse error:',
-                            e
-                        );
-
-                        return;
-                    }
-                }
-
-                updateVisitorNumbers(result);
-
-            } catch (error) {
-
-                console.error(
-                    'Visitor counter error:',
-                    error
-                );
-            }
+async function registerVisitor() {
+    try {
+        // لو المتصفح اتسجل قبل كده، لا نحسب الـ Refresh كزيارة جديدة
+        if (localStorage.getItem('site_visitor_registered') === '1') {
+            return;
         }
 
+        const visitorId = getVisitorId();
 
+        const { data, error } = await supabaseClient.rpc(
+            'register_site_visit',
+            {
+                p_visitor_id: visitorId
+            }
+        );
+
+        if (error) {
+            console.error('Supabase visitor error:', error);
+            return;
+        }
+
+        const result =
+            typeof data === 'string'
+                ? JSON.parse(data)
+                : data;
+
+        updateVisitorNumbers(result);
+
+        // نحفظ أن هذا المتصفح اتسجل
+        localStorage.setItem('site_visitor_registered', '1');
+
+    } catch (error) {
+        console.error('Visitor counter error:', error);
+    }
+            }
         /*
          * تسجيل الزيارة مرة واحدة عند فتح الصفحة
          */
