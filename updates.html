@@ -41,7 +41,6 @@
             max-width: 450px;
         }
 
-        /* ترويسة فاخرة مع أيقونة سجل التحديثات والكتابة تحتها مباشرة */
         .header-box {
             background: linear-gradient(145deg, #181238, #0f0a24);
             border: 1px solid rgba(0, 240, 255, 0.3);
@@ -74,7 +73,11 @@
 
         .header-icon-luxury {
             font-size: 26px;
-            background: linear-gradient(135deg, rgba(0, 240, 255, 0.2), rgba(255, 42, 133, 0.2));
+            background: linear-gradient(
+                135deg,
+                rgba(0, 240, 255, 0.2),
+                rgba(255, 42, 133, 0.2)
+            );
             width: 55px;
             height: 55px;
             display: flex;
@@ -117,7 +120,6 @@
             background: rgba(255, 42, 133, 0.1);
         }
 
-        /* صندوق تقييم وتجارب المستخدمين الحقيقي */
         .rating-section {
             background: var(--card-bg);
             border: 1px solid var(--border-color);
@@ -149,11 +151,13 @@
             transition: 0.2s;
         }
 
-        .star.selected, .star:hover {
+        .star.selected,
+        .star:hover {
             color: #f39c12;
         }
 
-        .rating-section input, .rating-section textarea {
+        .rating-section input,
+        .rating-section textarea {
             width: 100%;
             padding: 10px;
             background: var(--input-bg);
@@ -211,7 +215,6 @@
             margin-bottom: 3px;
         }
 
-        /* كروت التحديثات والشروحات الجذرية */
         .search-box {
             margin-bottom: 20px;
         }
@@ -242,6 +245,7 @@
             justify-content: space-between;
             align-items: center;
             margin-bottom: 6px;
+            gap: 10px;
         }
 
         .update-title {
@@ -271,6 +275,7 @@
             border-radius: 6px;
             font-size: 10px;
             font-weight: bold;
+            white-space: nowrap;
         }
 
         .card-actions {
@@ -305,6 +310,7 @@
             right: 20px;
             z-index: 999;
         }
+
         .toast-notify {
             background: #140f2b;
             color: #fff;
@@ -316,22 +322,27 @@
         }
     </style>
 </head>
+
 <body data-theme="dark">
 
     <div class="container">
+
         <div class="header-box">
             <div class="header-title-area">
                 <div class="header-icon-luxury">📜</div>
+
                 <div class="title-text-group">
                     <h2>SONG VIP</h2>
                     <div class="subtitle-label">سجل التحديثات</div>
                 </div>
             </div>
+
             <a href="index.html" class="back-btn">⬅ العودة للموقع</a>
         </div>
 
         <div class="rating-section">
             <h3>⭐ قيم المنصة واكتب رأيك بكل صراحة:</h3>
+
             <div class="stars-select" id="starContainer">
                 <span class="star" onclick="setRating(5)">★</span>
                 <span class="star" onclick="setRating(4)">★</span>
@@ -339,184 +350,550 @@
                 <span class="star" onclick="setRating(2)">★</span>
                 <span class="star" onclick="setRating(1)">★</span>
             </div>
-            <input type="text" id="reviewerName" placeholder="اسمك أو يوزرك...">
-            <textarea id="reviewerText" placeholder="اكتب تقييمك أو اقتراحك للتطوير..."></textarea>
-            <button class="btn-submit-review" onclick="submitRealReview()">إرسال التقييم الحقيقي</button>
-            <div class="reviews-container" id="reviewsList"></div>
+
+            <input
+                type="text"
+                id="reviewerName"
+                placeholder="اسمك أو يوزرك..."
+            >
+
+            <textarea
+                id="reviewerText"
+                placeholder="اكتب تقييمك أو اقتراحك للتطوير..."
+            ></textarea>
+
+            <button
+                class="btn-submit-review"
+                onclick="submitRealReview()"
+            >
+                إرسال التقييم الحقيقي
+            </button>
+
+            <div
+                class="reviews-container"
+                id="reviewsList"
+            ></div>
         </div>
 
         <div class="search-box">
-            <input type="text" id="searchInput" placeholder="🔍 ابحث في سجل الإصدارات والشروحات..." onkeyup="filterUpdates()">
+            <input
+                type="text"
+                id="searchInput"
+                placeholder="🔍 ابحث في سجل الإصدارات والشروحات..."
+                onkeyup="filterUpdates()"
+            >
         </div>
 
         <div id="updatesList">
-            <div class="update-card" data-text="إصدار v3.0 نظام التقييمات الحقيقي والوضع المطور">
+
+            <!-- ============================= -->
+            <!-- التحديث الجديد v3.1 -->
+            <!-- ============================= -->
+
+            <div
+                class="update-card"
+                data-text="إصدار v3.1 نظام عداد الزوار والزيارات Supabase منع تكرار الزيارة تحديث العداد"
+            >
                 <div class="update-header">
-                    <span class="update-title">✨ الإصدار v3.0 (التحديث الرئيسي)</span>
-                    <span class="badge-new">الحدث الأبرز</span>
+                    <span class="update-title">
+                        🚀 الإصدار v3.1 (نظام الزوار الجديد)
+                    </span>
+
+                    <span class="badge-new">
+                        جديد
+                    </span>
                 </div>
-                <div class="update-date">📅 تاريخ الإصدار: 14 أغسطس 2026</div>
+
+                <div class="update-date">
+                    📅 تاريخ الإصدار: 21 سبتمبر 2026
+                </div>
+
                 <div class="update-desc">
-                    <b>الشرح الجذري وما تم إنجازه:</b><br>
-                    • تم إطلاق <b>نظام تقييمات حقيقي ومحلي (Local Reviews)</b> يتيح للمستخدمين كتابة آرائهم وتقييماتهم بالنجوم وحفظها بشكل فوري.<br>
-                    • إعادة هيكلة واجهة "سجل التحديثات" لتصبح أكثر فخامة مع توضيح العناوين بدقة تحت الأيقونات المخصصة.<br>
-                    • تفعيل نظام التنبيهات الفورية (Toasts) وتطوير لوحة التصفح لتكون أكثر سرعة واستقراراً.
+                    <b>🔥 أهم ما تم إضافته في هذا التحديث:</b><br><br>
+
+                    • إضافة <b>عداد زوار مركزي</b> مرتبط بقاعدة بيانات Supabase
+                    لحفظ الإحصائيات بشكل مركزي.<br>
+
+                    • إضافة <b>عداد للزيارات</b> لمعرفة عدد مرات تسجيل الدخول
+                    للموقع.<br>
+
+                    • تسجيل الزائر تلقائيًا عند دخول الموقع بدون الحاجة إلى
+                    الضغط على أي زر.<br>
+
+                    • منع احتساب نفس المتصفح كزائر جديد عند عمل
+                    <b>Refresh</b> للصفحة.<br>
+
+                    • حفظ هوية الزائر في المتصفح للمساعدة في منع تكرار
+                    احتساب نفس الزائر.<br>
+
+                    • نقل نظام عداد الزوار من الاعتماد على التخزين المحلي
+                    فقط إلى نظام مركزي في قاعدة البيانات.<br>
+
+                    • تحسين دقة الإحصائيات وتجهيز النظام للتطويرات القادمة.<br>
+
+                    • الحفاظ على نظام المهام والروابط وفتح الرابط النهائي
+                    بدون تغيير.<br>
                 </div>
+
                 <div class="card-actions">
                     <span>❤️ إعجاب بالمميزات</span>
-                    <button class="like-btn" onclick="likeUpdate(this)">👍 <span class="like-count">340</span></button>
+
+                    <button
+                        class="like-btn"
+                        onclick="likeUpdate(this)"
+                    >
+                        👍 <span class="like-count">0</span>
+                    </button>
                 </div>
             </div>
 
-            <div class="update-card" data-text="إصدار v2.5 نظام التشفير والسداسي عشر وتوجيه المهام">
+
+            <!-- ============================= -->
+            <!-- الإصدار v3.0 -->
+            <!-- ============================= -->
+
+            <div
+                class="update-card"
+                data-text="إصدار v3.0 نظام التقييمات الحقيقي والوضع المطور"
+            >
                 <div class="update-header">
-                    <span class="update-title">🛠️ الإصدار v2.5</span>
+                    <span class="update-title">
+                        ✨ الإصدار v3.0 (التحديث الرئيسي)
+                    </span>
+
+                    <span class="badge-new">
+                        الحدث الأبرز
+                    </span>
                 </div>
-                <div class="update-date">📅 تاريخ الإصدار: 10 أغسطس 2026</div>
+
+                <div class="update-date">
+                    📅 تاريخ الإصدار: 14 أغسطس 2026
+                </div>
+
                 <div class="update-desc">
                     <b>الشرح الجذري وما تم إنجازه:</b><br>
-                    • تقديم <b>نظام التشفير والترميز الآمن للروابط</b> لضمان عمل السكريبتات الخاصة بالمطورين دون أي أعطال.<br>
-                    • تثبيت الإلزامات البرمجية لإنهاء المهام الثلاث (إعجاب، ديسكورد، اشتراك) بترتيب صحيح قبل فتح الرابط النهائي للبانر.<br>
-                    • تأمين واجهة الروابط ضد الثغرات وتحديث السيرفرات الداخلية.
+
+                    • تم إطلاق
+                    <b>نظام تقييمات حقيقي ومحلي (Local Reviews)</b>
+                    يتيح للمستخدمين كتابة آرائهم وتقييماتهم بالنجوم
+                    وحفظها بشكل فوري.<br>
+
+                    • إعادة هيكلة واجهة "سجل التحديثات" لتصبح أكثر فخامة
+                    مع توضيح العناوين بدقة تحت الأيقونات المخصصة.<br>
+
+                    • تفعيل نظام التنبيهات الفورية (Toasts) وتطوير لوحة
+                    التصفح لتكون أكثر سرعة واستقراراً.
                 </div>
+
                 <div class="card-actions">
                     <span>❤️ إعجاب بالمميزات</span>
-                    <button class="like-btn" onclick="likeUpdate(this)">👍 <span class="like-count">210</span></button>
+
+                    <button
+                        class="like-btn"
+                        onclick="likeUpdate(this)"
+                    >
+                        👍 <span class="like-count">340</span>
+                    </button>
                 </div>
             </div>
 
-            <div class="update-card" data-text="إصدار v2.0 روابط فريدة وتحديث السيرفرات">
+
+            <!-- ============================= -->
+            <!-- الإصدار v2.5 -->
+            <!-- ============================= -->
+
+            <div
+                class="update-card"
+                data-text="إصدار v2.5 نظام التشفير والسداسي عشر وتوجيه المهام"
+            >
                 <div class="update-header">
-                    <span class="update-title">📌 الإصدار v2.0</span>
+                    <span class="update-title">
+                        🛠️ الإصدار v2.5
+                    </span>
                 </div>
-                <div class="update-date">📅 تاريخ الإصدار: 01 أغسطس 2026</div>
+
+                <div class="update-date">
+                    📅 تاريخ الإصدار: 10 أغسطس 2026
+                </div>
+
                 <div class="update-desc">
                     <b>الشرح الجذري وما تم إنجازه:</b><br>
-                    • تفعيل خاصية <b>الروابط الفريدة (Unique Links)</b> المخصصة للمطورين لسهولة مشاركة أعمالهم.<br>
-                    • تحديث سيرفر السكريبتات بالكامل ونقله لاستضافة سريعة تضمن استمرارية الروابط المباشرة.<br>
-                    • معالجة المشاكل البرمجية السابقة وتحسين تجربة المستخدم العامة.
+
+                    • تقديم
+                    <b>نظام التشفير والترميز الآمن للروابط</b>
+                    لضمان عمل السكريبتات الخاصة بالمطورين دون أي أعطال.<br>
+
+                    • تثبيت الإلزامات البرمجية لإنهاء المهام الثلاث
+                    (إعجاب، ديسكورد، اشتراك) بترتيب صحيح قبل فتح الرابط
+                    النهائي للبانر.<br>
+
+                    • تأمين واجهة الروابط ضد الثغرات وتحديث السيرفرات
+                    الداخلية.
                 </div>
+
                 <div class="card-actions">
                     <span>❤️ إعجاب بالمميزات</span>
-                    <button class="like-btn" onclick="likeUpdate(this)">👍 <span class="like-count">142</span></button>
+
+                    <button
+                        class="like-btn"
+                        onclick="likeUpdate(this)"
+                    >
+                        👍 <span class="like-count">210</span>
+                    </button>
                 </div>
             </div>
 
-            <div class="update-card" data-text="إصدار v1.5 نظام التعليقات والوضع الليلي">
+
+            <!-- ============================= -->
+            <!-- الإصدار v2.0 -->
+            <!-- ============================= -->
+
+            <div
+                class="update-card"
+                data-text="إصدار v2.0 روابط فريدة وتحديث السيرفرات"
+            >
                 <div class="update-header">
-                    <span class="update-title">📌 الإصدار v1.5</span>
+                    <span class="update-title">
+                        📌 الإصدار v2.0
+                    </span>
                 </div>
-                <div class="update-date">📅 تاريخ الإصدار: 20 يوليو 2026</div>
+
+                <div class="update-date">
+                    📅 تاريخ الإصدار: 01 أغسطس 2026
+                </div>
+
                 <div class="update-desc">
                     <b>الشرح الجذري وما تم إنجازه:</b><br>
-                    • إدراج <b>صندوق الدعم والملاحظات</b> لتسهيل التواصل المباشر مع زوار المنصة.<br>
-                    • إضافة ميزة التبديل السلس بين الوضع الليلي والوضع النهاري بحسب تفضيل المستخدم.<br>
-                    • إصلاح عيوب عداد الثواني المرتبط بتجاوز المهام الخارجية.
+
+                    • تفعيل خاصية
+                    <b>الروابط الفريدة (Unique Links)</b>
+                    المخصصة للمطورين لسهولة مشاركة أعمالهم.<br>
+
+                    • تحديث سيرفر السكريبتات بالكامل ونقله لاستضافة سريعة
+                    تضمن استمرارية الروابط المباشرة.<br>
+
+                    • معالجة المشاكل البرمجية السابقة وتحسين تجربة المستخدم
+                    العامة.
                 </div>
+
                 <div class="card-actions">
                     <span>❤️ إعجاب بالمميزات</span>
-                    <button class="like-btn" onclick="likeUpdate(this)">👍 <span class="like-count">95</span></button>
+
+                    <button
+                        class="like-btn"
+                        onclick="likeUpdate(this)"
+                    >
+                        👍 <span class="like-count">142</span>
+                    </button>
                 </div>
             </div>
+
+
+            <!-- ============================= -->
+            <!-- الإصدار v1.5 -->
+            <!-- ============================= -->
+
+            <div
+                class="update-card"
+                data-text="إصدار v1.5 نظام التعليقات والوضع الليلي"
+            >
+                <div class="update-header">
+                    <span class="update-title">
+                        📌 الإصدار v1.5
+                    </span>
+                </div>
+
+                <div class="update-date">
+                    📅 تاريخ الإصدار: 20 يوليو 2026
+                </div>
+
+                <div class="update-desc">
+                    <b>الشرح الجذري وما تم إنجازه:</b><br>
+
+                    • إدراج
+                    <b>صندوق الدعم والملاحظات</b>
+                    لتسهيل التواصل المباشر مع زوار المنصة.<br>
+
+                    • إضافة ميزة التبديل السلس بين الوضع الليلي والوضع
+                    النهاري بحسب تفضيل المستخدم.<br>
+
+                    • إصلاح عيوب عداد الثواني المرتبط بتجاوز المهام
+                    الخارجية.
+                </div>
+
+                <div class="card-actions">
+                    <span>❤️ إعجاب بالمميزات</span>
+
+                    <button
+                        class="like-btn"
+                        onclick="likeUpdate(this)"
+                    >
+                        👍 <span class="like-count">95</span>
+                    </button>
+                </div>
+            </div>
+
         </div>
     </div>
 
+
     <div id="toast-box"></div>
 
+
     <script>
+
+        /* ================================
+           نظام الإشعارات
+        ================================= */
+
         function showNotification(msg) {
+
             let box = document.getElementById('toast-box');
-            box.innerHTML = `<div class="toast-notify">✨ ${msg}</div>`;
-            setTimeout(() => { box.innerHTML = ''; }, 2500);
+
+            box.innerHTML = `
+                <div class="toast-notify">
+                    ✨ ${msg}
+                </div>
+            `;
+
+            setTimeout(() => {
+                box.innerHTML = '';
+            }, 2500);
         }
 
+
+        /* ================================
+           نظام التقييم
+        ================================= */
+
         let selectedStars = 5;
+
+
         function setRating(rating) {
+
             selectedStars = rating;
+
             let stars = document.querySelectorAll('.star');
+
             stars.forEach((s, idx) => {
+
                 if ((5 - idx) <= rating) {
                     s.classList.add('selected');
                 } else {
                     s.classList.remove('selected');
                 }
+
             });
         }
+
+
         setRating(5);
 
-        function loadRealReviews() {
-            let reviews = JSON.parse(localStorage.getItem('site_real_reviews')) || [];
-            let container = document.getElementById('reviewsList');
-            container.innerHTML = '';
 
-            if(reviews.length === 0) {
-                container.innerHTML = '<div class="review-item">كن أول من يكتب تقييمه الحقيقي للمنصة!</div>';
-                return;
-            }
+        /* ================================
+           تحميل التقييمات
+        ================================= */
+            function loadRatings() {
+        const savedReviews = JSON.parse(
+            localStorage.getItem('site_real_reviews') || '[]'
+        );
 
-            reviews.forEach(r => {
-                let starStr = '★'.repeat(r.stars) + '☆'.repeat(5 - r.stars);
-                let div = document.createElement('div');
-                div.className = 'review-item';
-                div.innerHTML = `
-                    <div class="review-header-line">
-                        <span>${r.name}</span>
-                        <span style="color: #f39c12; direction: ltr;">${starStr}</span>
-                    </div>
-                    <div>${r.text}</div>
-                `;
-                container.appendChild(div);
-            });
+        const reviewsContainer = document.getElementById('reviewsList');
+
+        if (!reviewsContainer) return;
+
+        reviewsContainer.innerHTML = '';
+
+        if (savedReviews.length === 0) {
+            reviewsContainer.innerHTML = `
+                <div class="no-reviews">
+                    لا توجد تقييمات حتى الآن ⭐
+                </div>
+            `;
+            return;
         }
 
-        function submitRealReview() {
-            let name = document.getElementById('reviewerName').value.trim();
-            let text = document.getElementById('reviewerText').value.trim();
+        savedReviews.forEach(review => {
+            const reviewItem = document.createElement('div');
+            reviewItem.className = 'review-item';
 
-            if(!name || !text) {
-                showNotification('يرجى كتابة الاسم والتقييم أولاً!');
-                return;
-            }
+            reviewItem.innerHTML = `
+                <div class="review-header">
+                    <strong>${escapeHtml(review.name || 'زائر')}</strong>
+                    <span class="review-stars">
+                        ${'★'.repeat(review.rating)}
+                        ${'☆'.repeat(5 - review.rating)}
+                    </span>
+                </div>
 
-            let reviews = JSON.parse(localStorage.getItem('site_real_reviews')) || [];
-            reviews.unshift({ name: name, stars: selectedStars, text: text });
-            
-            if(reviews.length > 10) reviews.pop();
+                <div class="review-text">
+                    ${escapeHtml(review.text || '')}
+                </div>
 
-            localStorage.setItem('site_real_reviews', JSON.stringify(reviews));
+                <div class="review-date">
+                    ${review.date || ''}
+                </div>
+            `;
 
-            document.getElementById('reviewerName').value = '';
-            document.getElementById('reviewerText').value = '';
-            
-            loadRealReviews();
-            showNotification('تم نشر تقييمك الحقيقي بنجاح، شكراً لك!');
+            reviewsContainer.appendChild(reviewItem);
+        });
+    }
+
+
+    function escapeHtml(text) {
+        const div = document.createElement('div');
+        div.textContent = text;
+        return div.innerHTML;
+    }
+
+
+    function submitReview() {
+        const nameInput = document.getElementById('reviewName');
+        const textInput = document.getElementById('reviewText');
+
+        if (!nameInput || !textInput) return;
+
+        const name = nameInput.value.trim();
+        const text = textInput.value.trim();
+
+        if (!text) {
+            showToast('اكتب تقييمك أولاً ⭐');
+            return;
         }
 
-        loadRealReviews();
+        if (selectedStars < 1 || selectedStars > 5) {
+            showToast('اختر عدد النجوم أولاً ⭐');
+            return;
+        }
 
-        function filterUpdates() {
-            let query = document.getElementById('searchInput').value.toLowerCase();
-            let cards = document.querySelectorAll('.update-card');
+        let reviews = JSON.parse(
+            localStorage.getItem('site_real_reviews') || '[]'
+        );
+
+        if (reviews.length >= 10) {
+            reviews.shift();
+        }
+
+        reviews.push({
+            name: name || 'زائر',
+            rating: selectedStars,
+            text: text,
+            date: new Date().toLocaleDateString('ar-EG')
+        });
+
+        localStorage.setItem(
+            'site_real_reviews',
+            JSON.stringify(reviews)
+        );
+
+        nameInput.value = '';
+        textInput.value = '';
+
+        selectedStars = 5;
+        setRating(5);
+
+        loadRatings();
+
+        showToast('تم إرسال تقييمك بنجاح ⭐');
+    }
+
+
+    function showToast(message) {
+        let toast = document.getElementById('toast');
+
+        if (!toast) {
+            toast = document.createElement('div');
+            toast.id = 'toast';
+            toast.className = 'toast';
+            document.body.appendChild(toast);
+        }
+
+        toast.textContent = message;
+        toast.classList.add('show');
+
+        setTimeout(() => {
+            toast.classList.remove('show');
+        }, 2500);
+    }
+
+
+    /* =================================
+       تشغيل تحميل التقييمات
+    ================================= */
+
+    loadRatings();
+
+
+    /* =================================
+       البحث في التحديثات
+    ================================= */
+
+    const searchInput = document.getElementById('searchInput');
+
+    if (searchInput) {
+        searchInput.addEventListener('input', function () {
+            const searchValue = this.value.toLowerCase().trim();
+
+            const cards = document.querySelectorAll('.update-card');
 
             cards.forEach(card => {
-                let text = card.getAttribute('data-text').toLowerCase();
-                if(text.includes(query)) {
-                    card.style.display = 'block';
-                } else {
-                    card.style.display = 'none';
-                }
-            });
-        }
+                const text = (
+                    card.getAttribute('data-text') ||
+                    card.textContent
+                ).toLowerCase();
 
-        function likeUpdate(btn) {
-            let countSpan = btn.querySelector('.like-count');
-            let count = parseInt(countSpan.innerText);
-            countSpan.innerText = count + 1;
-            btn.style.background = '#ff2a85';
-            btn.style.borderColor = '#ff2a85';
-            btn.setAttribute('disabled', 'true');
-            showNotification('شكراً لإعجابك بالتحديث!');
-        }
-    </script>
+                card.style.display =
+                    text.includes(searchValue) ? '' : 'none';
+            });
+        });
+    }
+
+
+    /* =================================
+       أزرار الإعجاب
+    ================================= */
+
+    document.querySelectorAll('.like-btn').forEach(button => {
+
+        button.addEventListener('click', function () {
+
+            if (this.disabled) return;
+
+            const countElement =
+                this.querySelector('.like-count');
+
+            if (countElement) {
+                let count =
+                    parseInt(countElement.textContent) || 0;
+
+                count++;
+
+                countElement.textContent = count;
+            }
+
+            this.disabled = true;
+            this.classList.add('liked');
+
+            showToast('شكراً على إعجابك ❤️');
+        });
+
+    });
+
+
+    /* =================================
+       زر الرجوع
+    ================================= */
+
+    const backButton = document.getElementById('backButton');
+
+    if (backButton) {
+        backButton.addEventListener('click', function () {
+            window.location.href = 'index.html';
+        });
+    }
+
+});
+</script>
+
 </body>
 </html>
