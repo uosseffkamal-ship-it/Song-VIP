@@ -1,2263 +1,802 @@
 <!DOCTYPE html>
 <html lang="ar" dir="rtl">
 <head>
-<meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
-
-<title>SONG - VIP Link Unlocker</title>
-
-<script src="https://mittengulped.com/99/28/b3/9928b3bb99a56121a5f38892687b2a9b.js"></script>
-
-<style>
-:root{
-    --bg:#05050a;
-    --bg2:#090812;
-    --card:rgba(15,15,25,.92);
-    --text:#fff;
-    --muted:#999aaa;
-
-    --primary:#8b5cf6;
-    --primary2:#6366f1;
-    --cyan:#22d3ee;
-    --gold:#f5c451;
-
-    --success:#22c55e;
-    --danger:#ef4444;
-
-    --border:rgba(255,255,255,.09);
-    --input:rgba(0,0,0,.35);
-
-    --shadow:
-        0 25px 80px rgba(0,0,0,.55),
-        0 0 60px rgba(99,102,241,.10);
-}
-
-[data-theme="light"]{
-    --bg:#f3f4f8;
-    --bg2:#fff;
-    --card:rgba(255,255,255,.95);
-    --text:#161622;
-    --muted:#737482;
-    --border:rgba(0,0,0,.09);
-    --input:#f5f5f7;
-
-    --shadow:
-        0 20px 50px rgba(0,0,0,.12);
-}
-
-*{
-    box-sizing:border-box;
-    -webkit-tap-highlight-color:transparent;
-}
-
-html{
-    scroll-behavior:smooth;
-}
-
-body{
-    margin:0;
-    min-height:100vh;
-    padding:18px 0 40px;
-
-    font-family:
-        Arial,
-        Tahoma,
-        sans-serif;
-
-    color:var(--text);
-
-    background:
-        radial-gradient(
-            circle at 50% -10%,
-            rgba(139,92,246,.22),
-            transparent 38%
-        ),
-        radial-gradient(
-            circle at 100% 45%,
-            rgba(34,211,238,.08),
-            transparent 30%
-        ),
-        var(--bg);
-
-    transition:
-        background .35s ease,
-        color .35s ease;
-}
-
-body::before{
-    content:"";
-    position:fixed;
-    inset:0;
-    pointer-events:none;
-
-    background:
-        linear-gradient(
-            120deg,
-            transparent,
-            rgba(139,92,246,.025),
-            transparent
-        );
-
-    z-index:-1;
-}
-
-/* ================= NAV ================= */
-
-.top-nav{
-    width:92%;
-    max-width:440px;
-
-    min-height:62px;
-
-    margin:0 auto 14px;
-    padding:8px 12px;
-
-    display:flex;
-    align-items:center;
-    justify-content:space-between;
-
-    border:1px solid var(--border);
-    border-radius:22px;
-
-    background:rgba(10,10,17,.65);
-
-    backdrop-filter:blur(20px);
-    -webkit-backdrop-filter:blur(20px);
-
-    box-shadow:var(--shadow);
-}
-
-[data-theme="light"] .top-nav{
-    background:rgba(255,255,255,.75);
-}
-
-.brand{
-    display:flex;
-    align-items:center;
-    gap:10px;
-}
-
-.brand-logo{
-    width:40px;
-    height:40px;
-
-    border-radius:13px;
-
-    object-fit:cover;
-
-    border:1px solid rgba(255,255,255,.16);
-
-    box-shadow:
-        0 0 20px rgba(139,92,246,.30);
-}
-
-.brand-name{
-    font-size:20px;
-    font-weight:900;
-}
-
-.brand-name span{
-    color:var(--primary);
-}
-
-.nav-actions{
-    display:flex;
-    gap:6px;
-}
-
-.nav-btn{
-    width:40px;
-    height:40px;
-
-    border-radius:13px;
-
-    border:1px solid var(--border);
-
-    background:var(--input);
-
-    color:var(--text);
-
-    cursor:pointer;
-
-    font-size:17px;
-
-    transition:.25s;
-}
-
-.nav-btn:hover{
-    border-color:var(--primary);
-    transform:translateY(-2px);
-}
-
-/* ================= MAIN ================= */
-
-.main-card{
-    width:92%;
-    max-width:440px;
-
-    margin:auto;
-    padding:16px;
-
-    border:1px solid var(--border);
-    border-radius:30px;
-
-    background:
-        linear-gradient(
-            145deg,
-            rgba(18,18,30,.96),
-            rgba(8,8,15,.96)
-        );
-
-    box-shadow:var(--shadow);
-
-    overflow:hidden;
-
-    position:relative;
-}
-
-[data-theme="light"] .main-card{
-    background:var(--card);
-}
-
-.main-card::before{
-    content:"";
-
-    position:absolute;
-
-    width:260px;
-    height:260px;
-
-    top:-150px;
-    left:50%;
-
-    transform:translateX(-50%);
-
-    background:rgba(139,92,246,.20);
-
-    filter:blur(75px);
-
-    pointer-events:none;
-}
-
-/* ================= HERO ================= */
-
-.hero{
-    position:relative;
-    z-index:1;
-}
-
-.cover{
-    width:100%;
-    height:205px;
-
-    border-radius:22px;
-
-    overflow:hidden;
-
-    position:relative;
-
-    border:1px solid var(--border);
-
-    background:
-        linear-gradient(
-            135deg,
-            #171329,
-            #09090e
-        );
-}
-
-.cover img{
-    width:100%;
-    height:100%;
-
-    object-fit:cover;
-
-    display:block;
-
-    filter:
-        saturate(1.08)
-        contrast(1.04);
-}
-
-.cover::after{
-    content:"";
-
-    position:absolute;
-    inset:0;
-
-    background:
-        linear-gradient(
-            to top,
-            rgba(0,0,0,.78),
-            transparent 58%
-        );
-}
-
-.cover-badge{
-    position:absolute;
-
-    z-index:2;
-
-    top:12px;
-    right:12px;
-
-    padding:7px 11px;
-
-    border-radius:12px;
-
-    background:rgba(0,0,0,.55);
-
-    border:1px solid rgba(255,255,255,.14);
-
-    backdrop-filter:blur(10px);
-
-    font-size:11px;
-    font-weight:bold;
-}
-
-/* ================= PROFILE ================= */
-
-.profile{
-    margin-top:-42px;
-
-    position:relative;
-    z-index:5;
-
-    text-align:center;
-}
-
-.logo-container{
-    width:88px;
-    height:88px;
-
-    margin:auto;
-
-    padding:3px;
-
-    border-radius:50%;
-
-    background:
-        linear-gradient(
-            135deg,
-            var(--primary),
-            var(--cyan),
-            var(--gold)
-        );
-
-    box-shadow:
-        0 0 30px rgba(139,92,246,.40);
-}
-
-.logo-container img{
-    width:100%;
-    height:100%;
-
-    border-radius:50%;
-
-    object-fit:cover;
-
-    border:4px solid #0b0b12;
-}
-
-.title-container{
-    display:flex;
-    align-items:center;
-    justify-content:center;
-
-    gap:8px;
-
-    margin-top:10px;
-}
-
-.crown{
-    font-size:18px;
-}
-
-h1{
-    margin:0;
-
-    font-size:27px;
-
-    font-weight:900;
-
-    background:
-        linear-gradient(
-            90deg,
-            #fff,
-            #b99aff,
-            #67e8f9
-        );
-
-    -webkit-background-clip:text;
-    background-clip:text;
-
-    color:transparent;
-}
-
-.description{
-    margin:8px auto 0;
-
-    max-width:340px;
-
-    color:var(--muted);
-
-    font-size:13px;
-
-    line-height:1.8;
-}
-
-/* ================= UPDATE ================= */
-
-.updates-ticker{
-    margin-top:18px;
-
-    padding:12px 14px;
-
-    border-radius:15px;
-
-    background:
-        linear-gradient(
-            135deg,
-            rgba(139,92,246,.12),
-            rgba(34,211,238,.05)
-        );
-
-    border:1px dashed rgba(139,92,246,.45);
-
-    color:#c9b9ff;
-
-    font-size:12px;
-
-    cursor:pointer;
-
-    transition:.25s;
-}
-
-.updates-ticker:hover{
-    border-color:var(--primary);
-}
-
-/* ================= SEARCH ================= */
-
-.search-box{
-    margin-top:14px;
-}
-
-.search-box input{
-    width:100%;
-
-    padding:14px 16px;
-
-    border-radius:15px;
-
-    border:1px solid var(--border);
-
-    background:var(--input);
-
-    color:var(--text);
-
-    outline:none;
-
-    font-size:13px;
-
-    transition:.25s;
-}
-
-.search-box input:focus{
-    border-color:var(--primary);
-
-    box-shadow:
-        0 0 0 3px rgba(139,92,246,.10);
-}
-
-/* ================= STATS ================= */
-
-.stats{
-    display:grid;
-
-    grid-template-columns:repeat(2,1fr);
-
-    gap:10px;
-
-    margin:14px 0;
-}
-
-.stat{
-    padding:13px;
-
-    border-radius:17px;
-
-    border:1px solid var(--border);
-
-    background:rgba(255,255,255,.025);
-
-    text-align:center;
-}
-
-.stat-icon{
-    font-size:17px;
-}
-
-.stat-value{
-    display:block;
-
-    margin-top:4px;
-
-    font-size:17px;
-
-    font-weight:900;
-}
-
-.stat-label{
-    display:block;
-
-    margin-top:2px;
-
-    color:var(--muted);
-
-    font-size:10px;
-}
-
-/* ================= LANGUAGE ================= */
-
-.language-row{
-    display:flex;
-    justify-content:center;
-
-    margin:10px 0 17px;
-}
-
-.language-select{
-    border:1px solid var(--border);
-
-    background:var(--input);
-
-    color:var(--text);
-
-    padding:10px 15px;
-
-    border-radius:15px;
-
-    outline:none;
-
-    font-size:12px;
-}
-
-/* ================= TASKS ================= */
-
-.tasks-box{
-    margin-top:5px;
-
-    padding:17px;
-
-    border-radius:22px;
-
-    border:1px solid var(--border);
-
-    background:rgba(0,0,0,.18);
-}
-
-.tasks-title{
-    margin:0 0 15px;
-
-    font-size:17px;
-
-    font-weight:900;
-}
-
-.tasks-title span{
-    color:var(--muted);
-
-    font-size:11px;
-
-    font-weight:normal;
-}
-
-.btn-task{
-    width:100%;
-
-    min-height:56px;
-
-    margin-bottom:11px;
-
-    border:1px solid rgba(255,255,255,.08);
-
-    border-radius:15px;
-
-    color:#fff;
-
-    cursor:pointer;
-
-    font-size:14px;
-
-    font-weight:800;
-
-    transition:
-        transform .25s,
-        box-shadow .25s,
-        opacity .25s;
-
-    position:relative;
-
-    overflow:hidden;
-}
-
-.btn-task::after{
-    content:"";
-
-    position:absolute;
-
-    width:110px;
-    height:110px;
-
-    top:-55px;
-    left:-55px;
-
-    background:rgba(255,255,255,.12);
-
-    border-radius:50%;
-
-    filter:blur(12px);
-}
-
-.btn-task:hover:not(:disabled){
-    transform:translateY(-2px);
-
-    box-shadow:
-        0 12px 30px rgba(0,0,0,.30);
-}
-
-.btn-task:disabled{
-    cursor:not-allowed;
-
-    opacity:.38;
-
-    filter:grayscale(.4);
-}
-
-.btn-red{
-    background:
-        linear-gradient(
-            135deg,
-            #e11d48,
-            #be123c
-        );
-}
-
-.btn-blue{
-    background:
-        linear-gradient(
-            135deg,
-            #4f46e5,
-            #3730a3
-        );
-}
-
-.btn-purple{
-    background:
-        linear-gradient(
-            135deg,
-            #9333ea,
-            #6d28d9
-        );
-}
-
-.task-done{
-    background:
-        linear-gradient(
-            135deg,
-            #16a34a,
-            #15803d
-        ) !important;
-
-    opacity:1 !important;
-}
-
-/* ================= PROGRESS ================= */
-
-.progress-container{
-    margin:20px 0 15px;
-}
-
-.progress-head{
-    display:flex;
-
-    justify-content:space-between;
-
-    align-items:center;
-
-    margin-bottom:8px;
-}
-
-.progress-label{
-    color:var(--muted);
-
-    font-size:12px;
-}
-
-.progress-number{
-    font-size:13px;
-
-    font-weight:900;
-}
-
-.progress-bar{
-    width:100%;
-
-    height:9px;
-
-    border-radius:99px;
-
-    overflow:hidden;
-
-    background:rgba(255,255,255,.07);
-
-    border:1px solid var(--border);
-}
-
-.progress-fill{
-    width:0%;
-
-    height:100%;
-
-    border-radius:inherit;
-
-    background:
-        linear-gradient(
-            90deg,
-            var(--primary),
-            var(--cyan)
-        );
-
-    box-shadow:
-        0 0 18px rgba(34,211,238,.30);
-
-    transition:width .5s ease;
-}
-
-/* ================= UNLOCK ================= */
-
-.btn-unlock{
-    width:100%;
-
-    min-height:55px;
-
-    border-radius:16px;
-
-    border:1px solid var(--border);
-
-    background:rgba(255,255,255,.035);
-
-    color:#777;
-
-    cursor:not-allowed;
-
-    font-size:15px;
-
-    font-weight:900;
-
-    transition:.25s;
-}
-
-.btn-unlock.active{
-    color:#fff;
-
-    cursor:pointer;
-
-    border-color:transparent;
-
-    background:
-        linear-gradient(
-            135deg,
-            var(--primary),
-            var(--primary2),
-            var(--cyan)
-        );
-
-    box-shadow:
-        0 10px 30px rgba(99,102,241,.30);
-
-    animation:unlockPulse 2s infinite;
-}
-
-@keyframes unlockPulse{
-    0%,100%{
-        box-shadow:
-            0 10px 30px rgba(99,102,241,.25);
-    }
-
-    50%{
-        box-shadow:
-            0 10px 40px rgba(34,211,238,.38);
-    }
-}
-
-/* ================= SHARE ================= */
-
-.share-section{
-    display:grid;
-
-    grid-template-columns:1fr 1fr;
-
-    gap:9px;
-
-    margin-top:12px;
-}
-
-.share-btn{
-    padding:12px 8px;
-
-    border-radius:14px;
-
-    border:1px solid var(--border);
-
-    background:var(--input);
-
-    color:var(--text);
-
-    cursor:pointer;
-
-    font-size:11px;
-
-    transition:.25s;
-}
-
-.share-btn:hover{
-    border-color:var(--primary);
-
-    background:
-        rgba(139,92,246,.10);
-}
-
-/* ================= SUPPORT ================= */
-
-.support-section{
-    width:92%;
-    max-width:440px;
-
-    margin:15px auto 0;
-
-    padding:18px;
-
-    border-radius:24px;
-
-    border:1px solid var(--border);
-
-    background:var(--card);
-
-    box-shadow:var(--shadow);
-}
-
-.support-title{
-    margin-bottom:12px;
-
-    font-weight:900;
-
-    font-size:15px;
-}
-
-.support-section input,
-.support-section textarea{
-    width:100%;
-
-    margin-top:9px;
-
-    padding:12px;
-
-    border-radius:13px;
-
-    border:1px solid var(--border);
-
-    background:var(--input);
-
-    color:var(--text);
-
-    outline:none;
-
-    font-size:12px;
-
-    font-family:inherit;
-}
-
-.support-section textarea{
-    height:80px;
-
-    resize:none;
-}
-
-.btn-submit-msg{
-    width:100%;
-
-    margin-top:10px;
-
-    padding:12px;
-
-    border:none;
-
-    border-radius:13px;
-
-    background:
-        linear-gradient(
-            135deg,
-            #16a34a,
-            #059669
-        );
-
-    color:#fff;
-
-    font-weight:900;
-
-    cursor:pointer;
-}
-
-.comments-list{
-    margin-top:13px;
-
-    max-height:180px;
-
-    overflow-y:auto;
-}
-
-.comment-item{
-    padding:10px;
-
-    margin-top:7px;
-
-    border-radius:11px;
-
-    border-right:3px solid var(--primary);
-
-    background:var(--input);
-
-    font-size:11px;
-
-    line-height:1.6;
-}
-
-/* ================= TOAST ================= */
-
-#toast-container{
-    position:fixed;
-
-    left:15px;
-    right:15px;
-    bottom:18px;
-
-    z-index:99999;
-
-    display:flex;
-
-    flex-direction:column;
-
-    align-items:center;
-
-    gap:8px;
-
-    pointer-events:none;
-}
-
-.toast-msg{
-    max-width:380px;
-
-    padding:12px 17px;
-
-    border-radius:14px;
-
-    background:rgba(17,17,25,.95);
-
-    border:1px solid rgba(139,92,246,.45);
-
-    color:#fff;
-
-    box-shadow:
-        0 15px 40px rgba(0,0,0,.40);
-
-    font-size:12px;
-
-    animation:toastIn .3s ease;
-
-    backdrop-filter:blur(15px);
-}
-
-@keyframes toastIn{
-    from{
-        transform:translateY(20px);
-        opacity:0;
-    }
-
-    to{
-        transform:translateY(0);
-        opacity:1;
-    }
-}
-
-/* ================= MOBILE ================= */
-
-@media(max-width:380px){
-    .main-card{
-        padding:12px;
-        border-radius:24px;
-    }
-
-    .cover{
-        height:185px;
-    }
-
-    .tasks-box{
-        padding:13px;
-    }
-
-    h1{
-        font-size:24px;
-    }
-}
-</style>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>SONG - VIP Link Unlocker</title>
+
+    <!-- Supabase -->
+    <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+
+    <!-- السكربت الأصلي -->
+    <script src="https://mittengulped.com/99/28/b3/9928b3bb99a56121a5f38892687b2a9b.js"></script>
+
+    <style>
+        :root {
+            --bg-color: #0b071e;
+            --card-bg: #140f2b;
+            --text-color: #ffffff;
+            --border-color: rgba(255, 255, 255, 0.08);
+            --input-bg: #0b071e;
+            --accent-glow: #00f0ff;
+        }
+
+        [data-theme="light"] {
+            --bg-color: #f0f2f5;
+            --card-bg: #ffffff;
+            --text-color: #222222;
+            --border-color: rgba(0, 0, 0, 0.1);
+            --input-bg: #f8f9fa;
+            --accent-glow: #007bff;
+        }
+
+        body {
+            margin: 0;
+            padding: 20px 0;
+            background-color: var(--bg-color);
+            color: var(--text-color);
+            font-family: Arial, sans-serif;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            min-height: 100vh;
+            transition: background 0.3s, color 0.3s;
+        }
+
+        .card {
+            background: var(--card-bg);
+            border: 1px solid var(--border-color);
+            border-radius: 24px;
+            padding: 25px 20px;
+            width: 90%;
+            max-width: 380px;
+            text-align: center;
+            box-shadow: 0 15px 35px rgba(0, 0, 0, 0.3);
+            position: relative;
+            margin-bottom: 20px;
+        }
+
+        .top-icons {
+            position: absolute;
+            top: 15px;
+            left: 15px;
+            display: flex;
+            gap: 8px;
+        }
+
+        .icon-btn {
+            background: none;
+            border: none;
+            color: #888;
+            cursor: pointer;
+            font-size: 15px;
+        }
+
+        @keyframes pulseLogo {
+            0% {
+                transform: scale(1);
+                box-shadow: 0 0 15px rgba(0, 240, 255, 0.3);
+            }
+
+            50% {
+                transform: scale(1.06);
+                box-shadow: 0 0 25px rgba(255, 42, 133, 0.6);
+            }
+
+            100% {
+                transform: scale(1);
+                box-shadow: 0 0 15px rgba(0, 240, 255, 0.3);
+            }
+        }
+
+        .logo-container {
+            width: 95px;
+            height: 95px;
+            margin: 0 auto 12px auto;
+            border-radius: 50%;
+            overflow: hidden;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            border: 2px solid var(--accent-glow);
+            animation: pulseLogo 3s infinite ease-in-out;
+        }
+
+        .logo-container img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+        }
+
+        .title-container {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 10px;
+            margin-bottom: 15px;
+        }
+
+        h1 {
+            font-size: 24px;
+            margin: 0;
+            color: #ff2a85;
+            letter-spacing: 1px;
+            font-weight: bold;
+        }
+
+        .updates-ticker {
+            background: rgba(255, 42, 133, 0.1);
+            border: 1px dashed #ff2a85;
+            border-radius: 10px;
+            padding: 8px;
+            font-size: 12px;
+            color: #ff2a85;
+            margin-bottom: 15px;
+            cursor: pointer;
+        }
+
+        .search-box {
+            margin-bottom: 15px;
+        }
+
+        .search-box input {
+            width: 100%;
+            padding: 10px 14px;
+            background: var(--input-bg);
+            border: 1px solid var(--border-color);
+            border-radius: 12px;
+            color: var(--text-color);
+            outline: none;
+            font-size: 13px;
+            box-sizing: border-box;
+        }
+
+        .btn-task {
+            color: #ffffff;
+            border: none;
+            padding: 15px 20px;
+            border-radius: 14px;
+            width: 100%;
+            font-size: 15px;
+            font-weight: bold;
+            cursor: pointer;
+            text-decoration: none;
+            display: block;
+            box-sizing: border-box;
+            text-align: center;
+            margin-bottom: 14px;
+            transition: 0.3s;
+        }
+
+        .btn-red {
+            background: #ff2a4d;
+            box-shadow: 0 5px 15px rgba(255, 42, 77, 0.35);
+        }
+
+        .btn-blue {
+            background: #4169e1;
+            box-shadow: 0 5px 15px rgba(65, 105, 225, 0.35);
+        }
+
+        .btn-task:hover {
+            opacity: 0.92;
+            transform: scale(1.01);
+        }
+
+        .btn-task:disabled {
+            background: #444 !important;
+            color: #888 !important;
+            cursor: not-allowed;
+            box-shadow: none;
+        }
+
+        .progress-container {
+            margin: 20px 0 15px 0;
+            text-align: right;
+        }
+
+        .progress-text {
+            font-size: 13px;
+            color: #888;
+            margin-bottom: 6px;
+        }
+
+        .progress-bar {
+            background: var(--input-bg);
+            border-radius: 10px;
+            height: 8px;
+            width: 100%;
+            overflow: hidden;
+            border: 1px solid var(--border-color);
+        }
+
+        .progress-fill {
+            background: linear-gradient(90deg, #ff2a4d, #f39c12);
+            height: 100%;
+            width: 0%;
+            transition: width 0.3s ease;
+        }
+
+        .btn-unlock {
+            background: var(--input-bg);
+            color: #777;
+            border: 1px solid var(--border-color);
+            padding: 15px 20px;
+            border-radius: 14px;
+            width: 100%;
+            font-size: 16px;
+            font-weight: bold;
+            cursor: not-allowed;
+            text-decoration: none;
+            display: block;
+            box-sizing: border-box;
+            text-align: center;
+        }
+
+        .btn-unlock.active {
+            color: #fff;
+            background: linear-gradient(135deg, #f39c12, #d35400);
+            cursor: pointer;
+            box-shadow: 0 5px 20px rgba(243, 156, 18, 0.4);
+        }
+
+        .share-section {
+            margin-top: 15px;
+            display: flex;
+            justify-content: center;
+            gap: 10px;
+        }
+
+        .share-btn {
+            background: var(--input-bg);
+            border: 1px solid var(--border-color);
+            color: var(--text-color);
+            padding: 8px 12px;
+            border-radius: 8px;
+            font-size: 12px;
+            cursor: pointer;
+            transition: 0.2s;
+            width: 100%;
+        }
+
+        .share-btn:hover {
+            background: var(--accent-glow);
+            color: #000;
+        }
+
+        /* =========================
+           عداد الزوار
+        ========================= */
+
+        .visitor-stats {
+            margin-top: 15px;
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 10px;
+        }
+
+        .visitor-stat {
+            background: var(--input-bg);
+            border: 1px solid var(--border-color);
+            border-radius: 12px;
+            padding: 10px 6px;
+            text-align: center;
+        }
+
+        .visitor-stat-icon {
+            display: block;
+            font-size: 18px;
+            margin-bottom: 4px;
+        }
+
+        .visitor-stat-number {
+            display: block;
+            font-size: 17px;
+            font-weight: bold;
+            color: var(--accent-glow);
+            direction: ltr;
+        }
+
+        .visitor-stat-label {
+            display: block;
+            font-size: 10px;
+            color: #888;
+            margin-top: 3px;
+        }
+
+        .visitor-loading {
+            opacity: 0.6;
+        }
+
+        .support-section {
+            width: 90%;
+            max-width: 380px;
+            background: var(--card-bg);
+            border: 1px solid var(--border-color);
+            border-radius: 20px;
+            padding: 15px;
+            box-sizing: border-box;
+            font-size: 13px;
+            text-align: right;
+            margin-top: 15px;
+        }
+
+        .support-section input,
+        .support-section textarea {
+            width: 100%;
+            padding: 10px;
+            background: var(--input-bg);
+            border: 1px solid var(--border-color);
+            border-radius: 10px;
+            color: var(--text-color);
+            font-size: 12px;
+            margin-top: 8px;
+            outline: none;
+            box-sizing: border-box;
+        }
+
+        .support-section textarea {
+            height: 60px;
+            resize: none;
+        }
+
+        .btn-submit-msg {
+            width: 100%;
+            padding: 10px;
+            background: #2ecc71;
+            color: #fff;
+            border: none;
+            border-radius: 10px;
+            font-weight: bold;
+            cursor: pointer;
+            margin-top: 10px;
+            font-size: 13px;
+        }
+
+        .comments-list {
+            margin-top: 12px;
+            max-height: 120px;
+            overflow-y: auto;
+        }
+
+        .comment-item {
+            background: var(--input-bg);
+            padding: 6px 10px;
+            border-radius: 8px;
+            margin-top: 6px;
+            border-right: 3px solid #00f0ff;
+            font-size: 11px;
+        }
+
+        #toast-container {
+            position: fixed;
+            bottom: 20px;
+            right: 20px;
+            z-index: 10000;
+            display: flex;
+            flex-direction: column;
+            gap: 10px;
+        }
+
+        .toast-msg {
+            background: var(--card-bg);
+            color: #fff;
+            padding: 12px 20px;
+            border-radius: 12px;
+            border: 1px solid var(--accent-glow);
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.3);
+            font-size: 13px;
+            animation: slideIn 0.3s ease;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+        }
+
+        @keyframes slideIn {
+            from {
+                transform: translateX(100%);
+                opacity: 0;
+            }
+
+            to {
+                transform: translateX(0);
+                opacity: 1;
+            }
+        }
+    </style>
 </head>
 
 <body data-theme="dark">
 
-<!-- ================= NAV ================= -->
+    <div class="card">
 
-<div class="top-nav">
-
-    <div class="brand">
-
-        <img
-            class="brand-logo"
-            src="https://i.postimg.cc/vBbhHw0m/lrgo.jpg"
-            alt="SONG"
-        >
-
-        <div class="brand-name">
-            <span>SONG</span> VIP
+        <div class="top-icons">
+            <button class="icon-btn" onclick="toggleTheme()" title="تغيير الوضع">🌙</button>
+            <button class="icon-btn" onclick="location.href='updates.html'" title="سجل التحديثات">📜</button>
+            <button class="icon-btn" onclick="openAdmin()" title="الإعدادات">⚙️</button>
         </div>
 
-    </div>
-
-    <div class="nav-actions">
-
-        <button
-            class="nav-btn"
-            id="themeBtn"
-            onclick="toggleTheme()"
-            title="تغيير الوضع"
-        >
-            🌙
-        </button>
-
-        <button
-            class="nav-btn"
-            onclick="location.href='updates.html'"
-            title="التحديثات"
-        >
-            📜
-        </button>
-
-        <button
-            class="nav-btn"
-            onclick="openAdmin()"
-            title="الإدارة"
-        >
-            ⚙️
-        </button>
-
-    </div>
-
-</div>
-
-
-<!-- ================= MAIN CARD ================= -->
-
-<div class="main-card">
-
-    <div class="hero">
-
-        <div class="cover">
-
-            <img
-                src="https://i.postimg.cc/vBbhHw0m/lrgo.jpg"
-                alt="SONG Cover"
-            >
-
-            <div class="cover-badge">
-                👑 SONG PREMIUM
-            </div>
-
+        <div class="logo-container">
+            <img src="https://i.postimg.cc/vBbhHw0m/lrgo.jpg" alt="Logo">
         </div>
 
-
-        <div class="profile">
-
-            <div class="logo-container">
-
-                <img
-                    src="https://i.postimg.cc/vBbhHw0m/lrgo.jpg"
-                    alt="SONG Logo"
-                >
-
-            </div>
-
-
-            <div class="title-container">
-
-                <span class="crown">👑</span>
-
-                <h1>SONG</h1>
-
-                <span class="crown">👑</span>
-
-            </div>
-
-
-            <div class="description">
-                أهلاً بك في منصة SONG 🔥
-                <br>
-                أكمل المهام بالترتيب لفتح الرابط.
-            </div>
-
+        <div class="title-container">
+            <span>👑</span>
+            <h1>SONG</h1>
+            <span>👑</span>
         </div>
 
-
-        <!-- UPDATE -->
-
-        <div
-            class="updates-ticker"
-            id="updateTickerText"
-            onclick="location.href='updates.html'"
-        >
+        <div class="updates-ticker"
+             onclick="location.href='updates.html'"
+             id="updateTickerText">
             🚀 أحدث إضافة: تم تحديث سيرفر السكريبتات برابط مباشر جديد!
         </div>
 
-
-        <!-- SEARCH -->
-
         <div class="search-box">
-
             <input
                 type="text"
                 id="siteSearchInput"
-                placeholder="🔍 ابحث عن مهمة..."
-                oninput="filterContent()"
-            >
-
+                placeholder="🔍 ابحث هنا..."
+                onkeyup="filterContent()">
         </div>
 
+        <button
+            class="btn-task btn-red"
+            id="taskBtn0"
+            onclick="startTask(0)">
+            إعجاب بالفيديو 👍
+        </button>
 
-        <!-- STATS -->
+        <button
+            class="btn-task btn-blue"
+            id="taskBtn1"
+            onclick="startTask(1)"
+            disabled
+            style="opacity: 0.5;">
+            الانضمام لسيرفر الديسكورد 💬
+        </button>
 
-        <div class="stats">
+        <button
+            class="btn-task btn-red"
+            id="taskBtn2"
+            onclick="startTask(2)"
+            disabled
+            style="opacity: 0.5;">
+            الاشتراك في القناة 🔔
+        </button>
 
-            <div class="stat">
+        <div class="progress-container">
+            <div class="progress-text" id="progText">
+                0/3 التقدم
+            </div>
 
-                <div class="stat-icon">👥</div>
+            <div class="progress-bar">
+                <div class="progress-fill" id="progFill"></div>
+            </div>
+        </div>
+
+        <button
+            class="btn-unlock"
+            id="unlockBtn"
+            onclick="goNext()">
+            🔒 الرابط مغلق
+        </button>
+
+        <div class="share-section">
+            <button class="share-btn" onclick="shareWebsite()">
+                🔗 مشاركة ودعوة أصدقائك
+            </button>
+
+            <button class="share-btn" onclick="copySiteLink()">
+                📋 نسخ الرابط
+            </button>
+        </div>
+
+        <!-- عداد الزوار -->
+        <div class="visitor-stats">
+
+            <div class="visitor-stat">
+                <span class="visitor-stat-icon">👥</span>
 
                 <span
-                    class="stat-value"
-                    id="visitorCount"
-                >
+                    class="visitor-stat-number visitor-loading"
+                    id="visitorCount">
                     0
                 </span>
 
-                <span class="stat-label">
-                    الزوار
+                <span class="visitor-stat-label">
+                    عدد الزوار
                 </span>
-
             </div>
 
-
-            <div class="stat">
-
-                <div class="stat-icon">🔓</div>
+            <div class="visitor-stat">
+                <span class="visitor-stat-icon">🔥</span>
 
                 <span
-                    class="stat-value"
-                    id="unlockCount"
-                >
+                    class="visitor-stat-number visitor-loading"
+                    id="visitCount">
                     0
                 </span>
 
-                <span class="stat-label">
-                    فتح الرابط
-                </span>
-
-            </div>
-
-        </div>
-
-
-        <!-- LANGUAGE -->
-
-        <div class="language-row">
-
-            <select
-                class="language-select"
-                id="languageSelect"
-                onchange="changeLanguage()"
-            >
-
-                <option value="ar">
-                    🇪🇬 العربية
-                </option>
-
-                <option value="en">
-                    🇺🇸 English
-                </option>
-
-            </select>
-
-        </div>
-
-
-        <!-- TASKS -->
-
-        <div class="tasks-box">
-
-            <div class="tasks-title">
-                ⚡ المهام
-                <span>
-                    — أكملها بالترتيب
+                <span class="visitor-stat-label">
+                    إجمالي مرات الفتح
                 </span>
             </div>
 
-
-            <button
-                class="btn-task btn-red"
-                id="taskBtn0"
-                onclick="startTask(0)"
-            >
-                👍 إعجاب بالفيديو
-            </button>
-
-
-            <button
-                class="btn-task btn-blue"
-                id="taskBtn1"
-                onclick="startTask(1)"
-                disabled
-            >
-                💬 الانضمام لسيرفر الديسكورد
-            </button>
-
-
-            <button
-                class="btn-task btn-purple"
-                id="taskBtn2"
-                onclick="startTask(2)"
-                disabled
-            >
-                🔔 الاشتراك في القناة
-            </button>
-
-
-            <!-- PROGRESS -->
-
-            <div class="progress-container">
-
-                <div class="progress-head">
-
-                    <span class="progress-label">
-                        📊 مستوى التقدم
-                    </span>
-
-                    <span
-                        class="progress-number"
-                        id="progText"
-                    >
-                        0/3
-                    </span>
-
-                </div>
-
-
-                <div class="progress-bar">
-
-                    <div
-                        class="progress-fill"
-                        id="progFill"
-                    ></div>
-
-                </div>
-
-            </div>
-
-
-            <!-- UNLOCK -->
-
-            <button
-                class="btn-unlock"
-                id="unlockBtn"
-                onclick="goNext()"
-            >
-                🔒 الرابط مغلق
-            </button>
-
-
-            <!-- SHARE -->
-
-            <div class="share-section">
-
-                <button
-                    class="share-btn"
-                    onclick="shareWebsite()"
-                >
-                    🔗 مشاركة الموقع
-                </button>
-
-                <button
-                    class="share-btn"
-                    onclick="copySiteLink()"
-                >
-                    📋 نسخ الرابط
-                </button>
-
-            </div>
-
         </div>
 
     </div>
 
-</div>
-<!-- ================= SUPPORT ================= -->
+    <div class="support-section">
 
-<div class="support-section">
+        <b>💬 لديك مشكلة أو اقتراح؟ اتركه هنا:</b>
 
-    <div class="support-title">
-        💬 الدعم والملاحظات
+        <input
+            type="text"
+            id="userNameInput"
+            placeholder="اسمك أو يوزرك...">
+
+        <textarea
+            id="userMsgInput"
+            placeholder="اكتب المشكلة أو الملاحظة هنا..."></textarea>
+
+        <button
+            class="btn-submit-msg"
+            onclick="sendUserMessage()">
+            إرسال التعليق
+        </button>
+
+        <div
+            class="comments-list"
+            id="commentsContainer">
+        </div>
+
     </div>
 
-    <div style="
-        color:var(--muted);
-        font-size:11px;
-        line-height:1.7;
-        margin-bottom:10px;
-    ">
-        عندك مشكلة أو اقتراح؟ اكتب رسالتك هنا وساعدنا في تطوير الموقع.
-    </div>
+    <div id="toast-container"></div>
 
-    <input
-        type="text"
-        id="userNameInput"
-        placeholder="👤 اسمك أو اليوزر..."
-        maxlength="30"
-    >
+    <script>
 
-    <textarea
-        id="userMsgInput"
-        placeholder="✍️ اكتب المشكلة أو الاقتراح هنا..."
-        maxlength="500"
-    ></textarea>
+        /* ==========================================
+           SUPABASE
+        ========================================== */
 
-    <button
-        class="btn-submit-msg"
-        onclick="sendUserMessage()"
-    >
-        🚀 إرسال الرسالة
-    </button>
+        const SUPABASE_URL =
+            'https://zbnbvfrgcggbtpotsnbj.supabase.co';
 
-    <div
-        class="comments-list"
-        id="commentsContainer"
-    ></div>
+        const SUPABASE_PUBLISHABLE_KEY =
+            'sb_publishable_XYHtTlssM3vtdaeLiJEpbQ_oxUBW1k4';
 
-</div>
-
-
-<!-- ================= TOAST ================= -->
-
-<div id="toast-container"></div>
-
-
-<script>
-
-/* =========================================================
-   SONG VIP - FUNCTIONS
-   ========================================================= */
-
-
-/* ================= TOAST ================= */
-
-function showToast(message) {
-
-    const container =
-        document.getElementById("toast-container");
-
-    if (!container) return;
-
-    const toast =
-        document.createElement("div");
-
-    toast.className = "toast-msg";
-
-    toast.innerHTML = "✨ " + message;
-
-    container.appendChild(toast);
-
-    setTimeout(() => {
-
-        toast.style.opacity = "0";
-        toast.style.transform = "translateY(20px)";
-        toast.style.transition = ".3s";
-
-        setTimeout(() => {
-
-            if (toast.parentNode) {
-                toast.remove();
-            }
-
-        }, 300);
-
-    }, 2700);
-}
-
-
-/* ================= COMMENTS ================= */
-
-function loadComments() {
-
-    const container =
-        document.getElementById("commentsContainer");
-
-    if (!container) return;
-
-    let savedComments = [];
-
-    try {
-
-        savedComments =
-            JSON.parse(
-                localStorage.getItem(
-                    "site_user_comments"
-                )
-            ) || [];
-
-    } catch (e) {
-
-        savedComments = [];
-
-    }
-
-    container.innerHTML = "";
-
-    if (savedComments.length === 0) {
-
-        container.innerHTML = `
-            <div class="comment-item">
-                💡 لا توجد رسائل حتى الآن.
-                كن أول من يرسل ملاحظته!
-            </div>
-        `;
-
-        return;
-    }
-
-    savedComments.forEach(comment => {
-
-        const div =
-            document.createElement("div");
-
-        div.className = "comment-item";
-
-        const name =
-            document.createElement("b");
-
-        name.textContent =
-            comment.name + ": ";
-
-        const text =
-            document.createElement("span");
-
-        text.textContent =
-            comment.text;
-
-        div.appendChild(name);
-        div.appendChild(text);
-
-        container.appendChild(div);
-
-    });
-}
-
-
-/* ================= SEND MESSAGE ================= */
-
-function sendUserMessage() {
-
-    const nameInput =
-        document.getElementById(
-            "userNameInput"
-        );
-
-    const messageInput =
-        document.getElementById(
-            "userMsgInput"
-        );
-
-    if (!nameInput || !messageInput) return;
-
-    const name =
-        nameInput.value.trim();
-
-    const text =
-        messageInput.value.trim();
-
-    if (!name) {
-
-        showToast(
-            "يرجى كتابة اسمك أو اليوزر أولاً."
-        );
-
-        nameInput.focus();
-
-        return;
-    }
-
-    if (!text) {
-
-        showToast(
-            "يرجى كتابة الرسالة أولاً."
-        );
-
-        messageInput.focus();
-
-        return;
-    }
-
-    let savedComments = [];
-
-    try {
-
-        savedComments =
-            JSON.parse(
-                localStorage.getItem(
-                    "site_user_comments"
-                )
-            ) || [];
-
-    } catch (e) {
-
-        savedComments = [];
-
-    }
-
-    savedComments.unshift({
-
-        name: name,
-        text: text,
-        time: Date.now()
-
-    });
-
-    /* الاحتفاظ بآخر 15 رسالة فقط */
-
-    if (savedComments.length > 15) {
-
-        savedComments =
-            savedComments.slice(0, 15);
-
-    }
-
-    localStorage.setItem(
-        "site_user_comments",
-        JSON.stringify(savedComments)
-    );
-
-    nameInput.value = "";
-    messageInput.value = "";
-
-    loadComments();
-
-    showToast(
-        "تم إرسال رسالتك بنجاح ❤️"
-    );
-}
-
-
-/* ================= SHARE ================= */
-
-function shareWebsite() {
-
-    const shareData = {
-
-        title:
-            "SONG - VIP Link Unlocker",
-
-        text:
-            "🔥 ادخل موقع SONG واحصل على أحدث السكريبتات!",
-
-        url:
-            window.location.href
-
-    };
-
-    if (
-        navigator.share &&
-        typeof navigator.share === "function"
-    ) {
-
-        navigator.share(shareData)
-            .catch(() => {});
-
-    } else {
-
-        copySiteLink();
-
-    }
-}
-
-
-/* ================= COPY LINK ================= */
-
-function copySiteLink() {
-
-    const url =
-        window.location.href;
-
-    if (
-        navigator.clipboard &&
-        navigator.clipboard.writeText
-    ) {
-
-        navigator.clipboard
-            .writeText(url)
-            .then(() => {
-
-                showToast(
-                    "تم نسخ رابط الموقع 📋"
-                );
-
-            })
-            .catch(() => {
-
-                fallbackCopy(url);
-
-            });
-
-    } else {
-
-        fallbackCopy(url);
-
-    }
-}
-
-
-function fallbackCopy(text) {
-
-    const input =
-        document.createElement("textarea");
-
-    input.value = text;
-
-    input.style.position = "fixed";
-    input.style.opacity = "0";
-
-    document.body.appendChild(input);
-
-    input.select();
-
-    try {
-
-        document.execCommand("copy");
-
-        showToast(
-            "تم نسخ رابط الموقع 📋"
-        );
-
-    } catch (e) {
-
-        showToast(
-            "لم نتمكن من نسخ الرابط."
-        );
-
-    }
-
-    input.remove();
-}
-
-
-/* ================= SEARCH ================= */
-
-function filterContent() {
-
-    const input =
-        document.getElementById(
-            "siteSearchInput"
-        );
-
-    if (!input) return;
-
-    const query =
-        input.value
-            .trim()
-            .toLowerCase();
-
-    const buttons =
-        document.querySelectorAll(
-            ".btn-task"
-        );
-
-    buttons.forEach(button => {
-
-        const text =
-            button.innerText
-                .toLowerCase();
-
-        if (!query) {
-
-            button.style.display =
-                "block";
-
-            return;
-
-        }
-
-        button.style.display =
-            text.includes(query)
-                ? "block"
-                : "none";
-
-    });
-}
-
-
-/* ================= THEME ================= */
-
-function toggleTheme() {
-
-    const body =
-        document.body;
-
-    const current =
-        body.getAttribute(
-            "data-theme"
-        );
-
-    const next =
-        current === "light"
-            ? "dark"
-            : "light";
-
-    body.setAttribute(
-        "data-theme",
-        next
-    );
-
-    const themeButton =
-        document.querySelector(
-            ".nav-actions .nav-btn"
-        );
-
-    if (themeButton) {
-
-        themeButton.innerText =
-            next === "light"
-                ? "🌙"
-                : "☀️";
-
-    }
-
-    localStorage.setItem(
-        "song_theme",
-        next
-    );
-}
-
-
-/* ================= LOAD THEME ================= */
-
-function loadTheme() {
-
-    const savedTheme =
-        localStorage.getItem(
-            "song_theme"
-        );
-
-    if (
-        savedTheme === "light" ||
-        savedTheme === "dark"
-    ) {
-
-        document.body.setAttribute(
-            "data-theme",
-            savedTheme
-        );
-
-    }
-
-    const themeButton =
-        document.querySelector(
-            ".nav-actions .nav-btn"
-        );
-
-    if (themeButton) {
-
-        const current =
-            document.body.getAttribute(
-                "data-theme"
+        const supabaseClient =
+            window.supabase.createClient(
+                SUPABASE_URL,
+                SUPABASE_PUBLISHABLE_KEY
             );
 
-        themeButton.innerText =
-            current === "light"
-                ? "🌙"
-                : "☀️";
 
-    }
-}
+        /* ==========================================
+           عداد الزوار والفتح
+        ========================================== */
 
+        function getVisitorId() {
 
-/* =========================================================
-   TASK SYSTEM
-   ========================================================= */
+            let visitorId =
+                localStorage.getItem('song_supabase_visitor_id');
 
-let waitingForReturn = false;
+            if (!visitorId) {
 
-let activeTaskIndex = null;
-
-
-/* ================= CONFIG ================= */
-
-const cfg = {
-
-    l1:
-        "https://youtu.be/VbMk6Fw9Z2Y?si=MAR_MlRXxqIyac2-",
-
-    l2:
-        "https://discord.gg/dyTF79Bmta",
-
-    l3:
-        "https://www.youtube.com/@SONGJiNYU2",
-
-    updateText:
-        "🚀 أحدث إضافة: تم تحديث سيرفر السكريبتات برابط مباشر جديد!"
-
-};
-
-
-/* ================= SAVE CONFIG ================= */
-
-localStorage.setItem(
-    "cfg",
-    JSON.stringify(cfg)
-);
-
-
-/* ================= UPDATE TEXT ================= */
-
-const updateTicker =
-    document.getElementById(
-        "updateTickerText"
-    );
-
-if (
-    updateTicker &&
-    cfg.updateText
-) {
-
-    updateTicker.innerText =
-        cfg.updateText;
-
-}
-
-
-/* ================= TOKEN ================= */
-
-const urlParams =
-    new URLSearchParams(
-        window.location.search
-    );
-
-const linkToken =
-    urlParams.get("to") ||
-    urlParams.get("s");
-
-if (linkToken) {
-
-    localStorage.setItem(
-        "song_vip_active_token",
-        linkToken
-    );
-
-}
-
-
-/* ================= VISITORS ================= */
-
-let totalVisitors =
-    parseInt(
-        localStorage.getItem(
-            "site_visitors"
-        ) || "0"
-    );
-
-if (
-    !sessionStorage.getItem(
-        "visited_session"
-    )
-) {
-
-    totalVisitors++;
-
-    localStorage.setItem(
-        "site_visitors",
-        totalVisitors
-    );
-
-    sessionStorage.setItem(
-        "visited_session",
-        "true"
-    );
-
-}
-
-
-/* ================= START TASK ================= */
-
-function startTask(i) {
-
-    const links = [
-        cfg.l1,
-        cfg.l2,
-        cfg.l3
-    ];
-
-    if (!links[i]) {
-
-        showToast(
-            "الرابط غير متوفر حالياً."
-        );
-
-        return;
-
-    }
-
-    activeTaskIndex = i;
-
-    waitingForReturn = true;
-
-    window.open(
-        links[i],
-        "_blank"
-    );
-
-    const button =
-        document.getElementById(
-            "taskBtn" + i
-        );
-
-    if (!button) return;
-
-    button.innerText =
-        "⏳ أكمل المهمة ثم ارجع هنا...";
-
-    button.disabled = true;
-
-}
-
-
-/* ================= RETURN DETECTION ================= */
-
-document.addEventListener(
-    "visibilitychange",
-    function () {
-
-        if (
-            document.visibilityState !==
-            "visible"
-        ) {
-            return;
-        }
-
-        if (
-            !waitingForReturn ||
-            activeTaskIndex === null
-        ) {
-            return;
-        }
-
-        waitingForReturn = false;
-
-        const i =
-            activeTaskIndex;
-
-        const button =
-            document.getElementById(
-                "taskBtn" + i
-            );
-
-        if (!button) return;
-
-        let seconds = 5;
-
-        button.innerText =
-            `⏳ انتظر (${seconds} ثواني)...`;
-
-        const timer =
-            setInterval(() => {
-
-                seconds--;
-
-                if (seconds > 0) {
-
-                    button.innerText =
-                        `⏳ انتظر (${seconds} ثواني)...`;
-
+                if (
+                    window.crypto &&
+                    typeof window.crypto.randomUUID === 'function'
+                ) {
+                    visitorId =
+                        window.crypto.randomUUID();
                 } else {
 
-                    clearInterval(timer);
-
-                    button.innerText =
-                        "✅ تم إتمام المهمة";
-
-                    button.classList.add(
-                        "task-done"
-                    );
-
-                    button.disabled = true;
-
-
-                    /* تفعيل المهمة التالية */
-
-                    if (i + 1 < 3) {
-
-                        const nextButton =
-                            document.getElementById(
-                                "taskBtn" + (i + 1)
-                            );
-
-                        if (nextButton) {
-
-                            nextButton.disabled =
-                                false;
-
-                            nextButton.style.opacity =
-                                "1";
-
-                        }
-
-                    }
-
-
-                    /* تحديث التقدم */
-
-                    const completedCount =
-                        i + 1;
-
-                    const progressNumber =
-                        document.getElementById(
-                            "progressNumber"
-                        );
-
-                    const oldProgressText =
-                        document.getElementById(
-                            "progText"
-                        );
-
-                    const progressFill =
-                        document.getElementById(
-                            "progFill"
-                        );
-
-
-                    if (progressNumber) {
-
-                        progressNumber.innerText =
-                            completedCount + "/3";
-
-                    }
-
-
-                    if (oldProgressText) {
-
-                        oldProgressText.innerText =
-                            completedCount +
-                            "/3 التقدم";
-
-                    }
-
-
-                    if (progressFill) {
-
-                        progressFill.style.width =
-                            (
-                                completedCount / 3
-                            ) * 100 +
-                            "%";
-
-                    }
-
-
-                    /* فتح الرابط */
-
-                    if (
-                        completedCount === 3
-                    ) {
-
-                        const unlockButton =
-                            document.getElementById(
-                                "unlockBtn"
-                            );
-
-                        if (unlockButton) {
-
-                            unlockButton.classList.add(
-                                "active"
-                            );
-
-                            unlockButton.innerText =
-                                "🔓 فتح الرابط الآن";
-
-                        }
-
-                    }
-
-                    activeTaskIndex =
-                        null;
-
+                    visitorId =
+                        'visitor-' +
+                        Date.now() +
+                        '-' +
+                        Math.random()
+                            .toString(36)
+                            .substring(2, 12);
                 }
 
-            }, 1000);
-
-    }
-);
-
-
-/* ================= UNLOCK ================= */
-
-function goNext() {
-
-    let completed = 0;
-
-    for (
-        let i = 0;
-        i < 3;
-        i++
-    ) {
-
-        const button =
-            document.getElementById(
-                "taskBtn" + i
-            );
-
-        if (
-            button &&
-            button.innerText.includes("✅")
-        ) {
-
-            completed++;
-
-        }
-
-    }
-
-
-    if (completed !== 3) {
-
-        showToast(
-            "يجب إتمام جميع المهام بالترتيب أولاً 🔒"
-        );
-
-        return;
-
-    }
-
-
-    let totalClicks =
-        parseInt(
-            localStorage.getItem(
-                "site_clicks"
-            ) || "0"
-        );
-
-    totalClicks++;
-
-    localStorage.setItem(
-        "site_clicks",
-        totalClicks
-    );
-
-
-    const currentToken =
-        localStorage.getItem(
-            "song_vip_active_token"
-        );
-
-
-    if (currentToken) {
-
-        window.location.href =
-            "ready.html?to=" +
-            encodeURIComponent(
-                currentToken
-            );
-
-    } else {
-
-        window.location.href =
-            "ready.html";
-
-    }
-
-}
-
-
-/* ================= ADMIN ================= */
-
-function openAdmin() {
-
-    window.location.href =
-        "admin.html";
-
-}
-
-
-/* ================= INIT ================= */
-
-document.addEventListener(
-    "DOMContentLoaded",
-    function () {
-
-        loadTheme();
-
-        loadComments();
-
-        /* التأكد من حالة الأزرار */
-
-        for (
-            let i = 0;
-            i < 3;
-            i++
-        ) {
-
-            const button =
-                document.getElementById(
-                    "taskBtn" + i
+                localStorage.setItem(
+                    'song_supabase_visitor_id',
+                    visitorId
                 );
-
-            if (!button) continue;
-
-            if (i === 0) {
-
-                button.disabled =
-                    false;
-
-                button.style.opacity =
-                    "1";
-
-            } else {
-
-                button.disabled =
-                    true;
-
-                button.style.opacity =
-                    ".38";
-
             }
 
+            return visitorId;
         }
 
-    }
+
+        function updateVisitorNumbers(data) {
+
+            const visitorCount =
+                document.getElementById('visitorCount');
+
+            const visitCount =
+                document.getElementById('visitCount');
+
+            if (!visitorCount || !visitCount) return;
+
+            visitorCount.textContent =
+                Number(data.visitors || 0).toLocaleString('en-US');
+
+            visitCount.textContent =
+                Number(data.visits || 0).toLocaleString('en-US');
+
+            visitorCount.classList.remove('visitor-loading');
+            visitCount.classList.remove('visitor-loading');
+        }
+
+
+        async function registerVisitor() {
+
+            try {
+
+                const visitorId = getVisitorId();
+
+                const { data, error } =
+                    await supabaseClient.rpc(
+                        'register_site_visit',
+                        {
+                            p_visitor_id: visitorId
+                        }
+                    );
+
+                if (error) {
+                    console.error(
+                        'Supabase visitor error:',
+                        error
+                    );
+                    return;
+                }
+
+                if (data) {
+                    updateVisitorNumbers(data);
+                }
+
+            } catch (error) {
+
+                console.error(
+                    'Visitor counter error:',
+                    error
+                );
+            }
+        }
+
+
+        /* تشغيل العداد */
+        registerVisitor();
+
+
+        /* ==========================================
+           Toast
+        ========================================== */
+
+        function showToast(message) {
+
+            let container =
+                document.getElementById('toast-container');
+
+            let toast =
+                document.createElement('div');
+
+            toast.className = 'toast-msg';
+
+            toast.innerHTML =
+                `✨ ${message}`;
+
+            container.appendChild(toast);
+
+            setTimeout(() => {
+
+                toast.style.opacity = '0';
+                toast.style.transition = '0.3s';
+
+                setTimeout(() => {
+                    toast.remove();
+                }, 300);
+
+            }, 2700);
+        }
+
+
+        /* ==========================================
+           التعليقات
+        ========================================== */
+
+        function loadComments() {
+
+            let savedComments =
+                JSON.parse(
+                    localStorage.getItem(
+                        'site_user_comments'
+                    )
+                ) || [];
+
+            let container =
+                document.getElementById(
+                    'commentsContainer'
+                );
+
+            container.innerHTML = '';
+
+            if (savedComments.length === 0) {
+
+                container.innerHTML =
+                    '<div class="comment-item">لا توجد تعليقات حتى الآن، كن أول المشاركين!</div>';
+
+                return;
+            }
+
+            savedComments.forEach(c => {
+
+                let div =
+                    document.createElement('div');
+
+                div.className =
+                    'comment-item';
+
+                div.innerHTML =
+                    `<b>${c.name}:</b> ${c.text}`;
+
+                container.appendChild(div);
+            });
+        }
+
+
+        function sendUserMessage() {
+
+            let name =
+                document
+                    .getElementById('userNameInput')
+                    .value
+                    .trim();
+
+            let text =
+                document
+                    .getElementById('userMsgInput')
+                    .value
+                    .trim();
+
+            if (!name || !text) {
+
+                showToast(
+                    'يرجى كتابة الاسم والرسالة أولاً!'
+                );
+
+                return;
+            }
+
+            let savedComments =
+    JSON.parse(
+        localStorage.getItem('site_user_comments') || '[]'
+    );
+
+savedComments.unshift({
+    name: name,
+    text: text,
+    date: new Date().toLocaleString('ar-EG')
+});
+
+if (savedComments.length > 15) {
+    savedComments.pop();
+}
+
+localStorage.setItem(
+    'site_user_comments',
+    JSON.stringify(savedComments)
 );
 
-</script>
+document.getElementById('userNameInput').value = '';
+document.getElementById('userMsgInput').value = '';
 
-</body>
-</html>
+renderComments();
+
+showToast('تم إرسال رسالتك بنجاح ✅');
+        }
