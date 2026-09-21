@@ -3,896 +3,1289 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>SONG - سجل التحديثات والتفاصيل</title>
-    
+
+    <title>SONG VIP - سجل التحديثات</title>
+
     <style>
         :root {
-            --bg-color: #0b071e;
-            --card-bg: #140f2b;
+            --bg-color: #070510;
+            --card-bg: rgba(20, 15, 43, 0.88);
+            --card-bg-2: rgba(15, 10, 32, 0.95);
             --text-color: #ffffff;
-            --border-color: rgba(255, 255, 255, 0.08);
-            --input-bg: #0b071e;
-            --accent-glow: #00f0ff;
+            --muted: #a9a5b8;
+            --border-color: rgba(255, 255, 255, 0.09);
+            --input-bg: rgba(5, 5, 15, 0.72);
+
+            --cyan: #00f0ff;
+            --purple: #8b5cf6;
+            --pink: #ff2a85;
+            --green: #2ecc71;
+            --orange: #f39c12;
         }
 
         [data-theme="light"] {
-            --bg-color: #f0f2f5;
-            --card-bg: #ffffff;
-            --text-color: #222222;
-            --border-color: rgba(0, 0, 0, 0.1);
-            --input-bg: #f8f9fa;
-            --accent-glow: #007bff;
+            --bg-color: #eef1f8;
+            --card-bg: rgba(255, 255, 255, 0.92);
+            --card-bg-2: #ffffff;
+            --text-color: #181522;
+            --muted: #666273;
+            --border-color: rgba(0, 0, 0, 0.09);
+            --input-bg: #f7f7fb;
+
+            --cyan: #008fa3;
+            --purple: #7048d8;
+            --pink: #e51f72;
+        }
+
+        * {
+            box-sizing: border-box;
+        }
+
+        html {
+            scroll-behavior: smooth;
         }
 
         body {
             margin: 0;
-            padding: 20px 0;
-            background-color: var(--bg-color);
-            color: var(--text-color);
-            font-family: Arial, sans-serif;
-            display: flex;
-            flex-direction: column;
-            align-items: center;
+            padding: 25px 0 40px;
+
             min-height: 100vh;
+
+            font-family:
+                Arial,
+                Tahoma,
+                sans-serif;
+
+            color: var(--text-color);
+
+            background:
+                radial-gradient(
+                    circle at 10% 10%,
+                    rgba(139, 92, 246, 0.16),
+                    transparent 28%
+                ),
+                radial-gradient(
+                    circle at 90% 15%,
+                    rgba(0, 240, 255, 0.11),
+                    transparent 25%
+                ),
+                radial-gradient(
+                    circle at 50% 100%,
+                    rgba(255, 42, 133, 0.10),
+                    transparent 30%
+                ),
+                var(--bg-color);
+
+            transition:
+                background 0.3s,
+                color 0.3s;
+        }
+
+        body::before {
+            content: "";
+            position: fixed;
+            inset: 0;
+
+            pointer-events: none;
+
+            background-image:
+                linear-gradient(
+                    rgba(255,255,255,0.025) 1px,
+                    transparent 1px
+                ),
+                linear-gradient(
+                    90deg,
+                    rgba(255,255,255,0.025) 1px,
+                    transparent 1px
+                );
+
+            background-size: 45px 45px;
+
+            mask-image:
+                linear-gradient(
+                    to bottom,
+                    black,
+                    transparent 90%
+                );
+
+            z-index: -1;
         }
 
         .container {
-            width: 90%;
-            max-width: 450px;
+            width: min(92%, 520px);
+            margin: auto;
         }
 
+        /* =========================================
+           الهيدر
+        ========================================= */
+
         .header-box {
-            background: linear-gradient(145deg, #181238, #0f0a24);
-            border: 1px solid rgba(0, 240, 255, 0.3);
-            border-radius: 22px;
-            padding: 20px;
-            margin-bottom: 20px;
-            box-shadow: 0 15px 35px rgba(0,0,0,0.4);
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
             position: relative;
+
+            padding: 25px 18px 22px;
+
+            margin-bottom: 20px;
+
+            border-radius: 28px;
+
+            background:
+                linear-gradient(
+                    145deg,
+                    rgba(24, 18, 56, 0.97),
+                    rgba(10, 7, 25, 0.98)
+                );
+
+            border: 1px solid rgba(0, 240, 255, 0.22);
+
+            box-shadow:
+                0 20px 50px rgba(0,0,0,0.42),
+                inset 0 1px 0 rgba(255,255,255,0.05);
+
             overflow: hidden;
+
+            text-align: center;
+        }
+
+        [data-theme="light"] .header-box {
+            background:
+                linear-gradient(
+                    145deg,
+                    #ffffff,
+                    #f4f1ff
+                );
         }
 
         .header-box::before {
-            content: '';
+            content: "";
+
             position: absolute;
+
             top: 0;
             right: 0;
-            width: 4px;
-            height: 100%;
-            background: linear-gradient(to bottom, #00f0ff, #ff2a85);
+
+            width: 100%;
+            height: 3px;
+
+            background:
+                linear-gradient(
+                    90deg,
+                    var(--pink),
+                    var(--purple),
+                    var(--cyan)
+                );
         }
 
-        .header-title-area {
-            display: flex;
-            align-items: center;
-            gap: 15px;
+        .header-box::after {
+            content: "";
+
+            position: absolute;
+
+            width: 170px;
+            height: 170px;
+
+            left: -90px;
+            bottom: -100px;
+
+            border-radius: 50%;
+
+            background: rgba(139,92,246,0.13);
+
+            filter: blur(10px);
         }
+
+        .header-content {
+            position: relative;
+            z-index: 2;
+
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+        }
+
+        /* الأيقونة */
 
         .header-icon-luxury {
-            font-size: 26px;
-            background: linear-gradient(
-                135deg,
-                rgba(0, 240, 255, 0.2),
-                rgba(255, 42, 133, 0.2)
-            );
-            width: 55px;
-            height: 55px;
+            width: 76px;
+            height: 76px;
+
             display: flex;
             align-items: center;
             justify-content: center;
-            border-radius: 16px;
-            border: 1px solid rgba(0, 240, 255, 0.4);
-            box-shadow: 0 0 15px rgba(0, 240, 255, 0.2);
+
+            border-radius: 23px;
+
+            font-size: 35px;
+
+            margin-bottom: 13px;
+
+            background:
+                linear-gradient(
+                    135deg,
+                    rgba(0,240,255,0.18),
+                    rgba(139,92,246,0.20),
+                    rgba(255,42,133,0.18)
+                );
+
+            border: 1px solid rgba(0,240,255,0.35);
+
+            box-shadow:
+                0 0 28px rgba(0,240,255,0.12),
+                inset 0 0 20px rgba(255,255,255,0.025);
+
+            animation:
+                iconFloat 3s ease-in-out infinite;
         }
 
-        .title-text-group h2 {
-            color: #ff2a85;
+        @keyframes iconFloat {
+            0%,100% {
+                transform: translateY(0);
+            }
+
+            50% {
+                transform: translateY(-5px);
+            }
+        }
+
+        /* الكلام تحت الأيقونة */
+
+        .title-text-group {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+        }
+
+        .title-text-group h1 {
             margin: 0;
-            font-size: 18px;
-            font-weight: bold;
+
+            font-size: 23px;
+
+            font-weight: 900;
+
+            letter-spacing: 1px;
+
+            background:
+                linear-gradient(
+                    90deg,
+                    var(--cyan),
+                    #ffffff,
+                    var(--pink)
+                );
+
+            -webkit-background-clip: text;
+            background-clip: text;
+
+            color: transparent;
         }
 
         .subtitle-label {
-            font-size: 13px;
-            color: #00f0ff;
-            margin-top: 5px;
-            font-weight: bold;
-            letter-spacing: 0.5px;
+            margin-top: 8px;
+
+            font-size: 15px;
+
+            font-weight: 900;
+
+            color: var(--pink);
+
+            letter-spacing: 0.8px;
+
+            text-shadow:
+                0 0 15px rgba(255,42,133,0.35);
         }
 
-        .back-btn {
-            background: var(--input-bg);
+        .header-line {
+            width: 80px;
+            height: 2px;
+
+            margin: 13px auto 0;
+
+            border-radius: 50px;
+
+            background:
+                linear-gradient(
+                    90deg,
+                    transparent,
+                    var(--cyan),
+                    var(--pink),
+                    transparent
+                );
+        }
+
+        .header-description {
+            margin: 13px 0 18px;
+
+            color: var(--muted);
+
+            font-size: 11px;
+
+            line-height: 1.7;
+        }
+
+        /* أزرار الهيدر */
+
+        .header-buttons {
+            display: flex;
+            gap: 8px;
+
+            justify-content: center;
+            flex-wrap: wrap;
+        }
+
+        .header-btn {
+            display: inline-flex;
+
+            align-items: center;
+            justify-content: center;
+
+            gap: 6px;
+
+            padding: 9px 13px;
+
+            border-radius: 11px;
+
             border: 1px solid var(--border-color);
+
+            background: var(--input-bg);
+
             color: var(--text-color);
-            padding: 8px 14px;
-            border-radius: 12px;
-            cursor: pointer;
-            font-size: 12px;
+
             text-decoration: none;
-            transition: 0.3s;
+
+            font-size: 11px;
+
+            cursor: pointer;
+
+            transition: 0.25s;
         }
 
-        .back-btn:hover {
-            border-color: #ff2a85;
-            background: rgba(255, 42, 133, 0.1);
+        .header-btn:hover {
+            transform: translateY(-2px);
+
+            border-color: var(--cyan);
+
+            box-shadow:
+                0 0 18px rgba(0,240,255,0.12);
         }
+
+        .theme-btn:hover {
+            border-color: var(--pink);
+        }
+
+        /* =========================================
+           بطاقة آخر تحديث
+        ========================================= */
+
+        .latest-release {
+            position: relative;
+
+            margin-bottom: 20px;
+
+            padding: 18px;
+
+            border-radius: 20px;
+
+            background:
+                linear-gradient(
+                    135deg,
+                    rgba(139,92,246,0.16),
+                    rgba(0,240,255,0.07),
+                    rgba(255,42,133,0.08)
+                );
+
+            border: 1px solid rgba(139,92,246,0.3);
+
+            overflow: hidden;
+        }
+
+        .latest-release::before {
+            content: "";
+
+            position: absolute;
+
+            top: 0;
+            right: 0;
+
+            width: 4px;
+            height: 100%;
+
+            background:
+                linear-gradient(
+                    to bottom,
+                    var(--cyan),
+                    var(--purple),
+                    var(--pink)
+                );
+        }
+
+        .latest-top {
+            display: flex;
+
+            align-items: center;
+
+            justify-content: space-between;
+
+            gap: 10px;
+
+            margin-bottom: 10px;
+        }
+
+        .latest-label {
+            color: var(--cyan);
+
+            font-size: 10px;
+
+            font-weight: 900;
+
+            letter-spacing: 1px;
+        }
+
+        .version-badge {
+            padding: 5px 9px;
+
+            border-radius: 8px;
+
+            background: rgba(255,42,133,0.13);
+
+            color: var(--pink);
+
+            border: 1px solid rgba(255,42,133,0.2);
+
+            font-size: 10px;
+
+            font-weight: 900;
+        }
+
+        .latest-title {
+            margin: 0 0 8px;
+
+            font-size: 17px;
+
+            color: var(--text-color);
+
+            font-weight: 900;
+        }
+
+        .latest-text {
+            margin: 0;
+
+            color: var(--muted);
+
+            font-size: 12px;
+
+            line-height: 1.8;
+        }
+
+        /* =========================================
+           التقييم
+        ========================================= */
 
         .rating-section {
             background: var(--card-bg);
+
             border: 1px solid var(--border-color);
-            border-radius: 20px;
+
+            border-radius: 22px;
+
             padding: 18px;
+
             margin-bottom: 20px;
-            box-shadow: 0 10px 25px rgba(0,0,0,0.2);
+
+            box-shadow:
+                0 12px 35px rgba(0,0,0,0.2);
+
             text-align: right;
         }
 
-        .rating-section h3 {
+        .section-heading {
+            display: flex;
+
+            align-items: center;
+
+            justify-content: space-between;
+
+            gap: 10px;
+
+            margin-bottom: 13px;
+        }
+
+        .section-heading h3 {
+            margin: 0;
+
             font-size: 14px;
-            color: #00f0ff;
-            margin-bottom: 10px;
+
+            color: var(--cyan);
+        }
+
+        .section-heading span {
+            font-size: 10px;
+
+            color: var(--muted);
         }
 
         .stars-select {
             display: flex;
+
             gap: 5px;
-            margin-bottom: 10px;
+
+            margin-bottom: 12px;
+
             direction: ltr;
+
             justify-content: flex-end;
         }
 
         .star {
-            font-size: 20px;
+            font-size: 22px;
+
             cursor: pointer;
+
             color: #555;
-            transition: 0.2s;
+
+            transition:
+                transform 0.15s,
+                color 0.15s;
         }
 
-        .star.selected,
         .star:hover {
+            transform: scale(1.15);
+        }
+
+        .star.selected {
             color: #f39c12;
+
+            text-shadow:
+                0 0 10px rgba(243,156,18,0.35);
         }
 
         .rating-section input,
         .rating-section textarea {
             width: 100%;
-            padding: 10px;
+
+            padding: 11px 12px;
+
             background: var(--input-bg);
+
             border: 1px solid var(--border-color);
-            border-radius: 10px;
+
+            border-radius: 11px;
+
             color: var(--text-color);
+
             font-size: 12px;
+
             margin-bottom: 8px;
+
             outline: none;
-            box-sizing: border-box;
+
+            resize: none;
+
+            transition: 0.2s;
+        }
+
+        .rating-section input:focus,
+        .rating-section textarea:focus {
+            border-color: var(--cyan);
+
+            box-shadow:
+                0 0 0 3px rgba(0,240,255,0.06);
         }
 
         .rating-section textarea {
-            height: 55px;
-            resize: none;
+            height: 65px;
         }
 
         .btn-submit-review {
             width: 100%;
-            padding: 10px;
-            background: linear-gradient(135deg, #2ecc71, #27ae60);
+
+            padding: 11px;
+
+            background:
+                linear-gradient(
+                    135deg,
+                    #2ecc71,
+                    #27ae60
+                );
+
             color: #fff;
+
             border: none;
-            border-radius: 10px;
+
+            border-radius: 11px;
+
             font-weight: bold;
+
             cursor: pointer;
-            font-size: 13px;
+
+            font-size: 12px;
+
             transition: 0.2s;
         }
 
         .btn-submit-review:hover {
-            opacity: 0.9;
+            transform: translateY(-1px);
+
+            filter: brightness(1.08);
         }
 
         .reviews-container {
             margin-top: 12px;
-            max-height: 150px;
+
+            max-height: 180px;
+
             overflow-y: auto;
         }
 
         .review-item {
             background: var(--input-bg);
-            padding: 8px 12px;
-            border-radius: 10px;
+
+            padding: 10px 12px;
+
+            border-radius: 11px;
+
             margin-top: 8px;
+
             border-right: 3px solid #f39c12;
+
             font-size: 11px;
         }
 
         .review-header-line {
             display: flex;
+
             justify-content: space-between;
+
+            gap: 8px;
+
             font-weight: bold;
-            color: #ff2a85;
-            margin-bottom: 3px;
+
+            color: var(--pink);
+
+            margin-bottom: 4px;
         }
 
+        .review-stars {
+            color: #f39c12;
+        }
+
+        /* =========================================
+           البحث
+        ========================================= */
+
         .search-box {
-            margin-bottom: 20px;
+            position: relative;
+
+            margin-bottom: 12px;
         }
 
         .search-box input {
             width: 100%;
-            padding: 12px 15px;
+
+            padding: 13px 15px;
+
             background: var(--card-bg);
+
             border: 1px solid var(--border-color);
-            border-radius: 12px;
+
+            border-radius: 14px;
+
             color: var(--text-color);
+
             outline: none;
-            font-size: 13px;
-            box-sizing: border-box;
+
+            font-size: 12px;
+
+            transition: 0.2s;
         }
 
+        .search-box input:focus {
+            border-color: var(--cyan);
+
+            box-shadow:
+                0 0 20px rgba(0,240,255,0.08);
+        }
+
+        /* =========================================
+           التحديثات
+        ========================================= */
+
         .update-card {
+            position: relative;
+
             background: var(--card-bg);
+
             border: 1px solid var(--border-color);
-            border-radius: 18px;
+
+            border-radius: 20px;
+
             padding: 18px;
+
             margin-bottom: 15px;
-            box-shadow: 0 10px 25px rgba(0,0,0,0.2);
+
+            box-shadow:
+                0 10px 30px rgba(0,0,0,0.18);
+
+            overflow: hidden;
+
+            transition:
+                transform 0.25s,
+                border-color 0.25s,
+                box-shadow 0.25s;
+        }
+
+        .update-card::before {
+            content: "";
+
+            position: absolute;
+
+            right: 0;
+            top: 0;
+
+            width: 3px;
+            height: 0;
+
+            background:
+                linear-gradient(
+                    to bottom,
+                    var(--cyan),
+                    var(--pink)
+                );
+
+            transition: height 0.3s;
+        }
+
+        .update-card:hover {
+            transform: translateY(-3px);
+
+            border-color: rgba(0,240,255,0.22);
+
+            box-shadow:
+                0 16px 40px rgba(0,0,0,0.25);
+        }
+
+        .update-card:hover::before {
+            height: 100%;
         }
 
         .update-header {
             display: flex;
+
             justify-content: space-between;
+
             align-items: center;
+
             margin-bottom: 6px;
+
             gap: 10px;
         }
 
         .update-title {
-            font-weight: bold;
+            font-weight: 900;
+
             font-size: 15px;
-            color: #00f0ff;
+
+            color: var(--cyan);
+
+            line-height: 1.5;
         }
 
         .update-date {
-            font-size: 11px;
-            color: #f39c12;
+            font-size: 10px;
+
+            color: var(--orange);
+
             font-weight: bold;
-            margin-bottom: 10px;
+
+            margin-bottom: 11px;
         }
 
         .update-desc {
-            font-size: 13px;
-            line-height: 1.7;
-            color: #ccc;
-            margin-bottom: 12px;
+            font-size: 12px;
+
+            line-height: 1.85;
+
+            color: var(--muted);
+
+            margin-bottom: 13px;
+        }
+
+        .update-desc b {
+            color: var(--text-color);
         }
 
         .badge-new {
-            background: rgba(255, 42, 133, 0.15);
-            color: #ff2a85;
-            padding: 3px 8px;
-            border-radius: 6px;
-            font-size: 10px;
+            background: rgba(255,42,133,0.13);
+
+            color: var(--pink);
+
+            padding: 4px 8px;
+
+            border-radius: 7px;
+
+            font-size: 9px;
+
             font-weight: bold;
+
             white-space: nowrap;
+
+            border: 1px solid rgba(255,42,133,0.16);
         }
 
         .card-actions {
             display: flex;
+
             justify-content: space-between;
+
             align-items: center;
-            font-size: 12px;
-            border-top: 1px solid rgba(255, 255, 255, 0.05);
-            padding-top: 8px;
-            color: #aaa;
+
+            gap: 10px;
+
+            font-size: 11px;
+
+            border-top: 1px solid var(--border-color);
+
+            padding-top: 10px;
+
+            color: var(--muted);
         }
 
         .like-btn {
-            background: none;
-            border: 1px solid rgba(255, 255, 255, 0.2);
+            background: var(--input-bg);
+
+            border: 1px solid var(--border-color);
+
             color: var(--text-color);
-            padding: 4px 10px;
-            border-radius: 8px;
+
+            padding: 5px 10px;
+
+            border-radius: 9px;
+
             cursor: pointer;
-            font-size: 12px;
+
+            font-size: 11px;
+
             transition: 0.2s;
         }
 
         .like-btn:hover {
-            background: #ff2a85;
-            border-color: #ff2a85;
+            background: rgba(255,42,133,0.12);
+
+            border-color: var(--pink);
+
+            color: var(--pink);
         }
+
+        .like-btn.liked {
+            background: rgba(255,42,133,0.12);
+
+            border-color: var(--pink);
+
+            color: var(--pink);
+
+            cursor: default;
+        }
+
+        .empty-message {
+            display: none;
+
+            text-align: center;
+
+            padding: 30px 15px;
+
+            background: var(--card-bg);
+
+            border: 1px solid var(--border-color);
+
+            border-radius: 18px;
+
+            color: var(--muted);
+
+            font-size: 12px;
+        }
+
+        /* =========================================
+           زر الرجوع للأعلى
+        ========================================= */
+
+        #topButton {
+            position: fixed;
+
+            left: 18px;
+            bottom: 18px;
+
+            width: 40px;
+            height: 40px;
+
+            border-radius: 13px;
+
+            border: 1px solid var(--border-color);
+
+            background: var(--card-bg-2);
+
+            color: var(--cyan);
+
+            cursor: pointer;
+
+            display: none;
+
+            box-shadow:
+                0 8px 25px rgba(0,0,0,0.3);
+
+            z-index: 50;
+        }
+
+        /* =========================================
+           Toast
+        ========================================= */
 
         #toast-box {
             position: fixed;
+
             bottom: 20px;
+
             right: 20px;
-            z-index: 999;
+
+            z-index: 9999;
         }
 
         .toast-notify {
-            background: #140f2b;
+            background:
+                linear-gradient(
+                    135deg,
+                    #140f2b,
+                    #0c0918
+                );
+
             color: #fff;
-            padding: 10px 18px;
-            border-radius: 10px;
-            border: 1px solid #00f0ff;
-            font-size: 13px;
-            box-shadow: 0 5px 15px rgba(0,0,0,0.5);
-        }
-    </style>
-</head>
 
-<body data-theme="dark">
+            padding: 11px 16px;
 
-    <div class="container">
+            border-radius: 12px;
 
-        <div class="header-box">
-            <div class="header-title-area">
-                <div class="header-icon-luxury">📜</div>
+            border: 1px solid rgba(0,240,255,0.35);
 
-                <div class="title-text-group">
-                    <h2>SONG VIP</h2>
-                    <div class="subtitle-label">سجل التحديثات</div>
-                </div>
-            </div>
+            font-size: 12px;
 
-            <a href="index.html" class="back-btn">⬅ العودة للموقع</a>
-        </div>
+            box-shadow:
+                0 8px 30px rgba(0,0,0,0.45);
 
-        <div class="rating-section">
-            <h3>⭐ قيم المنصة واكتب رأيك بكل صراحة:</h3>
-
-            <div class="stars-select" id="starContainer">
-                <span class="star" onclick="setRating(5)">★</span>
-                <span class="star" onclick="setRating(4)">★</span>
-                <span class="star" onclick="setRating(3)">★</span>
-                <span class="star" onclick="setRating(2)">★</span>
-                <span class="star" onclick="setRating(1)">★</span>
-            </div>
-
-            <input
-                type="text"
-                id="reviewerName"
-                placeholder="اسمك أو يوزرك..."
-            >
-
-            <textarea
-                id="reviewerText"
-                placeholder="اكتب تقييمك أو اقتراحك للتطوير..."
-            ></textarea>
-
-            <button
-                class="btn-submit-review"
-                onclick="submitRealReview()"
-            >
-                إرسال التقييم الحقيقي
-            </button>
-
-            <div
-                class="reviews-container"
-                id="reviewsList"
-            ></div>
-        </div>
-
-        <div class="search-box">
-            <input
-                type="text"
-                id="searchInput"
-                placeholder="🔍 ابحث في سجل الإصدارات والشروحات..."
-                onkeyup="filterUpdates()"
-            >
-        </div>
-
-        <div id="updatesList">
-
-            <!-- ============================= -->
-            <!-- التحديث الجديد v3.1 -->
-            <!-- ============================= -->
-
-            <div
-                class="update-card"
-                data-text="إصدار v3.1 نظام عداد الزوار والزيارات Supabase منع تكرار الزيارة تحديث العداد"
-            >
-                <div class="update-header">
-                    <span class="update-title">
-                        🚀 الإصدار v3.1 (نظام الزوار الجديد)
-                    </span>
-
-                    <span class="badge-new">
-                        جديد
-                    </span>
-                </div>
-
-                <div class="update-date">
-                    📅 تاريخ الإصدار: 21 سبتمبر 2026
-                </div>
-
-                <div class="update-desc">
-                    <b>🔥 أهم ما تم إضافته في هذا التحديث:</b><br><br>
-
-                    • إضافة <b>عداد زوار مركزي</b> مرتبط بقاعدة بيانات Supabase
-                    لحفظ الإحصائيات بشكل مركزي.<br>
-
-                    • إضافة <b>عداد للزيارات</b> لمعرفة عدد مرات تسجيل الدخول
-                    للموقع.<br>
-
-                    • تسجيل الزائر تلقائيًا عند دخول الموقع بدون الحاجة إلى
-                    الضغط على أي زر.<br>
-
-                    • منع احتساب نفس المتصفح كزائر جديد عند عمل
-                    <b>Refresh</b> للصفحة.<br>
-
-                    • حفظ هوية الزائر في المتصفح للمساعدة في منع تكرار
-                    احتساب نفس الزائر.<br>
-
-                    • نقل نظام عداد الزوار من الاعتماد على التخزين المحلي
-                    فقط إلى نظام مركزي في قاعدة البيانات.<br>
-
-                    • تحسين دقة الإحصائيات وتجهيز النظام للتطويرات القادمة.<br>
-
-                    • الحفاظ على نظام المهام والروابط وفتح الرابط النهائي
-                    بدون تغيير.<br>
-                </div>
-
-                <div class="card-actions">
-                    <span>❤️ إعجاب بالمميزات</span>
-
-                    <button
-                        class="like-btn"
-                        onclick="likeUpdate(this)"
-                    >
-                        👍 <span class="like-count">0</span>
-                    </button>
-                </div>
-            </div>
-
-
-            <!-- ============================= -->
-            <!-- الإصدار v3.0 -->
-            <!-- ============================= -->
-
-            <div
-                class="update-card"
-                data-text="إصدار v3.0 نظام التقييمات الحقيقي والوضع المطور"
-            >
-                <div class="update-header">
-                    <span class="update-title">
-                        ✨ الإصدار v3.0 (التحديث الرئيسي)
-                    </span>
-
-                    <span class="badge-new">
-                        الحدث الأبرز
-                    </span>
-                </div>
-
-                <div class="update-date">
-                    📅 تاريخ الإصدار: 14 أغسطس 2026
-                </div>
-
-                <div class="update-desc">
-                    <b>الشرح الجذري وما تم إنجازه:</b><br>
-
-                    • تم إطلاق
-                    <b>نظام تقييمات حقيقي ومحلي (Local Reviews)</b>
-                    يتيح للمستخدمين كتابة آرائهم وتقييماتهم بالنجوم
-                    وحفظها بشكل فوري.<br>
-
-                    • إعادة هيكلة واجهة "سجل التحديثات" لتصبح أكثر فخامة
-                    مع توضيح العناوين بدقة تحت الأيقونات المخصصة.<br>
-
-                    • تفعيل نظام التنبيهات الفورية (Toasts) وتطوير لوحة
-                    التصفح لتكون أكثر سرعة واستقراراً.
-                </div>
-
-                <div class="card-actions">
-                    <span>❤️ إعجاب بالمميزات</span>
-
-                    <button
-                        class="like-btn"
-                        onclick="likeUpdate(this)"
-                    >
-                        👍 <span class="like-count">340</span>
-                    </button>
-                </div>
-            </div>
-
-
-            <!-- ============================= -->
-            <!-- الإصدار v2.5 -->
-            <!-- ============================= -->
-
-            <div
-                class="update-card"
-                data-text="إصدار v2.5 نظام التشفير والسداسي عشر وتوجيه المهام"
-            >
-                <div class="update-header">
-                    <span class="update-title">
-                        🛠️ الإصدار v2.5
-                    </span>
-                </div>
-
-                <div class="update-date">
-                    📅 تاريخ الإصدار: 10 أغسطس 2026
-                </div>
-
-                <div class="update-desc">
-                    <b>الشرح الجذري وما تم إنجازه:</b><br>
-
-                    • تقديم
-                    <b>نظام التشفير والترميز الآمن للروابط</b>
-                    لضمان عمل السكريبتات الخاصة بالمطورين دون أي أعطال.<br>
-
-                    • تثبيت الإلزامات البرمجية لإنهاء المهام الثلاث
-                    (إعجاب، ديسكورد، اشتراك) بترتيب صحيح قبل فتح الرابط
-                    النهائي للبانر.<br>
-
-                    • تأمين واجهة الروابط ضد الثغرات وتحديث السيرفرات
-                    الداخلية.
-                </div>
-
-                <div class="card-actions">
-                    <span>❤️ إعجاب بالمميزات</span>
-
-                    <button
-                        class="like-btn"
-                        onclick="likeUpdate(this)"
-                    >
-                        👍 <span class="like-count">210</span>
-                    </button>
-                </div>
-            </div>
-
-
-            <!-- ============================= -->
-            <!-- الإصدار v2.0 -->
-            <!-- ============================= -->
-
-            <div
-                class="update-card"
-                data-text="إصدار v2.0 روابط فريدة وتحديث السيرفرات"
-            >
-                <div class="update-header">
-                    <span class="update-title">
-                        📌 الإصدار v2.0
-                    </span>
-                </div>
-
-                <div class="update-date">
-                    📅 تاريخ الإصدار: 01 أغسطس 2026
-                </div>
-
-                <div class="update-desc">
-                    <b>الشرح الجذري وما تم إنجازه:</b><br>
-
-                    • تفعيل خاصية
-                    <b>الروابط الفريدة (Unique Links)</b>
-                    المخصصة للمطورين لسهولة مشاركة أعمالهم.<br>
-
-                    • تحديث سيرفر السكريبتات بالكامل ونقله لاستضافة سريعة
-                    تضمن استمرارية الروابط المباشرة.<br>
-
-                    • معالجة المشاكل البرمجية السابقة وتحسين تجربة المستخدم
-                    العامة.
-                </div>
-
-                <div class="card-actions">
-                    <span>❤️ إعجاب بالمميزات</span>
-
-                    <button
-                        class="like-btn"
-                        onclick="likeUpdate(this)"
-                    >
-                        👍 <span class="like-count">142</span>
-                    </button>
-                </div>
-            </div>
-
-
-            <!-- ============================= -->
-            <!-- الإصدار v1.5 -->
-            <!-- ============================= -->
-
-            <div
-                class="update-card"
-                data-text="إصدار v1.5 نظام التعليقات والوضع الليلي"
-            >
-                <div class="update-header">
-                    <span class="update-title">
-                        📌 الإصدار v1.5
-                    </span>
-                </div>
-
-                <div class="update-date">
-                    📅 تاريخ الإصدار: 20 يوليو 2026
-                </div>
-
-                <div class="update-desc">
-                    <b>الشرح الجذري وما تم إنجازه:</b><br>
-
-                    • إدراج
-                    <b>صندوق الدعم والملاحظات</b>
-                    لتسهيل التواصل المباشر مع زوار المنصة.<br>
-
-                    • إضافة ميزة التبديل السلس بين الوضع الليلي والوضع
-                    النهاري بحسب تفضيل المستخدم.<br>
-
-                    • إصلاح عيوب عداد الثواني المرتبط بتجاوز المهام
-                    الخارجية.
-                </div>
-
-                <div class="card-actions">
-                    <span>❤️ إعجاب بالمميزات</span>
-
-                    <button
-                        class="like-btn"
-                        onclick="likeUpdate(this)"
-                    >
-                        👍 <span class="like-count">95</span>
-                    </button>
-                </div>
-            </div>
-
-        </div>
-    </div>
-
-
-    <div id="toast-box"></div>
-
-
-    <script>
-
-        /* ================================
-           نظام الإشعارات
-        ================================= */
-
-        function showNotification(msg) {
-
-            let box = document.getElementById('toast-box');
-
-            box.innerHTML = `
-                <div class="toast-notify">
-                    ✨ ${msg}
-                </div>
-            `;
-
-            setTimeout(() => {
-                box.innerHTML = '';
-            }, 2500);
+            animation:
+                toastIn 0.25s ease;
         }
 
-
-        /* ================================
-           نظام التقييم
-        ================================= */
-
-        let selectedStars = 5;
-
-
-        function setRating(rating) {
-
-            selectedStars = rating;
-
-            let stars = document.querySelectorAll('.star');
-
-            stars.forEach((s, idx) => {
-
-                if ((5 - idx) <= rating) {
-                    s.classList.add('selected');
-                } else {
-                    s.classList.remove('selected');
-                }
-
-            });
-        }
-
-
-        setRating(5);
-
-
-        /* ================================
-           تحميل التقييمات
-        ================================= */
-            function loadRatings() {
-        const savedReviews = JSON.parse(
-            localStorage.getItem('site_real_reviews') || '[]'
-        );
-
-        const reviewsContainer = document.getElementById('reviewsList');
-
-        if (!reviewsContainer) return;
-
-        reviewsContainer.innerHTML = '';
-
-        if (savedReviews.length === 0) {
-            reviewsContainer.innerHTML = `
-                <div class="no-reviews">
-                    لا توجد تقييمات حتى الآن ⭐
-                </div>
-            `;
-            return;
-        }
-
-        savedReviews.forEach(review => {
-            const reviewItem = document.createElement('div');
-            reviewItem.className = 'review-item';
-
-            reviewItem.innerHTML = `
-                <div class="review-header">
-                    <strong>${escapeHtml(review.name || 'زائر')}</strong>
-                    <span class="review-stars">
-                        ${'★'.repeat(review.rating)}
-                        ${'☆'.repeat(5 - review.rating)}
-                    </span>
-                </div>
-
-                <div class="review-text">
-                    ${escapeHtml(review.text || '')}
-                </div>
-
-                <div class="review-date">
-                    ${review.date || ''}
-                </div>
-            `;
-
-            reviewsContainer.appendChild(reviewItem);
-        });
-    }
-
-
-    function escapeHtml(text) {
-        const div = document.createElement('div');
-        div.textContent = text;
-        return div.innerHTML;
-    }
-
-
-    function submitReview() {
-        const nameInput = document.getElementById('reviewName');
-        const textInput = document.getElementById('reviewText');
-
-        if (!nameInput || !textInput) return;
-
-        const name = nameInput.value.trim();
-        const text = textInput.value.trim();
-
-        if (!text) {
-            showToast('اكتب تقييمك أولاً ⭐');
-            return;
-        }
-
-        if (selectedStars < 1 || selectedStars > 5) {
-            showToast('اختر عدد النجوم أولاً ⭐');
-            return;
-        }
-
-        let reviews = JSON.parse(
-            localStorage.getItem('site_real_reviews') || '[]'
-        );
-
-        if (reviews.length >= 10) {
-            reviews.shift();
-        }
-
-        reviews.push({
-            name: name || 'زائر',
-            rating: selectedStars,
-            text: text,
-            date: new Date().toLocaleDateString('ar-EG')
-        });
-
-        localStorage.setItem(
-            'site_real_reviews',
-            JSON.stringify(reviews)
-        );
-
-        nameInput.value = '';
-        textInput.value = '';
-
-        selectedStars = 5;
-        setRating(5);
-
-        loadRatings();
-
-        showToast('تم إرسال تقييمك بنجاح ⭐');
-    }
-
-
-    function showToast(message) {
-        let toast = document.getElementById('toast');
-
-        if (!toast) {
-            toast = document.createElement('div');
-            toast.id = 'toast';
-            toast.className = 'toast';
-            document.body.appendChild(toast);
-        }
-
-        toast.textContent = message;
-        toast.classList.add('show');
-
-        setTimeout(() => {
-            toast.classList.remove('show');
-        }, 2500);
-    }
-
-
-    /* =================================
-       تشغيل تحميل التقييمات
-    ================================= */
-
-    loadRatings();
-
-
-    /* =================================
-       البحث في التحديثات
-    ================================= */
-
-    const searchInput = document.getElementById('searchInput');
-
-    if (searchInput) {
-        searchInput.addEventListener('input', function () {
-            const searchValue = this.value.toLowerCase().trim();
-
-            const cards = document.querySelectorAll('.update-card');
-
-            cards.forEach(card => {
-                const text = (
-                    card.getAttribute('data-text') ||
-                    card.textContent
-                ).toLowerCase();
-
-                card.style.display =
-                    text.includes(searchValue) ? '' : 'none';
-            });
-        });
-    }
-
-
-    /* =================================
-       أزرار الإعجاب
-    ================================= */
-
-    document.querySelectorAll('.like-btn').forEach(button => {
-
-        button.addEventListener('click', function () {
-
-            if (this.disabled) return;
-
-            const countElement =
-                this.querySelector('.like-count');
-
-            if (countElement) {
-                let count =
-                    parseInt(countElement.textContent) || 0;
-
-                count++;
-
-                countElement.textContent = count;
+        @keyframes toastIn {
+            from {
+                opacity: 0;
+                transform: translateY(10px);
             }
 
-            this.disabled = true;
-            this.classList.add('liked');
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
 
-            showToast('شكراً على إعجابك ❤️');
-        });
+        /* =========================================
+           موبايل
+        ========================================= */
 
-    });
+        @media (max-width: 480px) {
 
+            body {
+                padding-top: 15px;
+            }
 
-    /* =================================
-       زر الرجوع
-    ================================= */
+            .container {
+                width: 94%;
+            }
 
-    const backButton = document.getElementById('backButton');
+            .header-box {
+  border-radius: 23px;
+  padding: 22px 14px 20px;
+            }
+                    .header-box {
+            padding: 22px 14px 20px;
+        }
 
-    if (backButton) {
-        backButton.addEventListener('click', function () {
-            window.location.href = 'index.html';
-        });
+        .header-icon {
+            width: 72px;
+            height: 72px;
+            font-size: 34px;
+        }
+
+        .header-title {
+            font-size: 25px;
+        }
+
+        .header-subtitle {
+            font-size: 14px;
+        }
+
+        .header-desc {
+            font-size: 12px;
+            line-height: 1.8;
+        }
+
+        .top-actions {
+            gap: 7px;
+        }
+
+        .top-btn {
+            width: 42px;
+            height: 42px;
+            font-size: 17px;
+        }
+
+        .latest-release {
+            padding: 18px 14px;
+        }
+
+        .latest-release h2 {
+            font-size: 20px;
+        }
+
+        .latest-release p {
+            font-size: 13px;
+            line-height: 1.8;
+        }
+
+        .rating-box {
+            padding: 18px 14px;
+        }
+
+        .rating-title {
+            font-size: 18px;
+        }
+
+        .stars {
+            gap: 4px;
+        }
+
+        .star {
+            font-size: 25px;
+        }
+
+        .search-box {
+            padding: 13px 14px;
+            font-size: 13px;
+        }
+
+        .update-card {
+            padding: 17px 14px;
+            border-radius: 18px;
+        }
+
+        .update-card h3 {
+            font-size: 17px;
+        }
+
+        .update-card p {
+            font-size: 13px;
+            line-height: 1.8;
+        }
+
+        .update-date {
+            font-size: 11px;
+        }
+
+        .like-btn {
+            padding: 8px 12px;
+            font-size: 12px;
+        }
+
+        .review-item {
+            padding: 12px;
+        }
+
+        .review-name {
+            font-size: 13px;
+        }
+
+        .review-text {
+            font-size: 12px;
+            line-height: 1.7;
+        }
+
+        .comment-input,
+        .name-input {
+            font-size: 13px;
+        }
+
+        .submit-review {
+            width: 100%;
+            padding: 12px;
+        }
+
+        .back-to-top {
+            width: 42px;
+            height: 42px;
+            bottom: 15px;
+            left: 15px;
+        }
     }
 
+    /* ==========================================
+       تحسين الشاشات الصغيرة جداً
+       ========================================== */
+
+    @media (max-width: 360px) {
+
+        .container {
+            width: 96%;
+        }
+
+        .header-title {
+            font-size: 22px;
+        }
+
+        .header-subtitle {
+            font-size: 13px;
+        }
+
+        .latest-release h2 {
+            font-size: 18px;
+        }
+
+        .update-card h3 {
+            font-size: 16px;
+        }
+
+        .star {
+            font-size: 22px;
+        }
+    }
+</style>
+
+<script>
+/* ==========================================
+   تشغيل الصفحة
+   ========================================== */
+
+document.addEventListener("DOMContentLoaded", function () {
+
+    // تحميل الثيم
+    const savedTheme = localStorage.getItem("updates_theme");
+
+    if (savedTheme === "light") {
+        document.body.classList.add("light");
+    }
+
+    // تحميل التقييمات
+    if (typeof loadRatings === "function") {
+        loadRatings();
+    }
+
+    // تشغيل البحث
+    const searchInput = document.getElementById("searchInput");
+
+    if (searchInput && typeof filterUpdates === "function") {
+        searchInput.addEventListener("input", filterUpdates);
+    }
+
+    // تشغيل أزرار اللايك
+    document.querySelectorAll(".like-btn").forEach(function (button) {
+
+        const version = button.dataset.version;
+
+        if (!version) return;
+
+        if (localStorage.getItem("liked_" + version) === "1") {
+            button.classList.add("liked");
+        }
+    });
+
+    // إظهار زر الرجوع للأعلى
+    window.addEventListener("scroll", function () {
+
+        const btn = document.getElementById("backToTop");
+
+        if (!btn) return;
+
+        if (window.scrollY > 400) {
+            btn.classList.add("show");
+        } else {
+            btn.classList.remove("show");
+        }
+    });
+
 });
+
+
+/* ==========================================
+   تغيير الثيم
+   ========================================== */
+
+function toggleTheme() {
+
+    document.body.classList.toggle("light");
+
+    const isLight = document.body.classList.contains("light");
+
+    localStorage.setItem(
+        "updates_theme",
+        isLight ? "light" : "dark"
+    );
+
+    showToast(
+        isLight
+            ? "☀️ تم تفعيل الوضع الفاتح"
+            : "🌙 تم تفعيل الوضع الداكن"
+    );
+}
+
+
+/* ==========================================
+   الرجوع لأعلى الصفحة
+   ========================================== */
+
+function scrollToTop() {
+
+    window.scrollTo({
+        top: 0,
+        behavior: "smooth"
+    });
+}
+
+
+/* ==========================================
+   رسالة Toast
+   ========================================== */
+
+function showToast(message) {
+
+    let toast = document.getElementById("toast");
+
+    if (!toast) {
+
+        toast = document.createElement("div");
+
+        toast.id = "toast";
+
+        toast.style.position = "fixed";
+        toast.style.bottom = "25px";
+        toast.style.right = "50%";
+        toast.style.transform = "translateX(50%)";
+        toast.style.padding = "12px 18px";
+        toast.style.borderRadius = "14px";
+        toast.style.background = "rgba(20,20,30,.95)";
+        toast.style.color = "#fff";
+        toast.style.fontSize = "13px";
+        toast.style.zIndex = "99999";
+        toast.style.boxShadow = "0 10px 35px rgba(0,0,0,.35)";
+        toast.style.border = "1px solid rgba(139,92,246,.35)";
+
+        document.body.appendChild(toast);
+    }
+
+    toast.textContent = message;
+
+    toast.style.opacity = "1";
+
+    clearTimeout(window.toastTimer);
+
+    window.toastTimer = setTimeout(function () {
+        toast.style.opacity = "0";
+    }, 2200);
+}
 </script>
 
 </body>
