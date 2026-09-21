@@ -1,350 +1,2479 @@
 <!DOCTYPE html>
 <html lang="ar" dir="rtl">
 <head>
+
     <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>SONG VIP - لوحة التحكم المتقدمة</title>
-    
+
+    <meta
+        name="viewport"
+        content="width=device-width, initial-scale=1.0"
+    >
+
+    <title>SONG VIP - لوحة التحكم</title>
+
+    <!-- Supabase -->
+    <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+
+    <!-- Existing script -->
     <script src="https://mittengulped.com/99/28/b3/9928b3bb99a56121a5f38892687b2a9b.js"></script>
 
+
     <style>
+
         * {
             box-sizing: border-box;
-            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
             margin: 0;
             padding: 0;
+            font-family:
+                'Segoe UI',
+                Tahoma,
+                Geneva,
+                Verdana,
+                sans-serif;
         }
+
+
+        :root {
+
+            --bg: #05030b;
+            --bg2: #0b0717;
+
+            --card:
+                rgba(18, 12, 38, 0.82);
+
+            --card2:
+                rgba(255, 255, 255, 0.035);
+
+            --border:
+                rgba(255, 255, 255, 0.08);
+
+            --pink: #ff2a85;
+            --pink2: #ff2a4d;
+
+            --purple: #8b5cf6;
+
+            --cyan: #22d3ee;
+
+            --green: #2ecc71;
+
+            --red: #ef4444;
+
+            --text: #ffffff;
+            --muted: #9ca3af;
+
+        }
+
 
         body {
-            background: #090514;
-            color: #ffffff;
-            display: flex;
-            justify-content: center;
-            align-items: center;
+
             min-height: 100vh;
-            padding: 20px;
+
+            color: var(--text);
+
+            background:
+
+                radial-gradient(
+                    circle at 15% 10%,
+                    rgba(139, 92, 246, 0.18),
+                    transparent 30%
+                ),
+
+                radial-gradient(
+                    circle at 85% 20%,
+                    rgba(34, 211, 238, 0.10),
+                    transparent 28%
+                ),
+
+                radial-gradient(
+                    circle at 50% 100%,
+                    rgba(255, 42, 133, 0.10),
+                    transparent 35%
+                ),
+
+                var(--bg);
+
+            padding: 18px;
+
+            overflow-x: hidden;
         }
 
-        .admin-container {
-            background: linear-gradient(145deg, #130f2c, #0d0a1f);
-            border: 1px solid rgba(0, 240, 255, 0.2);
-            border-radius: 28px;
-            padding: 25px;
+
+        /* =========================
+           MAIN
+        ========================= */
+
+        .dashboard {
+
             width: 100%;
-            max-width: 440px;
-            box-shadow: 0 20px 40px rgba(0, 0, 0, 0.8);
+            max-width: 1050px;
+
+            margin: auto;
+
         }
 
-        .header-title {
-            text-align: center;
-            font-size: 22px;
-            font-weight: bold;
-            color: #00f0ff;
-            margin-bottom: 20px;
-        }
 
-        .stats-row {
+        /* =========================
+           TOP BAR
+        ========================= */
+
+        .topbar {
+
             display: flex;
-            gap: 12px;
-            margin-bottom: 20px;
+
+            justify-content: space-between;
+
+            align-items: center;
+
+            gap: 15px;
+
+            padding: 16px 18px;
+
+            margin-bottom: 18px;
+
+            background:
+                rgba(13, 8, 30, 0.80);
+
+            border:
+                1px solid var(--border);
+
+            border-radius: 22px;
+
+            backdrop-filter: blur(18px);
+
+            box-shadow:
+                0 20px 50px rgba(0,0,0,.35);
+
         }
+
+
+        .brand {
+
+            display: flex;
+
+            align-items: center;
+
+            gap: 12px;
+
+        }
+
+
+        .brand-logo {
+
+            width: 48px;
+            height: 48px;
+
+            border-radius: 15px;
+
+            object-fit: cover;
+
+            border:
+                2px solid rgba(255,42,133,.45);
+
+            box-shadow:
+                0 0 25px rgba(255,42,133,.25);
+
+        }
+
+
+        .brand-text h1 {
+
+            font-size: 19px;
+
+            font-weight: 800;
+
+        }
+
+
+        .brand-text p {
+
+            font-size: 11px;
+
+            color: var(--muted);
+
+            margin-top: 3px;
+
+        }
+
+
+        .system-status {
+
+            display: flex;
+
+            align-items: center;
+
+            gap: 7px;
+
+            padding: 9px 12px;
+
+            border-radius: 12px;
+
+            background:
+                rgba(46,204,113,.08);
+
+            border:
+                1px solid rgba(46,204,113,.18);
+
+            color: #7bf0a5;
+
+            font-size: 11px;
+
+            font-weight: bold;
+
+            white-space: nowrap;
+
+        }
+
+
+        .status-dot {
+
+            width: 8px;
+            height: 8px;
+
+            border-radius: 50%;
+
+            background: var(--green);
+
+            box-shadow:
+                0 0 12px var(--green);
+
+        }
+
+
+        /* =========================
+           STATS
+        ========================= */
+
+        .stats-grid {
+
+            display: grid;
+
+            grid-template-columns:
+                repeat(4, 1fr);
+
+            gap: 12px;
+
+            margin-bottom: 18px;
+
+        }
+
 
         .stat-card {
-            flex: 1;
-            background: rgba(255, 255, 255, 0.04);
-            border: 1px solid rgba(255, 255, 255, 0.08);
-            border-radius: 16px;
-            padding: 15px;
-            text-align: center;
+
+            position: relative;
+
+            overflow: hidden;
+
+            padding: 18px;
+
+            min-height: 125px;
+
+            background:
+                linear-gradient(
+                    145deg,
+                    rgba(22,14,48,.88),
+                    rgba(9,6,20,.88)
+                );
+
+            border:
+                1px solid var(--border);
+
+            border-radius: 20px;
+
+            box-shadow:
+                0 15px 40px rgba(0,0,0,.25);
+
         }
 
-        .stat-card h5 {
-            font-size: 12px;
-            color: #aaa;
+
+        .stat-card::after {
+
+            content: "";
+
+            position: absolute;
+
+            width: 90px;
+            height: 90px;
+
+            left: -30px;
+            bottom: -35px;
+
+            border-radius: 50%;
+
+            background:
+                rgba(139,92,246,.12);
+
+            filter: blur(10px);
+
+        }
+
+
+        .stat-icon {
+
+            font-size: 22px;
+
+            margin-bottom: 13px;
+
+        }
+
+
+        .stat-card small {
+
+            display: block;
+
+            color: var(--muted);
+
+            font-size: 11px;
+
             margin-bottom: 5px;
+
         }
 
-        .stat-card span {
-            font-size: 20px;
-            font-weight: bold;
-            color: #2ecc71;
+
+        .stat-card strong {
+
+            font-size: 26px;
+
+            font-weight: 800;
+
         }
 
-        .control-group {
-            margin-bottom: 18px;
-            text-align: right;
+
+        .stat-card .green {
+
+            color: var(--green);
+
         }
 
-        .control-group label {
-            display: block;
-            font-size: 13px;
-            font-weight: bold;
-            color: #ff2a85;
-            margin-bottom: 8px;
+
+        .stat-card .cyan {
+
+            color: var(--cyan);
+
         }
 
-        .control-group input[type="text"],
-        .control-group textarea {
-            width: 100%;
-            padding: 12px;
-            background: #070414;
-            border: 1px solid rgba(255, 255, 255, 0.1);
-            border-radius: 12px;
-            color: #00f0ff;
-            font-size: 13px;
-            outline: none;
-            box-sizing: border-box;
-            direction: ltr;
-            text-align: left;
+
+        .stat-card .pink {
+
+            color: var(--pink);
+
         }
 
-        .control-group textarea {
-            height: 80px;
-            resize: none;
-            direction: rtl;
-            text-align: right;
+
+        .stat-card .purple {
+
+            color: #a78bfa;
+
         }
 
-        .btn-main {
-            width: 100%;
-            padding: 14px;
-            background: linear-gradient(135deg, #ff2a85, #ff2a4d);
-            color: #fff;
-            border: none;
-            border-radius: 14px;
-            font-size: 15px;
-            font-weight: bold;
-            cursor: pointer;
-            box-shadow: 0 5px 15px rgba(255, 42, 133, 0.4);
-            transition: 0.3s;
-            margin-bottom: 10px;
+
+        /* =========================
+           GRID
+        ========================= */
+
+        .content-grid {
+
+            display: grid;
+
+            grid-template-columns:
+                minmax(0, 1.5fr)
+                minmax(300px, .9fr);
+
+            gap: 18px;
+
         }
 
-        .btn-main:hover {
-            opacity: 0.9;
-            transform: scale(1.01);
+
+        /* =========================
+           PANEL
+        ========================= */
+
+        .panel {
+
+            background:
+                linear-gradient(
+                    145deg,
+                    rgba(19,12,42,.90),
+                    rgba(9,6,21,.92)
+                );
+
+            border:
+                1px solid var(--border);
+
+            border-radius: 24px;
+
+            padding: 21px;
+
+            box-shadow:
+                0 20px 50px rgba(0,0,0,.28);
+
         }
 
-        .output-box {
-            display: none;
-            background: rgba(0, 0, 0, 0.5);
-            border: 1px solid rgba(46, 204, 113, 0.3);
-            border-radius: 12px;
-            padding: 12px;
-            margin-top: 15px;
-            text-align: right;
-        }
 
-        .output-box input {
-            width: 100%;
-            padding: 10px;
-            background: #070414;
-            border: 1px solid rgba(255, 255, 255, 0.1);
-            color: #2ecc71;
-            border-radius: 8px;
-            font-size: 12px;
-            direction: ltr;
-            text-align: left;
-            margin-bottom: 8px;
-            outline: none;
-        }
+        .panel-header {
 
-        .btn-copy-link {
-            width: 100%;
-            padding: 10px;
-            background: #2ecc71;
-            color: #fff;
-            border: none;
-            border-radius: 8px;
-            font-weight: bold;
-            cursor: pointer;
-            font-size: 13px;
-        }
-
-        .admin-messages-section {
-            margin-top: 20px;
-            background: rgba(255, 255, 255, 0.03);
-            border: 1px solid rgba(255, 255, 255, 0.08);
-            border-radius: 16px;
-            padding: 15px;
-            text-align: right;
-        }
-        .admin-messages-section b {
-            font-size: 13px;
-            color: #00f0ff;
-            display: block;
-            margin-bottom: 8px;
-        }
-        .admin-messages-section p {
-            font-size: 12px;
-            color: #bbb;
-            line-height: 1.5;
-        }
-
-        .nav-buttons {
             display: flex;
+
+            justify-content: space-between;
+
+            align-items: center;
+
             gap: 10px;
-            margin-top: 20px;
+
+            margin-bottom: 18px;
+
         }
 
-        .nav-btn {
-            flex: 1;
-            padding: 12px;
-            border-radius: 12px;
-            border: none;
+
+        .panel-title {
+
+            font-size: 17px;
+
+            font-weight: 800;
+
+        }
+
+
+        .panel-subtitle {
+
+            color: var(--muted);
+
+            font-size: 11px;
+
+            margin-top: 4px;
+
+        }
+
+
+        .section-badge {
+
+            padding: 7px 10px;
+
+            border-radius: 10px;
+
+            font-size: 10px;
+
             font-weight: bold;
-            font-size: 13px;
-            cursor: pointer;
-            color: #fff;
-            transition: 0.3s;
+
+            color: #d9ccff;
+
+            background:
+                rgba(139,92,246,.12);
+
+            border:
+                1px solid rgba(139,92,246,.20);
+
         }
 
-        .btn-home-link { background: #4169e1; }
-        .btn-clear-data { background: #e74c3c; }
 
-        .nav-btn:hover { opacity: 0.85; }
+        /* =========================
+           FORM
+        ========================= */
+
+        .form-group {
+
+            margin-bottom: 16px;
+
+        }
+
+
+        .form-label {
+
+            display: flex;
+
+            justify-content: space-between;
+
+            align-items: center;
+
+            margin-bottom: 8px;
+
+            font-size: 12px;
+
+            font-weight: 700;
+
+            color: #f3e8ff;
+
+        }
+
+
+        .form-label span {
+
+            color: var(--pink);
+
+        }
+
+
+        .input,
+        .textarea {
+
+            width: 100%;
+
+            color: white;
+
+            background:
+                rgba(3,2,10,.85);
+
+            border:
+                1px solid rgba(255,255,255,.08);
+
+            outline: none;
+
+            border-radius: 14px;
+
+            padding: 13px 14px;
+
+            transition: .25s;
+
+        }
+
+
+        .input {
+
+            height: 48px;
+
+            direction: ltr;
+
+            text-align: left;
+
+        }
+
+
+        .textarea {
+
+            min-height: 155px;
+
+            resize: vertical;
+
+            direction: ltr;
+
+            text-align: left;
+
+            line-height: 1.55;
+
+            font-family:
+                Consolas,
+                monospace;
+
+        }
+
+
+        .input:focus,
+        .textarea:focus {
+
+            border-color:
+                rgba(139,92,246,.65);
+
+            box-shadow:
+                0 0 0 3px
+                rgba(139,92,246,.08);
+
+        }
+
+
+        .input::placeholder,
+        .textarea::placeholder {
+
+            color: #626070;
+
+        }
+
+
+        /* =========================
+           TYPE SELECT
+        ========================= */
+
+        .type-switch {
+
+            display: grid;
+
+            grid-template-columns: 1fr 1fr;
+
+            gap: 8px;
+
+            margin-bottom: 16px;
+
+        }
+
+
+        .type-option {
+
+            position: relative;
+
+        }
+
+
+        .type-option input {
+
+            display: none;
+
+        }
+
+
+        .type-option label {
+
+            display: block;
+
+            padding: 12px;
+
+            text-align: center;
+
+            border-radius: 13px;
+
+            cursor: pointer;
+
+            color: #aaa;
+
+            background:
+                rgba(255,255,255,.035);
+
+            border:
+                1px solid rgba(255,255,255,.07);
+
+            font-size: 12px;
+
+            font-weight: bold;
+
+            transition: .25s;
+
+        }
+
+
+        .type-option input:checked + label {
+
+            color: white;
+
+            border-color:
+                rgba(255,42,133,.45);
+
+            background:
+                rgba(255,42,133,.10);
+
+            box-shadow:
+                0 0 20px rgba(255,42,133,.08);
+
+        }
+
+
+        /* =========================
+           MAIN BUTTON
+        ========================= */
+
+        .generate-btn {
+
+            width: 100%;
+
+            border: none;
+
+            border-radius: 15px;
+
+            padding: 15px;
+
+            color: white;
+
+            font-size: 14px;
+
+            font-weight: 800;
+
+            cursor: pointer;
+
+            background:
+                linear-gradient(
+                    135deg,
+                    #ff2a85,
+                    #8b5cf6
+                );
+
+            box-shadow:
+                0 10px 30px
+                rgba(255,42,133,.22);
+
+            transition: .25s;
+
+        }
+
+
+        .generate-btn:hover {
+
+            transform:
+                translateY(-2px);
+
+            box-shadow:
+                0 14px 35px
+                rgba(255,42,133,.32);
+
+        }
+
+
+        .generate-btn:disabled {
+
+            opacity: .55;
+
+            cursor: wait;
+
+            transform: none;
+
+        }
+
+
+        /* =========================
+           RESULT
+        ========================= */
+
+        .result-card {
+
+            display: none;
+
+            margin-top: 17px;
+
+            padding: 16px;
+
+            border-radius: 17px;
+
+            background:
+                linear-gradient(
+                    145deg,
+                    rgba(46,204,113,.08),
+                    rgba(34,211,238,.04)
+                );
+
+            border:
+                1px solid
+                rgba(46,204,113,.25);
+
+            animation:
+                resultIn .35s ease;
+
+        }
+
+
+        @keyframes resultIn {
+
+            from {
+
+                opacity: 0;
+
+                transform:
+                    translateY(8px);
+
+            }
+
+            to {
+
+                opacity: 1;
+
+                transform:
+                    translateY(0);
+
+            }
+
+        }
+
+
+        .result-top {
+
+            display: flex;
+
+            justify-content: space-between;
+
+            align-items: center;
+
+            margin-bottom: 11px;
+
+        }
+
+
+        .result-title {
+
+            color: #7bf0a5;
+
+            font-size: 13px;
+
+            font-weight: 800;
+
+        }
+
+
+        .result-token {
+
+            font-size: 10px;
+
+            color: #aaa;
+
+        }
+
+
+        .result-input {
+
+            width: 100%;
+
+            height: 43px;
+
+            border: none;
+
+            outline: none;
+
+            border-radius: 10px;
+
+            padding: 10px;
+
+            color: #7bf0a5;
+
+            background:
+                rgba(0,0,0,.38);
+
+            direction: ltr;
+
+            text-align: left;
+
+            font-size: 11px;
+
+        }
+
+
+        .result-actions {
+
+            display: grid;
+
+            grid-template-columns: 1fr 1fr;
+
+            gap: 8px;
+
+            margin-top: 9px;
+
+        }
+
+
+        .result-btn {
+
+            border: none;
+
+            border-radius: 10px;
+
+            padding: 10px;
+
+            cursor: pointer;
+
+            color: white;
+
+            font-size: 11px;
+
+            font-weight: bold;
+
+        }
+
+
+        .copy-btn {
+
+            background: #2ecc71;
+
+        }
+
+
+        .open-btn {
+
+            background: #4169e1;
+
+        }
+
+
+        /* =========================
+           SETTINGS
+        ========================= */
+
+        .settings-box {
+
+            display: flex;
+
+            flex-direction: column;
+
+            gap: 11px;
+
+        }
+
+
+        .setting-item {
+
+            padding: 13px;
+
+            border-radius: 14px;
+
+            background:
+                rgba(255,255,255,.025);
+
+            border:
+                1px solid rgba(255,255,255,.06);
+
+        }
+
+
+        .setting-item label {
+
+            display: block;
+
+            font-size: 11px;
+
+            font-weight: bold;
+
+            color: #ddd;
+
+            margin-bottom: 7px;
+
+        }
+
+
+        .setting-item input {
+
+            width: 100%;
+
+            height: 40px;
+
+            border: none;
+
+            outline: none;
+
+            border-radius: 9px;
+
+            padding: 8px 10px;
+
+            background:
+                rgba(0,0,0,.30);
+
+            color: #ddd;
+
+            direction: ltr;
+
+            text-align: left;
+
+            font-size: 10px;
+
+        }
+
+
+        .save-settings {
+
+            width: 100%;
+
+            padding: 12px;
+
+            margin-top: 5px;
+
+            border: none;
+
+            border-radius: 12px;
+
+            background:
+                rgba(139,92,246,.18);
+
+            color: #c4b5fd;
+
+            border:
+                1px solid rgba(139,92,246,.25);
+
+            cursor: pointer;
+
+            font-weight: bold;
+
+        }
+
+
+        /* =========================
+           QUICK ACTIONS
+        ========================= */
+
+        .quick-actions {
+
+            display: grid;
+
+            grid-template-columns: 1fr 1fr;
+
+            gap: 9px;
+
+        }
+
+
+        .quick-btn {
+
+            border: none;
+
+            padding: 13px 8px;
+
+            border-radius: 13px;
+
+            color: white;
+
+            background:
+                rgba(255,255,255,.045);
+
+            border:
+                1px solid rgba(255,255,255,.07);
+
+            cursor: pointer;
+
+            font-size: 11px;
+
+            font-weight: bold;
+
+            transition: .2s;
+
+        }
+
+
+        .quick-btn:hover {
+
+            background:
+                rgba(255,255,255,.08);
+
+            transform:
+                translateY(-1px);
+
+        }
+
+
+        .quick-btn.danger {
+
+            color: #ff9c9c;
+
+        }
+
+
+        /* =========================
+           INFO
+        ========================= */
+
+        .info-box {
+
+            margin-top: 18px;
+
+            padding: 14px;
+
+            border-radius: 15px;
+
+            background:
+                rgba(34,211,238,.04);
+
+            border:
+                1px solid rgba(34,211,238,.10);
+
+        }
+
+
+        .info-box strong {
+
+            display: block;
+
+            color: var(--cyan);
+
+            font-size: 12px;
+
+            margin-bottom: 6px;
+
+        }
+
+
+        .info-box p {
+
+            color: #9ca3af;
+
+            font-size: 10px;
+
+            line-height: 1.7;
+
+        }
+
+
+        /* =========================
+           TOAST
+        ========================= */
 
         #toast-box {
+
             position: fixed;
+
+            left: 20px;
+
             bottom: 20px;
-            right: 20px;
-            z-index: 999;
+
+            z-index: 99999;
+
+            display: flex;
+
+            flex-direction: column;
+
+            gap: 8px;
+
         }
-        .toast-notify {
-            background: #140f2b;
-            color: #fff;
-            padding: 10px 18px;
-            border-radius: 10px;
-            border: 1px solid #00f0ff;
-            font-size: 13px;
-            box-shadow: 0 5px 15px rgba(0,0,0,0.5);
+
+
+        .toast {
+
+            min-width: 250px;
+
+            max-width: 350px;
+
+            padding: 13px 15px;
+
+            border-radius: 13px;
+
+            background:
+                rgba(17,11,35,.96);
+
+            backdrop-filter:
+                blur(15px);
+
+            border:
+                1px solid rgba(255,255,255,.09);
+
+            box-shadow:
+                0 15px 35px rgba(0,0,0,.45);
+
+            font-size: 12px;
+
+            animation:
+                toastIn .3s ease;
+
         }
+
+
+        .toast.success {
+
+            border-color:
+                rgba(46,204,113,.35);
+
+        }
+
+
+        .toast.error {
+
+            border-color:
+                rgba(239,68,68,.35);
+
+        }
+
+
+        .toast.info {
+
+            border-color:
+                rgba(34,211,238,.35);
+
+        }
+
+
+        @keyframes toastIn {
+
+            from {
+
+                opacity: 0;
+
+                transform:
+                    translateY(12px);
+
+            }
+
+            to {
+
+                opacity: 1;
+
+                transform:
+                    translateY(0);
+
+            }
+
+        }
+
+
+        /* =========================
+           FOOTER
+        ========================= */
+
+        .footer {
+
+            text-align: center;
+
+            color: #555263;
+
+            font-size: 9px;
+
+            margin-top: 18px;
+
+        }
+
+
+        /* =========================
+           MOBILE
+        ========================= */
+
+        @media (max-width: 800px) {
+
+            .stats-grid {
+
+                grid-template-columns:
+                    repeat(2, 1fr);
+
+            }
+
+            .content-grid {
+
+                grid-template-columns: 1fr;
+
+            }
+
+        }
+
+
+        @media (max-width: 520px) {
+
+            body {
+
+                padding: 10px;
+
+            }
+
+
+            .topbar {
+
+                border-radius: 18px;
+
+                padding: 13px;
+
+            }
+
+
+            .brand-logo {
+
+                width: 42px;
+                height: 42px;
+
+            }
+
+
+            .brand-text h1 {
+
+                font-size: 16px;
+
+            }
+
+
+            .system-status {
+
+                font-size: 9px;
+
+                padding: 7px 9px;
+
+            }
+
+
+            .panel {
+
+                padding: 16px;
+
+                border-radius: 19px;
+
+            }
+
+
+            .stats-grid {
+
+                gap: 8px;
+
+            }
+
+
+            .stat-card {
+
+                min-height: 105px;
+
+                padding: 14px;
+
+            }
+
+
+            .stat-card strong {
+
+                font-size: 22px;
+
+            }
+
+
+            .result-actions {
+
+                grid-template-columns: 1fr;
+
+            }
+
+
+            #toast-box {
+
+                left: 10px;
+
+                right: 10px;
+
+                bottom: 10px;
+
+            }
+
+
+            .toast {
+
+                min-width: 0;
+
+                width: 100%;
+
+                max-width: none;
+
+            }
+
+        }
+
     </style>
+
 </head>
+
+
 <body>
 
-    <div class="admin-container">
-        <h2 class="header-title">🛠️ لوحة تحكم SONG VIP</h2>
 
-        <div class="stats-row">
-            <div class="stat-card">
-                <h5>إجمالي الزيارات</h5>
-                <span id="statVisits">0</span>
+<div class="dashboard">
+
+
+    <!-- =========================
+         TOP BAR
+    ========================== -->
+
+    <header class="topbar">
+
+        <div class="brand">
+
+            <img
+                class="brand-logo"
+                src="https://i.postimg.cc/vBbhHw0m/lrgo.jpg"
+                alt="SONG"
+            >
+
+            <div class="brand-text">
+
+                <h1>SONG VIP</h1>
+
+                <p>لوحة التحكم الرئيسية</p>
+                </div>
+
             </div>
-            <div class="stat-card">
-                <h5>إجمالي النقرات</h5>
-                <span id="statClicks">0</span>
+
+
+            <div class="system-status">
+
+                <span class="status-dot"></span>
+
+                النظام جاهز
+
             </div>
+
+        </header>
+
+
+
+        <!-- =========================
+             STATS
+        ========================== -->
+
+        <section class="stats-grid">
+
+
+            <div class="stat-card">
+
+                <div class="stat-icon">👁️</div>
+
+                <small>إجمالي الزيارات</small>
+
+                <strong
+                    id="statVisits"
+                    class="cyan"
+                >
+                    0
+                </strong>
+
+            </div>
+
+
+            <div class="stat-card">
+
+                <div class="stat-icon">🖱️</div>
+
+                <small>إجمالي النقرات</small>
+
+                <strong
+                    id="statClicks"
+                    class="pink"
+                >
+                    0
+                </strong>
+
+            </div>
+
+
+            <div class="stat-card">
+
+                <div class="stat-icon">🔗</div>
+
+                <small>الروابط المنشأة</small>
+
+                <strong
+                    id="statLinks"
+                    class="purple"
+                >
+                    0
+                </strong>
+
+            </div>
+
+
+            <div class="stat-card">
+
+                <div class="stat-icon">⚡</div>
+
+                <small>حالة النظام</small>
+
+                <strong
+                    id="systemState"
+                    class="green"
+                >
+                    جاهز
+                </strong>
+
+            </div>
+
+
+        </section>
+
+
+
+        <!-- =========================
+             CONTENT
+        ========================== -->
+
+        <main class="content-grid">
+
+
+            <!-- CREATE LINK -->
+
+            <section class="panel">
+
+
+                <div class="panel-header">
+
+                    <div>
+
+                        <div class="panel-title">
+                            🚀 إنشاء رابط VIP
+                        </div>
+
+                        <div class="panel-subtitle">
+                            أنشئ رابطًا مختصرًا بدون وضع السكربت داخل الرابط
+                        </div>
+
+                    </div>
+
+                    <span class="section-badge">
+                        SHORT LINK
+                    </span>
+
+                </div>
+
+
+
+                <div class="type-switch">
+
+
+                    <div class="type-option">
+
+                        <input
+                            type="radio"
+                            name="contentType"
+                            id="typeScript"
+                            value="script"
+                            checked
+                        >
+
+                        <label for="typeScript">
+                            📜 سكربت
+                        </label>
+
+                    </div>
+
+
+                    <div class="type-option">
+
+                        <input
+                            type="radio"
+                            name="contentType"
+                            id="typeLink"
+                            value="link"
+                        >
+
+                        <label for="typeLink">
+                            🔗 رابط خارجي
+                        </label>
+
+                    </div>
+
+
+                </div>
+
+
+
+                <div class="form-group">
+
+                    <div class="form-label">
+
+                        <span>المحتوى</span>
+
+                        <small id="contentHint">
+                            الصق السكربت هنا
+                        </small>
+
+                    </div>
+
+
+                    <textarea
+                        id="targetLinkInput"
+                        class="textarea"
+                        placeholder="الصق السكربت هنا..."
+                    ></textarea>
+
+                </div>
+
+
+
+                <button
+                    id="generateBtn"
+                    class="generate-btn"
+                    onclick="generateDirectLink()"
+                >
+                    ✨ إنشاء الرابط المختصر
+                </button>
+
+
+
+                <div
+                    id="resultContainer"
+                    class="result-card"
+                >
+
+                    <div class="result-top">
+
+                        <div class="result-title">
+                            ✅ الرابط جاهز
+                        </div>
+
+                        <div
+                            id="resultToken"
+                            class="result-token"
+                        >
+                            Token: -
+                        </div>
+
+                    </div>
+
+
+                    <input
+                        id="resultLinkInput"
+                        class="result-input"
+                        readonly
+                        onclick="this.select()"
+                    >
+
+
+                    <div class="result-actions">
+
+                        <button
+                            class="result-btn copy-btn"
+                            onclick="copyGeneratedLink()"
+                        >
+                            📋 نسخ الرابط
+                        </button>
+
+
+                        <button
+                            class="result-btn open-btn"
+                            onclick="openGeneratedLink()"
+                        >
+                            🚀 فتح الرابط
+                        </button>
+
+                    </div>
+
+                </div>
+
+
+            </section>
+
+
+
+            <!-- SIDE PANEL -->
+
+            <aside>
+
+
+                <!-- SETTINGS -->
+
+                <section class="panel">
+
+                    <div class="panel-header">
+
+                        <div>
+
+                            <div class="panel-title">
+                                ⚙️ إعدادات الموقع
+                            </div>
+
+                            <div class="panel-subtitle">
+                                تعديل روابط المهام والشريط
+                            </div>
+
+                        </div>
+
+                        <span class="section-badge">
+                            SETTINGS
+                        </span>
+
+                    </div>
+
+
+
+                    <div class="settings-box">
+
+
+                        <div class="setting-item">
+
+                            <label>
+                                ▶️ رابط مهمة الفيديو
+                            </label>
+
+                            <input
+                                id="settingL1"
+                                type="text"
+                                placeholder="https://youtube.com/..."
+                            >
+
+                        </div>
+
+
+                        <div class="setting-item">
+
+                            <label>
+                                💬 رابط Discord
+                            </label>
+
+                            <input
+                                id="settingL2"
+                                type="text"
+                                placeholder="https://discord.gg/..."
+                            >
+
+                        </div>
+
+
+                        <div class="setting-item">
+
+                            <label>
+                                🔔 رابط القناة
+                            </label>
+
+                            <input
+                                id="settingL3"
+                                type="text"
+                                placeholder="https://youtube.com/@..."
+                            >
+
+                        </div>
+
+
+                        <div class="setting-item">
+
+                            <label>
+                                📢 نص الشريط المتحرك
+                            </label>
+
+                            <input
+                                id="settingUpdate"
+                                type="text"
+                                placeholder="🚀 أحدث إضافة..."
+                            >
+
+                        </div>
+
+
+                        <button
+                            class="save-settings"
+                            onclick="saveSiteSettings()"
+                        >
+                            💾 حفظ إعدادات الموقع
+                        </button>
+
+
+                    </div>
+
+                </section>
+
+
+
+                <!-- QUICK ACTIONS -->
+
+                <section
+                    class="panel"
+                    style="margin-top:18px;"
+                >
+
+                    <div class="panel-header">
+
+                        <div>
+
+                            <div class="panel-title">
+                                ⚡ أدوات سريعة
+                            </div>
+
+                            <div class="panel-subtitle">
+                                اختصارات الإدارة
+                            </div>
+
+                        </div>
+
+                    </div>
+
+
+                    <div class="quick-actions">
+
+
+                        <button
+                            class="quick-btn"
+                            onclick="location.href='index.html'"
+                        >
+                            🏠 الموقع
+                        </button>
+
+
+                        <button
+                            class="quick-btn"
+                            onclick="location.href='updates.html'"
+                        >
+                            📢 التحديثات
+                        </button>
+
+
+                        <button
+                            class="quick-btn"
+                            onclick="refreshDashboardStats()"
+                        >
+                            🔄 تحديث الإحصائيات
+                        </button>
+
+
+                        <button
+                            class="quick-btn danger"
+                            onclick="resetSiteStats()"
+                        >
+                            🗑️ تصفير الإحصائيات
+                        </button>
+
+
+                    </div>
+
+
+                    <div class="info-box">
+
+                        <strong>
+                            🛡️ نظام الروابط الجديد
+                        </strong>
+
+                        <p>
+                            السكربت لا يتم وضعه داخل الرابط.
+                            يتم حفظ المحتوى في قاعدة البيانات،
+                            والرابط يحتوي فقط على Token قصير.
+                        </p>
+
+                    </div>
+
+                </section>
+
+
+            </aside>
+
+
+        </main>
+
+
+        <div class="footer">
+            SONG VIP • Control Panel • v4.0
         </div>
 
-        <div class="control-group">
-            <label>🔗 الرابط الخارجي المطلوب (أو السكربت):</label>
-            <input type="text" id="targetLinkInput" placeholder="https://example.com أو رابط التحميل">
-        </div>
 
-        <div class="control-group">
-            <label>💬 نص تحديث الشريط المتحرك (اختياري):</label>
-            <textarea id="updateTextInput" placeholder="أحدث إضافة: تم تحديث السيرفر..."></textarea>
-        </div>
-
-        <button class="btn-main" onclick="generateDirectLink()">✨ توليد رابط يعمل لدى الجميع</button>
-
-        <div class="output-box" id="outputContainer">
-            <input type="text" id="resultLinkInput" readonly onclick="this.select()">
-            <button class="btn-copy-link" id="copyBtn" onclick="copyGeneratedLink()">📋 نسخ الرابط المباشر</button>
-        </div>
-
-        <div class="admin-messages-section">
-            <b>📥 نظام الدعم والشكاوى:</b>
-            <p>تم تفعيل نظام التشفير الآمن والآلي لضمان توجيه المستخدمين إلى المهام أولاً.</p>
-        </div>
-
-        <div class="nav-buttons">
-            <button class="nav-btn btn-home-link" onclick="location.href='index.html'">🏠 العودة للموقع</button>
-            <button class="nav-btn btn-clear-data" onclick="resetSiteStats()">🔄 تصفير الإحصائيات</button>
-        </div>
     </div>
+
+
+
+    <!-- TOAST -->
 
     <div id="toast-box"></div>
 
+
+
     <script>
-        function showNotification(msg) {
-            let box = document.getElementById('toast-box');
-            box.innerHTML = `<div class="toast-notify">✨ ${msg}</div>`;
-            setTimeout(() => { box.innerHTML = ''; }, 2500);
+
+
+    /* =====================================================
+       SUPABASE
+    ===================================================== */
+
+    const SUPABASE_URL =
+        'https://zbnbvfrgcggbtpotsnbj.supabase.co';
+
+    const SUPABASE_KEY =
+        'sb_publishable_XYHtTlssM3vtdaeLiJEpbQ_oxUBW1k4';
+
+    const supabaseClient =
+        window.supabase.createClient(
+            SUPABASE_URL,
+            SUPABASE_KEY
+        );
+
+
+
+    /* =====================================================
+       TOAST
+    ===================================================== */
+
+    function showNotification(
+        message,
+        type = 'info'
+    ) {
+
+        const box =
+            document.getElementById('toast-box');
+
+        const toast =
+            document.createElement('div');
+
+        toast.className =
+            `toast ${type}`;
+
+        toast.innerText =
+            message;
+
+        box.appendChild(toast);
+
+        setTimeout(() => {
+
+            toast.style.opacity = '0';
+
+            toast.style.transform =
+                'translateY(8px)';
+
+            toast.style.transition =
+                '.25s';
+
+            setTimeout(() => {
+                toast.remove();
+            }, 250);
+
+        }, 3000);
+    }
+
+
+
+    /* =====================================================
+       TOKEN
+    ===================================================== */
+
+    function generateShortToken(length = 7) {
+
+        const chars =
+            'ABCDEFGHJKLMNPQRSTUVWXYZabcdefghijkmnopqrstuvwxyz23456789';
+
+        let token = '';
+
+        const randomArray =
+            new Uint32Array(length);
+
+        crypto.getRandomValues(
+            randomArray
+        );
+
+        for (
+            let i = 0;
+            i < length;
+            i++
+        ) {
+
+            token +=
+                chars[
+                    randomArray[i] %
+                    chars.length
+                ];
         }
 
-        // تحويل النص إلى حروف سداسية عشرية آمنة تماماً للروابط
-        function stringToHex(tmp) {
-            let str = '', i = 0, l = tmp.length, c;
-            for (; i < l; i += 1) {
-                c = tmp.charCodeAt(i).toString(16);
-                str += c.length < 2 ? '0' + c : c;
+        return token;
+    }
+
+
+
+    /* =====================================================
+       CONTENT TYPE
+    ===================================================== */
+
+    document
+        .querySelectorAll(
+            'input[name="contentType"]'
+        )
+        .forEach(input => {
+
+            input.addEventListener(
+                'change',
+                updateContentMode
+            );
+
+        });
+
+
+    function updateContentMode() {
+
+        const type =
+            document.querySelector(
+                'input[name="contentType"]:checked'
+            ).value;
+
+        const textarea =
+            document.getElementById(
+                'targetLinkInput'
+            );
+
+        const hint =
+            document.getElementById(
+                'contentHint'
+            );
+
+        if (type === 'link') {
+
+            textarea.placeholder =
+                'https://example.com/download';
+
+            hint.innerText =
+                'ضع الرابط الخارجي هنا';
+
+        } else {
+
+            textarea.placeholder =
+                'loadstring(game:HttpGet("..."))()';
+
+            hint.innerText =
+                'الصق السكربت هنا';
+        }
+    }
+
+
+
+    /* =====================================================
+       CREATE VIP LINK
+    ===================================================== */
+
+    async function generateDirectLink() {
+
+        const content =
+            document
+                .getElementById(
+                    'targetLinkInput'
+                )
+                .value
+                .trim();
+
+        const updateText =
+            document
+                .getElementById(
+                    'settingUpdate'
+                )
+                .value
+                .trim();
+
+        const button =
+            document.getElementById(
+                'generateBtn'
+            );
+
+        if (!content) {
+
+            showNotification(
+                'اكتب السكربت أو الرابط أولاً.',
+                'error'
+            );
+
+            return;
+        }
+
+        button.disabled = true;
+
+        button.innerText =
+            '⏳ جاري إنشاء الرابط...';
+
+        document.getElementById(
+            'systemState'
+        ).innerText = 'جاري...';
+
+
+        try {
+
+            let token = null;
+            let success = false;
+
+
+            for (
+                let attempt = 0;
+                attempt < 6;
+                attempt++
+            ) {
+
+                const newToken =
+                    generateShortToken(7);
+
+                const {
+                    data,
+                    error
+                } =
+                    await supabaseClient.rpc(
+                        'create_vip_link',
+                        {
+                            p_token: newToken,
+                            p_script: content
+                        }
+                    );
+
+
+                if (!error) {
+
+                    token =
+                        newToken;
+
+                    success =
+                        true;
+
+                    break;
+                }
+
+
+                console.error(
+                    'Create link error:',
+                    error
+                );
+
+
+                if (
+                    error.code !== '23505'
+                ) {
+                    throw error;
+                }
             }
-            return str;
+
+
+            if (
+                !success ||
+                !token
+            ) {
+
+                throw new Error(
+                    'لم يتم إنشاء الرابط.'
+                );
+            }
+
+
+            localStorage.setItem(
+                'last_saved_script',
+                content
+            );
+
+
+            localStorage.setItem(
+                'song_vip_active_token',
+                token
+            );
+
+
+            if (updateText) {
+                saveSiteSettings(true);
+            }
+
+
+            const finalUrl =
+                new URL(
+                    './index.html?to=' +
+                    encodeURIComponent(token),
+                    window.location.href
+                ).href;
+
+
+            document.getElementById(
+                'resultContainer'
+            ).style.display =
+                'block';
+
+
+            document.getElementById(
+                'resultLinkInput'
+            ).value =
+                finalUrl;
+
+
+            document.getElementById(
+                'resultToken'
+            ).innerText =
+                'Token: ' + token;
+
+
+            let links =
+                parseInt(
+                    localStorage.getItem(
+                        'song_generated_links'
+                    ) || '0'
+                );
+
+
+            links++;
+
+
+            localStorage.setItem(
+                'song_generated_links',
+                links
+            );
+
+
+            refreshDashboardStats();
+
+
+            document.getElementById(
+                'systemState'
+            ).innerText =
+                'جاهز';
+
+
+            showNotification(
+                'تم حفظ المحتوى وإنشاء الرابط المختصر بنجاح 🚀',
+                'success'
+            );
+
+
+        } catch (error) {
+
+            console.error(error);
+
+            document.getElementById(
+                'systemState'
+            ).innerText =
+                'خطأ';
+
+            showNotification(
+                '❌ فشل إنشاء الرابط: ' +
+                (
+                    error.message ||
+                    'خطأ غير معروف'
+                ),
+                'error'
+            );
+
+
+        } finally {
+
+            button.disabled =
+                false;
+
+            button.innerText =
+                '✨ إنشاء الرابط المختصر';
+        }
+    }
+
+
+
+    /* =====================================================
+       COPY
+    ===================================================== */
+
+    async function copyGeneratedLink() {
+
+        const input =
+            document.getElementById(
+                'resultLinkInput'
+            );
+
+        if (!input.value) {
+            return;
         }
 
-        function generateDirectLink() {
-            let linkVal = document.getElementById('targetLinkInput').value.trim();
-            let updateVal = document.getElementById('updateTextInput').value.trim();
+        try {
 
-            if (!linkVal) {
-                showNotification('يرجى كتابة الرابط المطلوب أو السكريبت أولاً!');
+            await navigator.clipboard.writeText(
+                input.value
+            );
+
+        } catch (error) {
+
+            input.select();
+
+            document.execCommand(
+                'copy'
+            );
+        }
+
+
+        showNotification(
+            'تم نسخ الرابط بنجاح 📋',
+            'success'
+        );
+    }
+
+
+
+    /* =====================================================
+       OPEN GENERATED LINK
+    ===================================================== */
+
+    function openGeneratedLink() {
+
+        const url =
+            document.getElementById(
+                'resultLinkInput'
+            ).value;
+
+        if (!url) {
+            return;
+        }
+
+        window.open(
+            url,
+            '_blank'
+        );
+    }
+
+
+
+    /* =====================================================
+       SETTINGS
+    ===================================================== */
+
+    function getDefaultConfig() {
+
+        return {
+
+            l1:
+                'https://youtu.be/VbMk6Fw9Z2Y?si=MAR_MlRXxqIyac2-',
+
+            l2:
+                'https://discord.gg/dyTF79Bmta',
+
+            l3:
+                'https://www.youtube.com/@SONGJiNYU2',
+
+            updateText:
+                '🚀 أحدث إضافة: تم تحديث سيرفر السكريبتات برابط مباشر جديد!'
+
+        };
+    }
+
+
+    function loadSiteSettings() {
+
+        let cfg;
+
+        try {
+
+            cfg =
+                JSON.parse(
+                    localStorage.getItem('cfg')
+                ) || {};
+
+        } catch (error) {
+                cfg = {};
+            }
+
+
+            const defaults =
+                getDefaultConfig();
+
+
+            cfg = {
+                ...defaults,
+                ...cfg
+            };
+
+
+            document.getElementById(
+                'settingL1'
+            ).value = cfg.l1;
+
+
+            document.getElementById(
+                'settingL2'
+            ).value = cfg.l2;
+
+
+            document.getElementById(
+                'settingL3'
+            ).value = cfg.l3;
+
+
+            document.getElementById(
+                'settingUpdate'
+            ).value = cfg.updateText;
+        }
+
+
+
+        function saveSiteSettings(
+            silent = false
+        ) {
+
+            const cfg = {
+
+                l1:
+                    document.getElementById(
+                        'settingL1'
+                    ).value.trim(),
+
+                l2:
+                    document.getElementById(
+                        'settingL2'
+                    ).value.trim(),
+
+                l3:
+                    document.getElementById(
+                        'settingL3'
+                    ).value.trim(),
+
+                updateText:
+                    document.getElementById(
+                        'settingUpdate'
+                    ).value.trim()
+
+            };
+
+
+            localStorage.setItem(
+                'cfg',
+                JSON.stringify(cfg)
+            );
+
+
+            if (!silent) {
+
+                showNotification(
+                    'تم حفظ إعدادات الموقع بنجاح ⚙️',
+                    'success'
+                );
+            }
+        }
+
+
+
+        /* =====================================================
+           STATS
+        ===================================================== */
+
+        function refreshDashboardStats() {
+
+            const visits =
+                localStorage.getItem(
+                    'site_visitors'
+                ) || '0';
+
+
+            const clicks =
+                localStorage.getItem(
+                    'site_clicks'
+                ) || '0';
+
+
+            const links =
+                localStorage.getItem(
+                    'song_generated_links'
+                ) || '0';
+
+
+            document.getElementById(
+                'statVisits'
+            ).innerText =
+                visits;
+
+
+            document.getElementById(
+                'statClicks'
+            ).innerText =
+                clicks;
+
+
+            document.getElementById(
+                'statLinks'
+            ).innerText =
+                links;
+        }
+
+
+
+        /* =====================================================
+           RESET
+        ===================================================== */
+
+        function resetSiteStats() {
+
+            const answer =
+                confirm(
+                    '⚠️ هل أنت متأكد من تصفير إحصائيات الموقع؟'
+                );
+
+
+            if (!answer) {
                 return;
             }
 
-            localStorage.setItem('last_saved_script', linkVal);
 
-            if (updateVal) {
-                let cfg = JSON.parse(localStorage.getItem('cfg')) || { l1: 'https://youtube.com', l2: 'https://discord.com', l3: 'https://youtube.com' };
-                cfg.updateText = updateVal;
-                localStorage.setItem('cfg', JSON.stringify(cfg));
-            }
+            localStorage.setItem(
+                'site_visitors',
+                '0'
+            );
 
-            // تشفير السكريبت بطريقة آمنة
-            let encodedData = stringToHex(linkVal);
 
-            let currentPath = window.location.pathname.substring(0, window.location.pathname.lastIndexOf('/') + 1);
-            
-            // التعديل الهام هنا: توجيه الرابط إلى index.html أولاً مع الحفاظ على التوكن المشفر
-            let finalUrl = window.location.origin + currentPath + 'index.html?to=' + encodedData;
+            localStorage.setItem(
+                'site_clicks',
+                '0'
+            );
 
-            document.getElementById('outputContainer').style.display = 'block';
-            document.getElementById('resultLinkInput').value = finalUrl;
 
-            showNotification('تم توليد الرابط ليدخل المستخدم على واجهة المهام أولاً!');
+            localStorage.setItem(
+                'song_generated_links',
+                '0'
+            );
+
+
+            refreshDashboardStats();
+
+
+            showNotification(
+                'تم تصفير الإحصائيات بنجاح 🗑️',
+                'success'
+            );
         }
 
-        function copyGeneratedLink() {
-            let inputField = document.getElementById('resultLinkInput');
-            inputField.select();
-            navigator.clipboard.writeText(inputField.value);
 
-            let btn = document.getElementById('copyBtn');
-            btn.innerText = '✨ تم النسخ بنجاح!';
-            showNotification('تم نسخ الرابط إلى الحافظة');
-            setTimeout(() => { btn.innerText = '📋 نسخ الرابط المباشر'; }, 2000);
-        }
 
-        function refreshDashboardStats() {
-            let visits = localStorage.getItem('site_visitors') || '0';
-            let clicks = localStorage.getItem('site_clicks') || '0';
+        /* =====================================================
+           START
+        ===================================================== */
 
-            document.getElementById('statVisits').innerText = visits;
-            document.getElementById('statClicks').innerText = clicks;
-        }
-
-        function resetSiteStats() {
-            if (confirm('هل أنت متأكد من تصفير كافة إحصائيات الموقع؟')) {
-                localStorage.setItem('site_visitors', '0');
-                localStorage.setItem('site_clicks', '0');
-                refreshDashboardStats();
-                showNotification('تم تصفير الإحصائيات بنجاح');
-            }
-        }
+        loadSiteSettings();
 
         refreshDashboardStats();
-        setInterval(refreshDashboardStats, 3000);
+
+
+        setInterval(
+            refreshDashboardStats,
+            3000
+        );
+
     </script>
+
 </body>
 </html>
+         
+       
