@@ -7,397 +7,666 @@
     <title>SONG VIP - سجل التحديثات</title>
 
     <style>
-        :root {
-            --bg-color: #070510;
-            --card-bg: rgba(20, 15, 43, 0.88);
-            --card-bg-2: rgba(15, 10, 32, 0.95);
-            --text-color: #ffffff;
-            --muted: #a9a5b8;
-            --border-color: rgba(255, 255, 255, 0.09);
-            --input-bg: rgba(5, 5, 15, 0.72);
-
-            --cyan: #00f0ff;
-            --purple: #8b5cf6;
-            --pink: #ff2a85;
-            --green: #2ecc71;
-            --orange: #f39c12;
-        }
-
-        [data-theme="light"] {
-            --bg-color: #eef1f8;
-            --card-bg: rgba(255, 255, 255, 0.92);
-            --card-bg-2: #ffffff;
-            --text-color: #181522;
-            --muted: #666273;
-            --border-color: rgba(0, 0, 0, 0.09);
-            --input-bg: #f7f7fb;
-
-            --cyan: #008fa3;
-            --purple: #7048d8;
-            --pink: #e51f72;
-        }
-
         * {
             box-sizing: border-box;
+            margin: 0;
+            padding: 0;
         }
 
-        html {
-            scroll-behavior: smooth;
+        :root {
+            --bg: #05050b;
+            --bg2: #090914;
+            --card: rgba(16, 16, 30, .82);
+            --card2: rgba(20, 20, 38, .9);
+            --text: #ffffff;
+            --muted: #a7a7bb;
+            --primary: #8b5cf6;
+            --primary2: #a855f7;
+            --cyan: #22d3ee;
+            --pink: #ff2a85;
+            --green: #22c55e;
+            --border: rgba(255,255,255,.09);
+            --shadow: 0 20px 60px rgba(0,0,0,.35);
+        }
+
+        body.light {
+            --bg: #f4f4fb;
+            --bg2: #ffffff;
+            --card: rgba(255,255,255,.88);
+            --card2: #ffffff;
+            --text: #171321;
+            --muted: #68657a;
+            --border: rgba(20,20,40,.1);
+            --shadow: 0 20px 50px rgba(60,40,100,.12);
         }
 
         body {
-            margin: 0;
-            padding: 25px 0 40px;
-
             min-height: 100vh;
+            color: var(--text);
+            background:
+                radial-gradient(circle at 15% 10%, rgba(139,92,246,.18), transparent 30%),
+                radial-gradient(circle at 90% 12%, rgba(34,211,238,.12), transparent 28%),
+                radial-gradient(circle at 50% 100%, rgba(255,42,133,.08), transparent 35%),
+                repeating-linear-gradient(
+                    90deg,
+                    rgba(255,255,255,.025) 0,
+                    rgba(255,255,255,.025) 1px,
+                    transparent 1px,
+                    transparent 70px
+                ),
+                repeating-linear-gradient(
+                    0deg,
+                    rgba(255,255,255,.018) 0,
+                    rgba(255,255,255,.018) 1px,
+                    transparent 1px,
+                    transparent 70px
+                ),
+                var(--bg);
 
             font-family:
-                Arial,
                 Tahoma,
+                Arial,
                 sans-serif;
 
-            color: var(--text-color);
-
-            background:
-                radial-gradient(
-                    circle at 10% 10%,
-                    rgba(139, 92, 246, 0.16),
-                    transparent 28%
-                ),
-                radial-gradient(
-                    circle at 90% 15%,
-                    rgba(0, 240, 255, 0.11),
-                    transparent 25%
-                ),
-                radial-gradient(
-                    circle at 50% 100%,
-                    rgba(255, 42, 133, 0.10),
-                    transparent 30%
-                ),
-                var(--bg-color);
-
             transition:
-                background 0.3s,
-                color 0.3s;
+                background .3s ease,
+                color .3s ease;
+
+            overflow-x: hidden;
         }
 
-        body::before {
-            content: "";
-            position: fixed;
-            inset: 0;
-
-            pointer-events: none;
-
-            background-image:
-                linear-gradient(
-                    rgba(255,255,255,0.025) 1px,
-                    transparent 1px
-                ),
-                linear-gradient(
-                    90deg,
-                    rgba(255,255,255,0.025) 1px,
-                    transparent 1px
-                );
-
-            background-size: 45px 45px;
-
-            mask-image:
-                linear-gradient(
-                    to bottom,
-                    black,
-                    transparent 90%
-                );
-
-            z-index: -1;
+        body.light {
+            background:
+                radial-gradient(circle at 15% 10%, rgba(139,92,246,.12), transparent 30%),
+                radial-gradient(circle at 90% 10%, rgba(34,211,238,.10), transparent 28%),
+                var(--bg);
         }
+
+        /* ==============================
+           CONTAINER
+        ============================== */
 
         .container {
-            width: min(92%, 520px);
+            width: min(940px, 92%);
             margin: auto;
+            padding: 28px 0 80px;
         }
 
-        /* =========================================
-           الهيدر
-        ========================================= */
+        /* ==============================
+           TOP BAR
+        ============================== */
+
+        .topbar {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            gap: 12px;
+            margin-bottom: 18px;
+        }
+
+        .brand-mini {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+
+        .brand-mini-icon {
+            width: 42px;
+            height: 42px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            border-radius: 14px;
+
+            background:
+                linear-gradient(135deg, var(--primary), var(--pink));
+
+            box-shadow:
+                0 8px 25px rgba(139,92,246,.28);
+
+            font-size: 21px;
+        }
+
+        .brand-mini-text strong {
+            display: block;
+            font-size: 15px;
+            letter-spacing: .5px;
+        }
+
+        .brand-mini-text span {
+            display: block;
+            margin-top: 2px;
+            color: var(--muted);
+            font-size: 11px;
+        }
+
+        .top-actions {
+            display: flex;
+            gap: 8px;
+        }
+
+        .top-btn {
+            width: 42px;
+            height: 42px;
+            border: 1px solid var(--border);
+            border-radius: 14px;
+
+            display: flex;
+            align-items: center;
+            justify-content: center;
+
+            background: var(--card);
+            color: var(--text);
+
+            cursor: pointer;
+            text-decoration: none;
+
+            transition:
+                transform .2s ease,
+                border-color .2s ease,
+                background .2s ease;
+        }
+
+        .top-btn:hover {
+            transform: translateY(-3px);
+            border-color: rgba(139,92,246,.55);
+            background: var(--card2);
+        }
+
+        /* ==============================
+           HEADER
+        ============================== */
 
         .header-box {
             position: relative;
+            overflow: hidden;
 
-            padding: 25px 18px 22px;
+            text-align: center;
 
-            margin-bottom: 20px;
+            padding: 34px 22px 30px;
 
+            border: 1px solid var(--border);
             border-radius: 28px;
 
             background:
                 linear-gradient(
                     145deg,
-                    rgba(24, 18, 56, 0.97),
-                    rgba(10, 7, 25, 0.98)
+                    rgba(139,92,246,.10),
+                    rgba(34,211,238,.04),
+                    var(--card)
                 );
 
-            border: 1px solid rgba(0, 240, 255, 0.22);
-
-            box-shadow:
-                0 20px 50px rgba(0,0,0,0.42),
-                inset 0 1px 0 rgba(255,255,255,0.05);
-
-            overflow: hidden;
-
-            text-align: center;
-        }
-
-        [data-theme="light"] .header-box {
-            background:
-                linear-gradient(
-                    145deg,
-                    #ffffff,
-                    #f4f1ff
-                );
+            box-shadow: var(--shadow);
         }
 
         .header-box::before {
             content: "";
-
             position: absolute;
 
-            top: 0;
-            right: 0;
+            width: 240px;
+            height: 240px;
 
-            width: 100%;
-            height: 3px;
+            top: -130px;
+            right: -80px;
 
-            background:
-                linear-gradient(
-                    90deg,
-                    var(--pink),
-                    var(--purple),
-                    var(--cyan)
-                );
+            background: var(--primary);
+            filter: blur(90px);
+            opacity: .16;
         }
 
         .header-box::after {
             content: "";
-
             position: absolute;
 
-            width: 170px;
-            height: 170px;
+            width: 220px;
+            height: 220px;
 
-            left: -90px;
-            bottom: -100px;
+            bottom: -140px;
+            left: -70px;
 
-            border-radius: 50%;
-
-            background: rgba(139,92,246,0.13);
-
-            filter: blur(10px);
+            background: var(--cyan);
+            filter: blur(90px);
+            opacity: .10;
         }
 
         .header-content {
             position: relative;
             z-index: 2;
-
-            display: flex;
-            flex-direction: column;
-            align-items: center;
         }
 
-        /* الأيقونة */
+        .header-icon {
+            width: 82px;
+            height: 82px;
 
-        .header-icon-luxury {
-            width: 76px;
-            height: 76px;
+            margin: auto auto 15px;
 
             display: flex;
             align-items: center;
             justify-content: center;
 
-            border-radius: 23px;
+            border-radius: 25px;
 
-            font-size: 35px;
-
-            margin-bottom: 13px;
+            font-size: 39px;
 
             background:
                 linear-gradient(
                     135deg,
-                    rgba(0,240,255,0.18),
-                    rgba(139,92,246,0.20),
-                    rgba(255,42,133,0.18)
+                    rgba(139,92,246,.22),
+                    rgba(255,42,133,.14)
                 );
 
-            border: 1px solid rgba(0,240,255,0.35);
+            border: 1px solid rgba(139,92,246,.3);
 
             box-shadow:
-                0 0 28px rgba(0,240,255,0.12),
-                inset 0 0 20px rgba(255,255,255,0.025);
+                0 0 45px rgba(139,92,246,.18),
+                inset 0 0 25px rgba(255,255,255,.03);
 
-            animation:
-                iconFloat 3s ease-in-out infinite;
+            animation: floating 3s ease-in-out infinite;
         }
 
-        @keyframes iconFloat {
+        @keyframes floating {
             0%,100% {
                 transform: translateY(0);
             }
 
             50% {
-                transform: translateY(-5px);
+                transform: translateY(-6px);
             }
         }
 
-        /* الكلام تحت الأيقونة */
-
-        .title-text-group {
-            display: flex;
-            flex-direction: column;
-            align-items: center;
-        }
-
-        .title-text-group h1 {
-            margin: 0;
-
-            font-size: 23px;
-
+        .header-title {
+            font-size: 31px;
             font-weight: 900;
-
-            letter-spacing: 1px;
 
             background:
                 linear-gradient(
                     90deg,
-                    var(--cyan),
-                    #ffffff,
-                    var(--pink)
+                    #fff,
+                    #c4b5fd,
+                    #67e8f9,
+                    #fff
                 );
 
             -webkit-background-clip: text;
-            background-clip: text;
+            -webkit-text-fill-color: transparent;
 
-            color: transparent;
+            background-size: 200% auto;
+
+            animation: gradientMove 5s linear infinite;
         }
 
-        .subtitle-label {
+        @keyframes gradientMove {
+            to {
+                background-position: 200% center;
+            }
+        }
+
+        .header-subtitle {
             margin-top: 8px;
-
-            font-size: 15px;
-
-            font-weight: 900;
 
             color: var(--pink);
 
-            letter-spacing: 0.8px;
-
-            text-shadow:
-                0 0 15px rgba(255,42,133,0.35);
+            font-size: 17px;
+            font-weight: 800;
         }
 
-        .header-line {
-            width: 80px;
-            height: 2px;
+        .header-desc {
+            max-width: 650px;
 
             margin: 13px auto 0;
 
-            border-radius: 50px;
-
-            background:
-                linear-gradient(
-                    90deg,
-                    transparent,
-                    var(--cyan),
-                    var(--pink),
-                    transparent
-                );
-        }
-
-        .header-description {
-            margin: 13px 0 18px;
-
             color: var(--muted);
 
-            font-size: 11px;
-
-            line-height: 1.7;
+            line-height: 1.9;
+            font-size: 13px;
         }
 
-        /* أزرار الهيدر */
+        .gradient-line {
+            width: 180px;
+            height: 3px;
 
-        .header-buttons {
-            display: flex;
-            gap: 8px;
-
-            justify-content: center;
-            flex-wrap: wrap;
-        }
-
-        .header-btn {
-            display: inline-flex;
-
-            align-items: center;
-            justify-content: center;
-
-            gap: 6px;
-
-            padding: 9px 13px;
-
-            border-radius: 11px;
-
-            border: 1px solid var(--border-color);
-
-            background: var(--input-bg);
-
-            color: var(--text-color);
-
-            text-decoration: none;
-
-            font-size: 11px;
-
-            cursor: pointer;
-
-            transition: 0.25s;
-        }
-
-        .header-btn:hover {
-            transform: translateY(-2px);
-
-            border-color: var(--cyan);
-
-            box-shadow:
-                0 0 18px rgba(0,240,255,0.12);
-        }
-
-        .theme-btn:hover {
-            border-color: var(--pink);
-        }
-
-        /* =========================================
-           بطاقة آخر تحديث
-        ========================================= */
-
-        .latest-release {
-            position: relative;
-
-            margin-bottom: 20px;
-
-            padding: 18px;
+            margin: 19px auto 0;
 
             border-radius: 20px;
 
             background:
                 linear-gradient(
-                    135deg,
-                    rgba(139,92,246,0.16),
-                    rgba(0,240,255,0.07),
-                    rgba(255,42,133,0.08)
+                    90deg,
+                    transparent,
+                    var(--primary),
+                    var(--cyan),
+                    var(--pink),
+                    transparent
                 );
 
-            border: 1px solid rgba(139,92,246,0.3);
+            box-shadow:
+                0 0 20px rgba(139,92,246,.35);
+        }
 
+        /* ==============================
+           LATEST RELEASE
+        ============================== */
+
+        .latest-release {
+            position: relative;
             overflow: hidden;
+
+            margin-top: 22px;
+
+            padding: 24px;
+
+            border-radius: 23px;
+
+            border: 1px solid rgba(139,92,246,.25);
+
+            background:
+                linear-gradient(
+                    135deg,
+                    rgba(139,92,246,.15),
+                    rgba(255,42,133,.07),
+                    var(--card)
+                );
+
+            box-shadow: var(--shadow);
         }
 
         .latest-release::before {
+            content: "LATEST";
+
+            position: absolute;
+
+            top: 17px;
+            left: -32px;
+
+            padding: 6px 42px;
+
+            transform: rotate(-42deg);
+
+            font-size: 9px;
+            font-weight: 900;
+            letter-spacing: 1px;
+
+            color: white;
+
+            background:
+                linear-gradient(
+                    90deg,
+                    var(--pink),
+                    var(--primary)
+                );
+        }
+
+        .release-top {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            gap: 10px;
+
+            margin-bottom: 12px;
+        }
+
+        .release-label {
+            color: var(--cyan);
+
+            font-size: 11px;
+            font-weight: 900;
+            letter-spacing: 1px;
+        }
+
+        .new-badge {
+            padding: 6px 11px;
+
+            border-radius: 30px;
+
+            color: #fff;
+
+            font-size: 10px;
+            font-weight: 900;
+
+            background:
+                linear-gradient(
+                    135deg,
+                    var(--pink),
+                    var(--primary)
+                );
+
+            box-shadow:
+                0 5px 20px rgba(255,42,133,.18);
+        }
+
+        .latest-release h2 {
+            font-size: 23px;
+            margin-bottom: 10px;
+        }
+
+        .latest-release p {
+            color: var(--muted);
+            font-size: 13px;
+            line-height: 2;
+        }
+
+        /* ==============================
+           SEARCH
+        ============================== */
+
+        .search-box {
+            position: relative;
+
+            margin-top: 22px;
+        }
+
+        .search-box input {
+            width: 100%;
+
+            padding: 16px 48px 16px 16px;
+
+            border: 1px solid var(--border);
+            border-radius: 17px;
+
+            outline: none;
+
+            color: var(--text);
+            background: var(--card);
+
+            font-family: inherit;
+            font-size: 13px;
+
+            transition: .25s;
+        }
+
+        .search-box input:focus {
+            border-color: rgba(139,92,246,.65);
+
+            box-shadow:
+                0 0 0 4px rgba(139,92,246,.08);
+        }
+
+        .search-icon {
+            position: absolute;
+
+            right: 17px;
+            top: 50%;
+
+            transform: translateY(-50%);
+
+            font-size: 18px;
+            opacity: .8;
+        }
+
+        /* ==============================
+           RATING
+        ============================== */
+
+        .rating-box {
+            margin-top: 22px;
+
+            padding: 24px;
+
+            border-radius: 23px;
+
+            border: 1px solid var(--border);
+
+            background: var(--card);
+
+            box-shadow: var(--shadow);
+        }
+
+        .section-title {
+            display: flex;
+            align-items: center;
+            gap: 9px;
+
+            margin-bottom: 7px;
+
+            font-size: 19px;
+            font-weight: 900;
+        }
+
+        .section-subtitle {
+            color: var(--muted);
+            font-size: 12px;
+            line-height: 1.8;
+        }
+
+        .stars {
+            display: flex;
+            justify-content: center;
+            gap: 7px;
+
+            margin: 18px 0;
+        }
+
+        .star {
+            border: 0;
+            background: transparent;
+
+            color: #555568;
+
+            cursor: pointer;
+
+            font-size: 31px;
+
+            transition:
+                transform .18s ease,
+                color .18s ease;
+        }
+
+        .star:hover,
+        .star.active {
+            color: #fbbf24;
+
+            transform:
+                translateY(-3px)
+                scale(1.08);
+        }
+
+        .review-form {
+            display: grid;
+            gap: 10px;
+        }
+
+        .input,
+        .textarea {
+            width: 100%;
+
+            border: 1px solid var(--border);
+            border-radius: 14px;
+
+            outline: none;
+
+            color: var(--text);
+            background: rgba(0,0,0,.12);
+
+            font-family: inherit;
+            font-size: 13px;
+
+            transition: .2s;
+        }
+
+        .input {
+            padding: 13px;
+        }
+
+        .textarea {
+            min-height: 95px;
+            resize: vertical;
+            padding: 13px;
+        }
+
+        .input:focus,
+        .textarea:focus {
+            border-color: rgba(139,92,246,.55);
+        }
+
+        .submit-review {
+            border: 0;
+            border-radius: 14px;
+
+            padding: 13px;
+
+            color: #fff;
+
+            cursor: pointer;
+
+            font-family: inherit;
+            font-weight: 900;
+
+            background:
+                linear-gradient(
+                    135deg,
+                    var(--primary),
+                    var(--pink)
+                );
+
+            box-shadow:
+                0 8px 25px rgba(139,92,246,.18);
+
+            transition: .2s;
+        }
+
+        .submit-review:hover {
+            transform: translateY(-2px);
+        }
+
+        /* ==============================
+           UPDATES
+        ============================== */
+
+        .updates-title {
+            margin-top: 28px;
+            margin-bottom: 13px;
+
+            font-size: 21px;
+            font-weight: 900;
+        }
+
+        .updates-list {
+            display: grid;
+            gap: 15px;
+        }
+
+        .update-card {
+            position: relative;
+
+            overflow: hidden;
+
+            padding: 21px;
+
+            border-radius: 21px;
+
+            border: 1px solid var(--border);
+
+            background: var(--card);
+
+            box-shadow: 0 12px 35px rgba(0,0,0,.18);
+
+            transition:
+                transform .25s ease,
+                border-color .25s ease,
+                box-shadow .25s ease;
+        }
+
+        .update-card::before {
             content: "";
 
             position: absolute;
@@ -410,832 +679,1204 @@
 
             background:
                 linear-gradient(
-                    to bottom,
-                    var(--cyan),
-                    var(--purple),
-                    var(--pink)
-                );
-        }
-
-        .latest-top {
-            display: flex;
-
-            align-items: center;
-
-            justify-content: space-between;
-
-            gap: 10px;
-
-            margin-bottom: 10px;
-        }
-
-        .latest-label {
-            color: var(--cyan);
-
-            font-size: 10px;
-
-            font-weight: 900;
-
-            letter-spacing: 1px;
-        }
-
-        .version-badge {
-            padding: 5px 9px;
-
-            border-radius: 8px;
-
-            background: rgba(255,42,133,0.13);
-
-            color: var(--pink);
-
-            border: 1px solid rgba(255,42,133,0.2);
-
-            font-size: 10px;
-
-            font-weight: 900;
-        }
-
-        .latest-title {
-            margin: 0 0 8px;
-
-            font-size: 17px;
-
-            color: var(--text-color);
-
-            font-weight: 900;
-        }
-
-        .latest-text {
-            margin: 0;
-
-            color: var(--muted);
-
-            font-size: 12px;
-
-            line-height: 1.8;
-        }
-
-        /* =========================================
-           التقييم
-        ========================================= */
-
-        .rating-section {
-            background: var(--card-bg);
-
-            border: 1px solid var(--border-color);
-
-            border-radius: 22px;
-
-            padding: 18px;
-
-            margin-bottom: 20px;
-
-            box-shadow:
-                0 12px 35px rgba(0,0,0,0.2);
-
-            text-align: right;
-        }
-
-        .section-heading {
-            display: flex;
-
-            align-items: center;
-
-            justify-content: space-between;
-
-            gap: 10px;
-
-            margin-bottom: 13px;
-        }
-
-        .section-heading h3 {
-            margin: 0;
-
-            font-size: 14px;
-
-            color: var(--cyan);
-        }
-
-        .section-heading span {
-            font-size: 10px;
-
-            color: var(--muted);
-        }
-
-        .stars-select {
-            display: flex;
-
-            gap: 5px;
-
-            margin-bottom: 12px;
-
-            direction: ltr;
-
-            justify-content: flex-end;
-        }
-
-        .star {
-            font-size: 22px;
-
-            cursor: pointer;
-
-            color: #555;
-
-            transition:
-                transform 0.15s,
-                color 0.15s;
-        }
-
-        .star:hover {
-            transform: scale(1.15);
-        }
-
-        .star.selected {
-            color: #f39c12;
-
-            text-shadow:
-                0 0 10px rgba(243,156,18,0.35);
-        }
-
-        .rating-section input,
-        .rating-section textarea {
-            width: 100%;
-
-            padding: 11px 12px;
-
-            background: var(--input-bg);
-
-            border: 1px solid var(--border-color);
-
-            border-radius: 11px;
-
-            color: var(--text-color);
-
-            font-size: 12px;
-
-            margin-bottom: 8px;
-
-            outline: none;
-
-            resize: none;
-
-            transition: 0.2s;
-        }
-
-        .rating-section input:focus,
-        .rating-section textarea:focus {
-            border-color: var(--cyan);
-
-            box-shadow:
-                0 0 0 3px rgba(0,240,255,0.06);
-        }
-
-        .rating-section textarea {
-            height: 65px;
-        }
-
-        .btn-submit-review {
-            width: 100%;
-
-            padding: 11px;
-
-            background:
-                linear-gradient(
-                    135deg,
-                    #2ecc71,
-                    #27ae60
-                );
-
-            color: #fff;
-
-            border: none;
-
-            border-radius: 11px;
-
-            font-weight: bold;
-
-            cursor: pointer;
-
-            font-size: 12px;
-
-            transition: 0.2s;
-        }
-
-        .btn-submit-review:hover {
-            transform: translateY(-1px);
-
-            filter: brightness(1.08);
-        }
-
-        .reviews-container {
-            margin-top: 12px;
-
-            max-height: 180px;
-
-            overflow-y: auto;
-        }
-
-        .review-item {
-            background: var(--input-bg);
-
-            padding: 10px 12px;
-
-            border-radius: 11px;
-
-            margin-top: 8px;
-
-            border-right: 3px solid #f39c12;
-
-            font-size: 11px;
-        }
-
-        .review-header-line {
-            display: flex;
-
-            justify-content: space-between;
-
-            gap: 8px;
-
-            font-weight: bold;
-
-            color: var(--pink);
-
-            margin-bottom: 4px;
-        }
-
-        .review-stars {
-            color: #f39c12;
-        }
-
-        /* =========================================
-           البحث
-        ========================================= */
-
-        .search-box {
-            position: relative;
-
-            margin-bottom: 12px;
-        }
-
-        .search-box input {
-            width: 100%;
-
-            padding: 13px 15px;
-
-            background: var(--card-bg);
-
-            border: 1px solid var(--border-color);
-
-            border-radius: 14px;
-
-            color: var(--text-color);
-
-            outline: none;
-
-            font-size: 12px;
-
-            transition: 0.2s;
-        }
-
-        .search-box input:focus {
-            border-color: var(--cyan);
-
-            box-shadow:
-                0 0 20px rgba(0,240,255,0.08);
-        }
-
-        /* =========================================
-           التحديثات
-        ========================================= */
-
-        .update-card {
-            position: relative;
-
-            background: var(--card-bg);
-
-            border: 1px solid var(--border-color);
-
-            border-radius: 20px;
-
-            padding: 18px;
-
-            margin-bottom: 15px;
-
-            box-shadow:
-                0 10px 30px rgba(0,0,0,0.18);
-
-            overflow: hidden;
-
-            transition:
-                transform 0.25s,
-                border-color 0.25s,
-                box-shadow 0.25s;
-        }
-
-        .update-card::before {
-            content: "";
-
-            position: absolute;
-
-            right: 0;
-            top: 0;
-
-            width: 3px;
-            height: 0;
-
-            background:
-                linear-gradient(
-                    to bottom,
+                    180deg,
+                    var(--primary),
                     var(--cyan),
                     var(--pink)
                 );
-
-            transition: height 0.3s;
         }
 
         .update-card:hover {
-            transform: translateY(-3px);
+            transform: translateY(-4px);
 
-            border-color: rgba(0,240,255,0.22);
+            border-color: rgba(139,92,246,.35);
 
             box-shadow:
-                0 16px 40px rgba(0,0,0,0.25);
+                0 18px 45px rgba(0,0,0,.28);
         }
 
-        .update-card:hover::before {
-            height: 100%;
-        }
-
-        .update-header {
+        .update-head {
             display: flex;
-
+            align-items: flex-start;
             justify-content: space-between;
+            gap: 12px;
 
-            align-items: center;
-
-            margin-bottom: 6px;
-
-            gap: 10px;
+            margin-bottom: 9px;
         }
 
-        .update-title {
-            font-weight: 900;
-
-            font-size: 15px;
-
-            color: var(--cyan);
-
+        .update-card h3 {
+            font-size: 18px;
             line-height: 1.5;
         }
 
-        .update-date {
-            font-size: 10px;
+        .version {
+            flex-shrink: 0;
 
-            color: var(--orange);
+            padding: 6px 9px;
 
-            font-weight: bold;
-
-            margin-bottom: 11px;
-        }
-
-        .update-desc {
-            font-size: 12px;
-
-            line-height: 1.85;
-
-            color: var(--muted);
-
-            margin-bottom: 13px;
-        }
-
-        .update-desc b {
-            color: var(--text-color);
-        }
-
-        .badge-new {
-            background: rgba(255,42,133,0.13);
-
-            color: var(--pink);
-
-            padding: 4px 8px;
-
-            border-radius: 7px;
-
-            font-size: 9px;
-
-            font-weight: bold;
-
-            white-space: nowrap;
-
-            border: 1px solid rgba(255,42,133,0.16);
-        }
-
-        .card-actions {
-            display: flex;
-
-            justify-content: space-between;
-
-            align-items: center;
-
-            gap: 10px;
-
-            font-size: 11px;
-
-            border-top: 1px solid var(--border-color);
-
-            padding-top: 10px;
-
-            color: var(--muted);
-        }
-
-        .like-btn {
-            background: var(--input-bg);
-
-            border: 1px solid var(--border-color);
-
-            color: var(--text-color);
-
-            padding: 5px 10px;
-
-            border-radius: 9px;
-
-            cursor: pointer;
-
-            font-size: 11px;
-
-            transition: 0.2s;
-        }
-
-        .like-btn:hover {
-            background: rgba(255,42,133,0.12);
-
-            border-color: var(--pink);
-
-            color: var(--pink);
-        }
-
-        .like-btn.liked {
-            background: rgba(255,42,133,0.12);
-
-            border-color: var(--pink);
-
-            color: var(--pink);
-
-            cursor: default;
-        }
-
-        .empty-message {
-            display: none;
-
-            text-align: center;
-
-            padding: 30px 15px;
-
-            background: var(--card-bg);
-
-            border: 1px solid var(--border-color);
-
-            border-radius: 18px;
-
-            color: var(--muted);
-
-            font-size: 12px;
-        }
-
-        /* =========================================
-           زر الرجوع للأعلى
-        ========================================= */
-
-        #topButton {
-            position: fixed;
-
-            left: 18px;
-            bottom: 18px;
-
-            width: 40px;
-            height: 40px;
-
-            border-radius: 13px;
-
-            border: 1px solid var(--border-color);
-
-            background: var(--card-bg-2);
-
-            color: var(--cyan);
-
-            cursor: pointer;
-
-            display: none;
-
-            box-shadow:
-                0 8px 25px rgba(0,0,0,0.3);
-
-            z-index: 50;
-        }
-
-        /* =========================================
-           Toast
-        ========================================= */
-
-        #toast-box {
-            position: fixed;
-
-            bottom: 20px;
-
-            right: 20px;
-
-            z-index: 9999;
-        }
-
-        .toast-notify {
-            background:
-                linear-gradient(
-                    135deg,
-                    #140f2b,
-                    #0c0918
-                );
+            border-radius: 10px;
 
             color: #fff;
 
-            padding: 11px 16px;
+            background: rgba(139,92,246,.17);
 
-            border-radius: 12px;
+            border: 1px solid rgba(139,92,246,.22);
 
-            border: 1px solid rgba(0,240,255,0.35);
-
-            font-size: 12px;
-
-            box-shadow:
-                0 8px 30px rgba(0,0,0,0.45);
-
-            animation:
-                toastIn 0.25s ease;
-        }
-
-        @keyframes toastIn {
-            from {
-                opacity: 0;
-                transform: translateY(10px);
-            }
-
-            to {
-                opacity: 1;
-                transform: translateY(0);
-            }
-        }
-
-        /* =========================================
-           موبايل
-        ========================================= */
-
-        @media (max-width: 480px) {
-
-            body {
-                padding-top: 15px;
-            }
-
-            .container {
-                width: 94%;
-            }
-
-            .header-box {
-  border-radius: 23px;
-  padding: 22px 14px 20px;
-            }
-                    .header-box {
-            padding: 22px 14px 20px;
-        }
-
-        .header-icon {
-            width: 72px;
-            height: 72px;
-            font-size: 34px;
-        }
-
-        .header-title {
-            font-size: 25px;
-        }
-
-        .header-subtitle {
-            font-size: 14px;
-        }
-
-        .header-desc {
-            font-size: 12px;
-            line-height: 1.8;
-        }
-
-        .top-actions {
-            gap: 7px;
-        }
-
-        .top-btn {
-            width: 42px;
-            height: 42px;
-            font-size: 17px;
-        }
-
-        .latest-release {
-            padding: 18px 14px;
-        }
-
-        .latest-release h2 {
-            font-size: 20px;
-        }
-
-        .latest-release p {
-            font-size: 13px;
-            line-height: 1.8;
-        }
-
-        .rating-box {
-            padding: 18px 14px;
-        }
-
-        .rating-title {
-            font-size: 18px;
-        }
-
-        .stars {
-            gap: 4px;
-        }
-
-        .star {
-            font-size: 25px;
-        }
-
-        .search-box {
-            padding: 13px 14px;
-            font-size: 13px;
-        }
-
-        .update-card {
-            padding: 17px 14px;
-            border-radius: 18px;
-        }
-
-        .update-card h3 {
-            font-size: 17px;
-        }
-
-        .update-card p {
-            font-size: 13px;
-            line-height: 1.8;
+            font-size: 10px;
+            font-weight: 900;
         }
 
         .update-date {
+            color: var(--cyan);
+
+            margin-bottom: 11px;
+
             font-size: 11px;
         }
 
+        .update-card p {
+            color: var(--muted);
+
+            font-size: 13px;
+            line-height: 2;
+        }
+
+        .update-card ul {
+            margin-top: 13px;
+            padding-right: 20px;
+
+            color: var(--muted);
+
+            font-size: 13px;
+            line-height: 2.1;
+        }
+
+        .update-footer {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            gap: 10px;
+
+            margin-top: 17px;
+            padding-top: 13px;
+
+            border-top: 1px solid var(--border);
+        }
+
         .like-btn {
-            padding: 8px 12px;
+            border: 1px solid var(--border);
+            border-radius: 12px;
+
+            padding: 8px 13px;
+
+            color: var(--text);
+            background: transparent;
+
+            cursor: pointer;
+
+            font-family: inherit;
             font-size: 12px;
+
+            transition: .2s;
+        }
+
+        .like-btn:hover {
+            border-color: rgba(255,42,133,.45);
+            transform: translateY(-2px);
+        }
+
+        .like-btn.liked {
+            color: #ff6ba9;
+
+            border-color: rgba(255,42,133,.35);
+
+            background: rgba(255,42,133,.08);
+        }
+
+        .like-count {
+            color: var(--muted);
+            font-size: 11px;
+        }
+
+        /* ==============================
+           REVIEWS
+        ============================== */
+
+        .reviews {
+            margin-top: 22px;
+
+            display: grid;
+            gap: 10px;
         }
 
         .review-item {
-            padding: 12px;
+            padding: 15px;
+
+            border: 1px solid var(--border);
+            border-radius: 17px;
+
+            background: var(--card);
+        }
+
+        .review-top {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            gap: 10px;
         }
 
         .review-name {
+            font-weight: 900;
             font-size: 13px;
+        }
+
+        .review-stars {
+            color: #fbbf24;
+            font-size: 12px;
+        }
+
+        .review-date {
+            color: var(--muted);
+            font-size: 10px;
+            margin-top: 3px;
         }
 
         .review-text {
+            margin-top: 9px;
+
+            color: var(--muted);
+
             font-size: 12px;
-            line-height: 1.7;
+            line-height: 1.9;
         }
 
-        .comment-input,
-        .name-input {
-            font-size: 13px;
+        /* ==============================
+           EMPTY
+        ============================== */
+
+        .empty {
+            display: none;
+
+            padding: 35px 20px;
+
+            text-align: center;
+
+            border: 1px dashed var(--border);
+            border-radius: 20px;
+
+            color: var(--muted);
+
+            background: var(--card);
         }
 
-        .submit-review {
-            width: 100%;
-            padding: 12px;
+        .empty.show {
+            display: block;
         }
+
+        /* ==============================
+           BACK TO TOP
+        ============================== */
 
         .back-to-top {
-            width: 42px;
-            height: 42px;
-            bottom: 15px;
-            left: 15px;
+            position: fixed;
+
+            bottom: 22px;
+            left: 22px;
+
+            width: 46px;
+            height: 46px;
+
+            border: 1px solid var(--border);
+            border-radius: 15px;
+
+            display: flex;
+            align-items: center;
+            justify-content: center;
+
+            color: #fff;
+
+            background:
+                linear-gradient(
+                    135deg,
+                    var(--primary),
+                    var(--pink)
+                );
+
+            cursor: pointer;
+
+            opacity: 0;
+            visibility: hidden;
+
+            transform: translateY(15px);
+
+            transition: .25s;
+
+            box-shadow: 0 10px 30px rgba(0,0,0,.3);
+
+            z-index: 1000;
         }
+
+        .back-to-top.show {
+            opacity: 1;
+            visibility: visible;
+            transform: translateY(0);
+        }
+        
+        /* ==========================================
+   MOBILE
+========================================== */
+
+@media (max-width: 600px) {
+
+    .container {
+        width: 94%;
+        padding-top: 15px;
     }
 
-    /* ==========================================
-       تحسين الشاشات الصغيرة جداً
-       ========================================== */
-
-    @media (max-width: 360px) {
-
-        .container {
-            width: 96%;
-        }
-
-        .header-title {
-            font-size: 22px;
-        }
-
-        .header-subtitle {
-            font-size: 13px;
-        }
-
-        .latest-release h2 {
-            font-size: 18px;
-        }
-
-        .update-card h3 {
-            font-size: 16px;
-        }
-
-        .star {
-            font-size: 22px;
-        }
+    .header-box {
+        padding: 26px 14px 23px;
+        border-radius: 23px;
     }
+
+    .header-icon {
+        width: 70px;
+        height: 70px;
+        font-size: 33px;
+        border-radius: 21px;
+    }
+
+    .header-title {
+        font-size: 25px;
+    }
+
+    .header-subtitle {
+        font-size: 15px;
+    }
+
+    .header-desc {
+        font-size: 12px;
+        line-height: 1.8;
+    }
+
+    .latest-release {
+        padding: 20px 15px;
+        border-radius: 20px;
+    }
+
+    .latest-release h2 {
+        font-size: 20px;
+    }
+
+    .latest-release p {
+        font-size: 12px;
+    }
+
+    .rating-box {
+        padding: 19px 14px;
+    }
+
+    .update-card {
+        padding: 17px 14px;
+    }
+
+    .update-head {
+        align-items: flex-start;
+    }
+
+    .update-card h3 {
+        font-size: 16px;
+    }
+
+    .update-card p,
+    .update-card ul {
+        font-size: 12px;
+    }
+
+    .star {
+        font-size: 27px;
+    }
+
+    .back-to-top {
+        bottom: 15px;
+        left: 15px;
+    }
+}
+
+@media (max-width: 370px) {
+
+    .brand-mini-text {
+        display: none;
+    }
+
+    .header-title {
+        font-size: 22px;
+    }
+
+    .update-card h3 {
+        font-size: 15px;
+    }
+
+    .top-btn {
+        width: 39px;
+        height: 39px;
+    }
+}
+
 </style>
 
+</head>
+
+<body>
+
+<div class="container">
+
+    <div class="topbar">
+
+        <div class="brand-mini">
+
+            <div class="brand-mini-icon">
+                ⚡
+            </div>
+
+            <div class="brand-mini-text">
+                <strong>SONG VIP</strong>
+                <span>Official Updates</span>
+            </div>
+
+        </div>
+
+        <div class="top-actions">
+
+            <a href="index.html" class="top-btn">
+                🏠
+            </a>
+
+            <button
+                class="top-btn"
+                onclick="toggleTheme()"
+            >
+                🌓
+            </button>
+
+        </div>
+
+    </div>
+
+
+    <section class="header-box">
+
+        <div class="header-content">
+
+            <div class="header-icon">
+                📜
+            </div>
+
+            <h1 class="header-title">
+                SONG VIP
+            </h1>
+
+            <div class="header-subtitle">
+                سجل التحديثات
+            </div>
+
+            <p class="header-desc">
+                تابع هنا جميع الإضافات والتحديثات الجديدة
+                التي يتم إطلاقها على موقع SONG VIP.
+            </p>
+
+            <div class="gradient-line"></div>
+
+        </div>
+
+    </section>
+
+
+    <section class="latest-release">
+
+        <div class="release-top">
+
+            <span class="release-label">
+                LATEST RELEASE
+            </span>
+
+            <span class="new-badge">
+                جديد ✨
+            </span>
+
+        </div>
+
+        <h2>
+            🚀 الإصدار v3.1 — نظام الزوار الجديد
+        </h2>
+
+        <p>
+            تم تطوير نظام الزوار وإضافة عداد مركزي لتسجيل
+            الزيارات بشكل تلقائي مع الحفاظ على سرعة الموقع.
+        </p>
+
+    </section>
+
+
+    <div class="search-box">
+
+        <span class="search-icon">
+            🔍
+        </span>
+
+        <input
+            id="searchInput"
+            type="text"
+            placeholder="ابحث في سجل التحديثات..."
+            autocomplete="off"
+        >
+
+    </div>
+
+
+    <section class="rating-box">
+
+        <div class="section-title">
+            ⭐ قيّم تجربتك
+        </div>
+
+        <div class="section-subtitle">
+            رأيك يساعدنا على تطوير SONG VIP وتحسين الموقع باستمرار.
+        </div>
+
+        <div class="stars">
+
+            <button class="star" data-star="1">★</button>
+            <button class="star" data-star="2">★</button>
+            <button class="star" data-star="3">★</button>
+            <button class="star" data-star="4">★</button>
+            <button class="star" data-star="5">★</button>
+
+        </div>
+
+        <form onsubmit="submitReview(event)">
+
+            <div class="review-form">
+
+                <input
+                    id="reviewName"
+                    class="input"
+                    maxlength="30"
+                    placeholder="اسمك"
+                >
+
+                <textarea
+                    id="reviewText"
+                    class="textarea"
+                    maxlength="300"
+                    placeholder="اكتب رأيك عن الموقع..."
+                ></textarea>
+
+                <button
+                    type="submit"
+                    class="submit-review"
+                >
+                    إرسال التقييم ⭐
+                </button>
+
+            </div>
+
+        </form>
+
+    </section>
+
+
+    <h2 class="updates-title">
+        📋 جميع التحديثات
+    </h2>
+
+
+    <div class="updates-list" id="updatesList">
+
+        <article
+            class="update-card"
+            data-search="v3.1 نظام الزوار الجديد الزوار الزيارات supabase"
+        >
+
+            <div class="update-head">
+
+                <h3>
+                    🚀 الإصدار v3.1 — نظام الزوار الجديد
+                </h3>
+
+                <span class="version">
+                    v3.1
+                </span>
+
+            </div>
+
+            <div class="update-date">
+                📅 21 سبتمبر 2026
+            </div>
+
+            <p>
+                تم إطلاق نظام جديد لإدارة الزوار والزيارات
+                بشكل أكثر تنظيماً.
+            </p>
+
+            <ul>
+                <li>📊 عداد مركزي للزوار.</li>
+                <li>👤 تسجيل معرف الزائر تلقائياً.</li>
+                <li>🔄 تحديث الزيارات بشكل تلقائي.</li>
+                <li>🗄️ حفظ البيانات في قاعدة بيانات مركزية.</li>
+                <li>⚡ الحفاظ على سرعة الموقع.</li>
+            </ul>
+
+            <div class="update-footer">
+
+                <span class="like-count">
+                    ❤️ <span id="count-v31">0</span> إعجاب
+                </span>
+
+                <button
+                    class="like-btn"
+                    data-version="v3.1"
+                    onclick="likeUpdate('v3.1')"
+                >
+                    ❤️ إعجاب
+                </button>
+
+            </div>
+
+        </article>
+
+
+        <article
+            class="update-card"
+            data-search="v3.0 التقييمات التصميم سجل التحديثات"
+        >
+
+            <div class="update-head">
+
+                <h3>
+                    ✨ الإصدار v3.0 — تطوير صفحة التحديثات
+                </h3>
+
+                <span class="version">
+                    v3.0
+                </span>
+
+            </div>
+
+            <div class="update-date">
+                📅 سبتمبر 2026
+            </div>
+
+            <p>
+                إعادة تصميم صفحة سجل التحديثات وإضافة
+                مجموعة من المميزات الجديدة.
+            </p>
+
+            <ul>
+                <li>⭐ نظام تقييم الموقع.</li>
+                <li>💬 إضافة آراء الزوار.</li>
+                <li>🔎 البحث داخل التحديثات.</li>
+                <li>🎨 تصميم جديد ومحسن.</li>
+                <li>🔔 رسائل تنبيه.</li>
+            </ul>
+
+            <div class="update-footer">
+
+                <span class="like-count">
+                    ❤️ <span id="count-v30">340</span> إعجاب
+                </span>
+
+                <button
+                    class="like-btn"
+                    data-version="v3.0"
+                    onclick="likeUpdate('v3.0')"
+                >
+                    ❤️ إعجاب
+                </button>
+
+            </div>
+
+        </article>
+
+
+        <article
+            class="update-card"
+            data-search="v2.5 روابط مهام سيرفر سكربتات"
+        >
+
+            <div class="update-head">
+
+                <h3>
+                    🔐 الإصدار v2.5 — تحسين نظام الروابط
+                </h3>
+
+                <span class="version">
+                    v2.5
+                </span>
+
+            </div>
+
+            <div class="update-date">
+                📅 أغسطس 2026
+            </div>
+
+            <p>
+                تم تطوير طريقة التعامل مع الروابط وتحسين
+                ترتيب خطوات فتح المحتوى.
+            </p>
+
+            <ul>
+                <li>🔐 تحسين حماية الروابط.</li>
+                <li>1️⃣ ترتيب المهام بشكل أفضل.</li>
+                <li>⚡ تحسين سرعة الانتقال.</li>
+                <li>🛠️ إصلاح عدة مشاكل.</li>
+            </ul>
+
+            <div class="update-footer">
+
+                <span class="like-count">
+                    ❤️ <span id="count-v25">210</span> إعجاب
+                </span>
+
+                <button
+                    class="like-btn"
+                    data-version="v2.5"
+                    onclick="likeUpdate('v2.5')"
+                >
+                    ❤️ إعجاب
+                </button>
+
+            </div>
+
+        </article>
+
+
+        <article
+            class="update-card"
+            data-search="v2.0 روابط فريدة سيرفر سكربتات إصلاح"
+        >
+
+            <div class="update-head">
+
+                <h3>
+                    ⚡ الإصدار v2.0 — نظام الروابط الجديد
+                </h3>
+
+                <span class="version">
+                    v2.0
+                </span>
+
+            </div>
+
+            <div class="update-date">
+                📅 يوليو 2026
+            </div>
+
+            <p>
+                إضافة نظام روابط أكثر تنظيماً مع تحسين
+                طريقة تحميل المحتوى.
+            </p>
+
+            <ul>
+                <li>🔗 روابط فريدة.</li>
+                <li>☁️ تخزين المحتوى على السيرفر.</li>
+                <li>⚙️ تحسين نظام التوجيه.</li>
+                <li>🐛 إصلاح مشاكل قديمة.</li>
+            </ul>
+
+            <div class="update-footer">
+
+                <span class="like-count">
+                    ❤️ <span id="count-v20">142</span> إعجاب
+                </span>
+
+                <button
+                    class="like-btn"
+                    data-version="v2.0"
+                    onclick="likeUpdate('v2.0')"
+                >
+                    ❤️ إعجاب
+                </button>
+
+            </div>
+
+        </article>
+
+
+        <article
+            class="update-card"
+            data-search="v1.5 دعم الوضع الداكن الفاتح timer"
+        >
+
+            <div class="update-head">
+
+                <h3>
+                    🛠️ الإصدار v1.5 — تحسينات وتجربة أفضل
+                </h3>
+
+                <span class="version">
+                    v1.5
+                </span>
+
+            </div>
+
+            <div class="update-date">
+                📅 يونيو 2026
+            </div>
+
+            <p>
+                مجموعة من التحسينات التي جعلت استخدام الموقع
+                أسهل وأكثر راحة.
+            </p>
+
+            <ul>
+                <li>💬 إضافة صندوق الدعم.</li>
+                <li>🌙 الوضع الداكن.</li>
+                <li>☀️ الوضع الفاتح.</li>
+                <li>⏱️ تحسين المؤقت.</li>
+                <li>🔧 إصلاح مشاكل الواجهة.</li>
+            </ul>
+
+            <div class="update-footer">
+
+                <span class="like-count">
+                    ❤️ <span id="count-v15">95</span> إعجاب
+                </span>
+
+                <button
+                    class="like-btn"
+                    data-version="v1.5"
+                    onclick="likeUpdate('v1.5')"
+                >
+                    ❤️ إعجاب
+                </button>
+
+            </div>
+
+        </article>
+
+    </div>
+
+
+    <div class="empty" id="emptyResult">
+        🔍<br><br>
+        مفيش تحديثات مطابقة للبحث.
+    </div>
+
+
+    <section class="reviews">
+
+        <div class="section-title">
+            💬 آراء الزوار
+        </div>
+
+        <div id="reviewsList"></div>
+
+    </section>
+
+</div>
+
+
+<button
+    class="back-to-top"
+    id="backToTop"
+    onclick="scrollToTop()"
+>
+    ↑
+</button>
+
+
+<div id="toast"></div>
+
+
 <script>
-/* ==========================================
-   تشغيل الصفحة
-   ========================================== */
 
-document.addEventListener("DOMContentLoaded", function () {
+let selectedRating = 0;
+let toastTimer;
 
-    // تحميل الثيم
-    const savedTheme = localStorage.getItem("updates_theme");
 
-    if (savedTheme === "light") {
+/* تغيير الثيم */
+
+function loadTheme() {
+
+    if (
+        localStorage.getItem("updates_theme")
+        === "light"
+    ) {
         document.body.classList.add("light");
     }
+}
 
-    // تحميل التقييمات
-    if (typeof loadRatings === "function") {
-        loadRatings();
-    }
-
-    // تشغيل البحث
-    const searchInput = document.getElementById("searchInput");
-
-    if (searchInput && typeof filterUpdates === "function") {
-        searchInput.addEventListener("input", filterUpdates);
-    }
-
-    // تشغيل أزرار اللايك
-    document.querySelectorAll(".like-btn").forEach(function (button) {
-
-        const version = button.dataset.version;
-
-        if (!version) return;
-
-        if (localStorage.getItem("liked_" + version) === "1") {
-            button.classList.add("liked");
-        }
-    });
-
-    // إظهار زر الرجوع للأعلى
-    window.addEventListener("scroll", function () {
-
-        const btn = document.getElementById("backToTop");
-
-        if (!btn) return;
-
-        if (window.scrollY > 400) {
-            btn.classList.add("show");
-        } else {
-            btn.classList.remove("show");
-        }
-    });
-
-});
-
-
-/* ==========================================
-   تغيير الثيم
-   ========================================== */
 
 function toggleTheme() {
 
     document.body.classList.toggle("light");
 
-    const isLight = document.body.classList.contains("light");
-
     localStorage.setItem(
         "updates_theme",
-        isLight ? "light" : "dark"
+        document.body.classList.contains("light")
+            ? "light"
+            : "dark"
     );
 
     showToast(
-        isLight
+        document.body.classList.contains("light")
             ? "☀️ تم تفعيل الوضع الفاتح"
             : "🌙 تم تفعيل الوضع الداكن"
     );
 }
 
 
-/* ==========================================
-   الرجوع لأعلى الصفحة
-   ========================================== */
+/* البحث */
+
+function filterUpdates() {
+
+    const query =
+        document
+            .getElementById("searchInput")
+            .value
+            .trim()
+            .toLowerCase();
+
+    const cards =
+        document.querySelectorAll(".update-card");
+
+    let found = 0;
+
+    cards.forEach(function(card) {
+
+        const text =
+            (
+                card.dataset.search ||
+                card.innerText
+            ).toLowerCase();
+
+        if (
+            !query ||
+            text.includes(query)
+        ) {
+
+            card.style.display = "";
+
+            found++;
+
+        } else {
+
+            card.style.display = "none";
+        }
+
+    });
+
+    document
+        .getElementById("emptyResult")
+        .classList.toggle(
+            "show",
+            found === 0
+        );
+}
+
+
+/* النجوم */
+
+function setupStars() {
+
+    document
+        .querySelectorAll(".star")
+        .forEach(function(star) {
+
+            star.addEventListener(
+                "click",
+                function() {
+
+                    selectedRating =
+                        Number(
+                            this.dataset.star
+                        );
+
+                    document
+                        .querySelectorAll(".star")
+                        .forEach(function(item) {
+
+                            item.classList.toggle(
+                                "active",
+                                Number(
+                                    item.dataset.star
+                                ) <= selectedRating
+                            );
+
+                        });
+
+                }
+            );
+
+        });
+}
+
+
+/* التقييمات */
+
+function getReviews() {
+
+    try {
+
+        return JSON.parse(
+            localStorage.getItem(
+                "song_update_reviews"
+            ) || "[]"
+        );
+
+    } catch {
+
+        return [];
+    }
+}
+
+
+function saveReviews(reviews) {
+
+    localStorage.setItem(
+        "song_update_reviews",
+        JSON.stringify(reviews)
+    );
+}
+
+
+function escapeHTML(text) {
+
+    return String(text)
+        .replace(/&/g, "&amp;")
+        .replace(/</g, "&lt;")
+        .replace(/>/g, "&gt;")
+        .replace(/"/g, "&quot;")
+        .replace(/'/g, "&#039;");
+}
+
+
+function submitReview(event) {
+
+    event.preventDefault();
+
+    const name =
+        document
+            .getElementById("reviewName")
+            .value
+            .trim();
+
+    const text =
+        document
+            .getElementById("reviewText")
+            .value
+            .trim();
+
+    if (!selectedRating) {
+
+        showToast("⭐ اختار عدد النجوم الأول");
+
+        return;
+    }
+
+    if (!name) {
+
+        showToast("✍️ اكتب اسمك الأول");
+
+        return;
+    }
+
+    if (!text) {
+
+        showToast("💬 اكتب رأيك الأول");
+
+        return;
+    }
+
+    let reviews = getReviews();
+
+    reviews.unshift({
+        name: name.slice(0, 30),
+        text: text.slice(0, 300),
+        rating: selectedRating,
+        date: new Date().toLocaleDateString("ar-EG")
+    });
+
+    saveReviews(
+        reviews.slice(0, 15)
+    );
+
+    document.getElementById(
+        "reviewName"
+    ).value = "";
+
+    document.getElementById(
+        "reviewText"
+    ).value = "";
+
+    selectedRating = 0;
+
+    document
+        .querySelectorAll(".star")
+        .forEach(function(star) {
+            star.classList.remove("active");
+        });
+
+    loadRatings();
+
+    showToast("✅ تم إرسال تقييمك بنجاح");
+}
+
+
+function loadRatings() {
+
+    const container =
+        document.getElementById(
+            "reviewsList"
+        );
+
+    if (!container) return;
+
+    const reviews = getReviews();
+
+    container.innerHTML = "";
+
+    if (!reviews.length) {
+
+        container.innerHTML = `
+            <div class="review-item">
+                <div class="review-text">
+                    لسه مفيش تقييمات. كن أول شخص يسيب رأيه ⭐
+                </div>
+            </div>
+        `;
+
+        return;
+    }
+
+    reviews.forEach(function(review) {
+
+        const rating =
+            Math.max(
+                0,
+                Math.min(
+                    5,
+                    Number(review.rating) || 0
+                )
+            );
+
+        const item =
+            document.createElement("div");
+
+        item.className =
+            "review-item";
+
+        item.innerHTML = `
+            <div class="review-top">
+
+                <div>
+
+                    <div class="review-name">
+                        ${escapeHTML(review.name)}
+                    </div>
+
+                    <div class="review-date">
+                        ${escapeHTML(review.date)}
+                    </div>
+
+                </div>
+
+                <div class="review-stars">
+                    ${"★".repeat(rating)}
+                </div>
+
+            </div>
+
+            <div class="review-text">
+                ${escapeHTML(review.text)}
+            </div>
+        `;
+
+        container.appendChild(item);
+
+    });
+}
+
+
+/* اللايك */
+
+function likeUpdate(version) {
+
+    const key =
+        "song_liked_" + version;
+
+    if (
+        localStorage.getItem(key) === "1"
+    ) {
+
+        showToast(
+            "❤️ أنت عملت إعجاب قبل كده"
+        );
+
+        return;
+    }
+
+    localStorage.setItem(key, "1");
+
+    const button =
+        document.querySelector(
+            '.like-btn[data-version="' +
+            version +
+            '"]'
+        );
+
+    if (button) {
+
+        button.classList.add("liked");
+
+        button.innerHTML =
+            "❤️ تم الإعجاب";
+    }
+
+    const count =
+        document.getElementById(
+            "count-" +
+            version.replace(".", "")
+        );
+
+    if (count) {
+
+        count.textContent =
+            Number(count.textContent) + 1;
+    }
+
+    showToast(
+        "❤️ شكراً على إعجابك"
+    );
+}
+
+
+function loadLikes() {
+
+    document
+        .querySelectorAll(".like-btn")
+        .forEach(function(button) {
+
+            const version =
+                button.dataset.version;
+
+            if (
+                localStorage.getItem(
+                    "song_liked_" + version
+                ) === "1"
+            ) {
+
+                button.classList.add("liked");
+
+                button.innerHTML =
+                    "❤️ تم الإعجاب";
+            }
+
+        });
+}
+
+
+/* زر العودة للأعلى */
 
 function scrollToTop() {
 
@@ -1246,46 +1887,83 @@ function scrollToTop() {
 }
 
 
-/* ==========================================
-   رسالة Toast
-   ========================================== */
+window.addEventListener(
+    "scroll",
+    function() {
+
+        const button =
+            document.getElementById(
+                "backToTop"
+            );
+
+        if (!button) return;
+
+        button.classList.toggle(
+            "show",
+            window.scrollY > 400
+        );
+
+    }
+);
+
+
+/* رسالة التنبيه */
 
 function showToast(message) {
 
-    let toast = document.getElementById("toast");
+    const toast =
+        document.getElementById("toast");
 
-    if (!toast) {
-
-        toast = document.createElement("div");
-
-        toast.id = "toast";
-
-        toast.style.position = "fixed";
-        toast.style.bottom = "25px";
-        toast.style.right = "50%";
-        toast.style.transform = "translateX(50%)";
-        toast.style.padding = "12px 18px";
-        toast.style.borderRadius = "14px";
-        toast.style.background = "rgba(20,20,30,.95)";
-        toast.style.color = "#fff";
-        toast.style.fontSize = "13px";
-        toast.style.zIndex = "99999";
-        toast.style.boxShadow = "0 10px 35px rgba(0,0,0,.35)";
-        toast.style.border = "1px solid rgba(139,92,246,.35)";
-
-        document.body.appendChild(toast);
-    }
+    if (!toast) return;
 
     toast.textContent = message;
 
-    toast.style.opacity = "1";
+    toast.classList.add("show");
 
-    clearTimeout(window.toastTimer);
+    clearTimeout(toastTimer);
 
-    window.toastTimer = setTimeout(function () {
-        toast.style.opacity = "0";
-    }, 2200);
+    toastTimer = setTimeout(
+        function() {
+
+            toast.classList.remove("show");
+
+        },
+        2200
+    );
 }
+
+
+/* تشغيل الصفحة */
+
+document.addEventListener(
+    "DOMContentLoaded",
+    function() {
+
+        loadTheme();
+
+        setupStars();
+
+        loadRatings();
+
+        loadLikes();
+
+        const search =
+            document.getElementById(
+                "searchInput"
+            );
+
+        if (search) {
+
+            search.addEventListener(
+                "input",
+                filterUpdates
+            );
+
+        }
+
+    }
+);
+
 </script>
 
 </body>
