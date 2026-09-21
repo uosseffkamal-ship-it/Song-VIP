@@ -1,9 +1,15 @@
 <!DOCTYPE html>
 <html lang="ar" dir="rtl">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
     <title>SONG VIP - Ready</title>
+
+    <!-- Supabase -->
+    <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+
     <style>
         :root {
             --bg-color: #0b071e;
@@ -18,10 +24,12 @@
             background-color: var(--bg-color);
             color: var(--text-color);
             font-family: Arial, sans-serif;
+
             display: flex;
             flex-direction: column;
             align-items: center;
             justify-content: center;
+
             min-height: 100vh;
         }
 
@@ -29,26 +37,35 @@
             background: var(--card-bg);
             border: 1px solid var(--border-color);
             border-radius: 24px;
+
             padding: 20px;
             width: 90%;
             max-width: 380px;
+
             text-align: center;
-            box-shadow: 0 15px 35px rgba(0, 0, 0, 0.4);
+
+            box-shadow:
+                0 15px 35px rgba(0, 0, 0, 0.4);
+
             position: relative;
         }
 
         .steps-indicators {
             display: flex;
             justify-content: center;
+
             gap: 6px;
             margin-bottom: 15px;
         }
 
         .step-dot {
             flex: 1;
+
             height: 6px;
+
             background: #333;
             border-radius: 3px;
+
             transition: 0.3s;
         }
 
@@ -63,19 +80,26 @@
         .banner-box {
             width: 100%;
             height: 250px;
+
             background: rgba(0, 0, 0, 0.2);
+
             border-radius: 14px;
+
             overflow: hidden;
+
             display: flex;
             align-items: center;
             justify-content: center;
+
             margin-bottom: 15px;
+
             border: 1px solid var(--border-color);
         }
 
         .banner-box iframe {
             width: 300px !important;
             height: 250px !important;
+
             border: none !important;
             background: transparent !important;
         }
@@ -87,47 +111,107 @@
         .ad-title {
             font-size: 14px;
             color: #fff;
+
             margin: 0;
+
             line-height: 1.5;
         }
 
         .script-box {
             display: none;
+
             margin-bottom: 15px;
+
             text-align: right;
         }
 
         .script-box textarea {
             width: 100%;
-            height: 120px;
+            height: 180px;
+
             background: #0b071e;
+
             color: #2ecc71;
+
             border: 1px solid var(--border-color);
+
             border-radius: 10px;
+
             padding: 10px;
+
             font-family: monospace;
             font-size: 12px;
+
             resize: none;
+
             box-sizing: border-box;
+
             direction: ltr;
             text-align: left;
+
             outline: none;
         }
 
+        .loading-script {
+            color: #aaa;
+            font-size: 13px;
+
+            margin-bottom: 15px;
+        }
+
+        .error-box {
+            display: none;
+
+            background: rgba(255, 42, 77, 0.1);
+
+            border: 1px solid #ff2a4d;
+
+            color: #ff6b81;
+
+            border-radius: 12px;
+
+            padding: 12px;
+
+            margin-bottom: 15px;
+
+            font-size: 13px;
+
+            line-height: 1.6;
+        }
+
         .btn-continue {
-            background: linear-gradient(135deg, #f39c12, #d35400);
+            background:
+                linear-gradient(
+                    135deg,
+                    #f39c12,
+                    #d35400
+                );
+
             color: #ffffff;
+
             border: none;
+
             padding: 15px 20px;
+
             border-radius: 14px;
+
             width: 100%;
+
             font-size: 16px;
+
             font-weight: bold;
+
             cursor: pointer;
+
             text-decoration: none;
+
             display: block;
+
             box-sizing: border-box;
-            box-shadow: 0 5px 20px rgba(243, 156, 18, 0.4);
+
+            box-shadow:
+                0 5px 20px rgba(243, 156, 18, 0.4);
+
             transition: 0.3s;
         }
 
@@ -136,190 +220,839 @@
             transform: scale(1.01);
         }
 
+        .btn-continue:disabled {
+            cursor: not-allowed;
+            opacity: 0.8;
+        }
+
         .brand-footer {
             margin-top: 15px;
+
             font-size: 11px;
+
             color: #666;
+
             letter-spacing: 1px;
         }
     </style>
 </head>
+
 <body>
 
     <div class="card">
+
+        <!-- الخطوات -->
+
         <div class="steps-indicators">
-            <div class="step-dot active" id="dot1"></div>
-            <div class="step-dot" id="dot2"></div>
-            <div class="step-dot" id="dot3"></div>
-            <div class="step-dot" id="dot4"></div>
-            <div class="step-dot" id="dot5"></div>
+
+            <div
+                class="step-dot active"
+                id="dot1">
+            </div>
+
+            <div
+                class="step-dot"
+                id="dot2">
+            </div>
+
+            <div
+                class="step-dot"
+                id="dot3">
+            </div>
+
+            <div
+                class="step-dot"
+                id="dot4">
+            </div>
+
+            <div
+                class="step-dot"
+                id="dot5">
+            </div>
+
         </div>
 
-        <div class="banner-box" id="bannerContainer">
+
+        <!-- الإعلان -->
+
+        <div
+            class="banner-box"
+            id="bannerContainer">
+
             <script type="text/javascript">
+
                 atOptions = {
-                    'key' : 'ec2c9d88b208d941a3545c1b4c621f00',
-                    'format' : 'iframe',
-                    'height' : 250,
-                    'width' : 300,
-                    'params' : {}
+                    'key':
+                        'ec2c9d88b208d941a3545c1b4c621f00',
+
+                    'format':
+                        'iframe',
+
+                    'height':
+                        250,
+
+                    'width':
+                        300,
+
+                    'params':
+                        {}
                 };
+
             </script>
-            <script type="text/javascript" src="//mittengulped.com/ec2c9d88b208d941a3545c1b4c621f00/invoke.js"></script>
+
+            <script
+                type="text/javascript"
+                src="//mittengulped.com/ec2c9d88b208d941a3545c1b4c621f00/invoke.js">
+            </script>
+
         </div>
 
-        <div class="script-box" id="scriptBox">
-            <textarea id="finalScriptOutput" readonly></textarea>
+
+        <!-- رسالة تحميل السكربت -->
+
+        <div
+            class="loading-script"
+            id="loadingScript">
+
+            🔄 جاري تجهيز السكربت الخاص بك...
+
         </div>
 
-        <div class="content-body">
-            <h2 class="ad-title" id="adTitleText">تكنولوجيا حديثة ومميزة لتغيير طريقك في البرمجة والتقنية اليوم.</h2>
+
+        <!-- رسالة الخطأ -->
+
+        <div
+            class="error-box"
+            id="errorBox">
+
+            ❌ لم يتم العثور على السكربت المطلوب.
+
+            <br>
+
+            تأكد أن الرابط صحيح أو اطلب رابطًا جديدًا.
+
         </div>
 
-        <button id="actionBtn" class="btn-continue" onclick="proceedNext()">
+
+        <!-- السكربت -->
+
+        <div
+            class="script-box"
+            id="scriptBox">
+
+            <textarea
+                id="finalScriptOutput"
+                readonly>
+            </textarea>
+
+        </div>
+
+
+        <!-- النص -->
+
+        <div
+            class="content-body"
+            id="contentBody">
+
+            <h2
+                class="ad-title"
+                id="adTitleText">
+
+                تكنولوجيا حديثة ومميزة لتغيير طريقك
+                في البرمجة والتقنية اليوم.
+
+            </h2>
+
+        </div>
+
+
+        <!-- الزر -->
+
+        <button
+            id="actionBtn"
+            class="btn-continue"
+            onclick="proceedNext()">
+
             ⏳ يرجى الانتظار (10)
+
         </button>
 
-        <div class="brand-footer">SONG VIP - SECURE REDIRECT</div>
+
+        <div class="brand-footer">
+
+            SONG VIP - SECURE REDIRECT
+
+        </div>
+
     </div>
 
-    <script>
-        let timeLeft = 10;
-        let step = 1;
 
-        const urlParams = new URLSearchParams(window.location.search);
-        let linkToken = urlParams.get('to') || urlParams.get('s');
-        
+    <script>
+
+        /* =========================================
+           SUPABASE
+        ========================================= */
+
+        const SUPABASE_URL =
+            'https://zbnbvfrgcggbtpotsnbj.supabase.co';
+
+        const SUPABASE_PUBLISHABLE_KEY =
+            'sb_publishable_XYHtTlssM3vtdaeLiJEpbQ_oxUBW1k4';
+
+        const supabaseClient =
+            window.supabase.createClient(
+                SUPABASE_URL,
+                SUPABASE_PUBLISHABLE_KEY
+            );
+
+
+        /* =========================================
+           جلب الـ Token
+        ========================================= */
+
+        const urlParams =
+            new URLSearchParams(
+                window.location.search
+            );
+
+        let linkToken =
+            urlParams.get('to') ||
+            urlParams.get('s');
+
+
+        /*
+         * لو الرابط فيه Token نحفظه
+         */
+
         if (linkToken) {
-            localStorage.setItem('song_vip_active_token', linkToken);
+
+            linkToken =
+                linkToken.trim();
+
+            localStorage.setItem(
+                'song_vip_active_token',
+                linkToken
+            );
+
         } else {
-            linkToken = localStorage.getItem('song_vip_active_token');
+
+            linkToken =
+                localStorage.getItem(
+                    'song_vip_active_token'
+                );
+
         }
+
+
+        /* =========================================
+           عناصر الصفحة
+        ========================================= */
+
+        const actionBtn =
+            document.getElementById(
+                'actionBtn'
+            );
+
+        const adTitleText =
+            document.getElementById(
+                'adTitleText'
+            );
+
+        const scriptBox =
+            document.getElementById(
+                'scriptBox'
+            );
+
+        const finalScriptOutput =
+            document.getElementById(
+                'finalScriptOutput'
+            );
+
+        const bannerContainer =
+            document.getElementById(
+                'bannerContainer'
+            );
+
+        const loadingScript =
+            document.getElementById(
+                'loadingScript'
+            );
+
+        const errorBox =
+            document.getElementById(
+                'errorBox'
+            );
+
+
+        /* =========================================
+           السكربت
+        ========================================= */
 
         let targetContent = "";
 
-        // فك الترميز السداسي عشر بأمان تام
-        function hexToString(hexx) {
-            try {
-                let hex = hexx.toString();
-                let str = '';
-                for (let i = 0; i < hex.length; i += 2) {
-                    let charCode = parseInt(hex.substr(i, 2), 16);
-                    if (!isNaN(charCode)) {
-                        str += String.fromCharCode(charCode);
-                    }
-                }
-                return str;
-            } catch (e) {
-                return "";
+        let scriptLoaded = false;
+
+
+        /*
+         * جلب السكربت من Supabase
+         */
+
+        async function loadScriptFromDatabase() {
+
+            if (!linkToken) {
+
+                showScriptError();
+
+                return;
+
             }
+
+
+            /*
+             * لو Token قصير:
+             * نجيبه من قاعدة البيانات
+             */
+
+            try {
+
+                const {
+                    data,
+                    error
+                } =
+                    await supabaseClient.rpc(
+                        'get_vip_script',
+                        {
+                            p_token:
+                                linkToken
+                        }
+                    );
+
+
+                if (error) {
+
+                    console.error(
+                        'Supabase error:',
+                        error
+                    );
+
+                    showScriptError();
+
+                    return;
+
+                }
+
+
+                if (
+                    typeof data === 'string' &&
+                    data.trim() !== ''
+                ) {
+
+                    targetContent =
+                        data;
+
+                    scriptLoaded = true;
+
+                    hideLoading();
+
+                    return;
+
+                }
+
+
+                showScriptError();
+
+            } catch (error) {
+
+                console.error(
+                    'Script loading error:',
+                    error
+                );
+
+                showScriptError();
+
+            }
+
         }
 
-        if (linkToken) {
-            targetContent = hexToString(linkToken);
-        } 
-        
-        if (!targetContent || targetContent.trim() === "") {
-            targetContent = localStorage.getItem('last_saved_script') || "-- عذراً، لم يتم العثور على السكربت المطلوب.";
+
+        /* =========================================
+           إظهار الخطأ
+        ========================================= */
+
+        function showScriptError() {
+
+            targetContent = "";
+
+            scriptLoaded = false;
+
+            if (loadingScript) {
+                loadingScript.style.display =
+                    'none';
+            }
+
+            if (errorBox) {
+                errorBox.style.display =
+                    'block';
+            }
+
+            if (actionBtn) {
+
+                actionBtn.disabled =
+                    true;
+
+                actionBtn.innerText =
+                    '❌ السكربت غير موجود';
+
+            }
+
         }
 
-        const adTitles = [
-            "تكنولوجيا حديثة ومميزة لتغيير طريقك في البرمجة والتقنية اليوم.",
-            "احصل على أفضل الأدوات والمميزات المخصصة لتطوير مواقعك بسرعة.",
-            "استكشف أحدث مكتبات البرمجة وتصميم واجهات المستخدم الحديثة.",
-            "الخطوة الأخيرة جاهزة الآن، اضغط أدناه لنسخ السكربت الخاص بك."
-        ];
 
-        const actionBtn = document.getElementById('actionBtn');
-        const adTitleText = document.getElementById('adTitleText');
-        const scriptBox = document.getElementById('scriptBox');
-        const finalScriptOutput = document.getElementById('finalScriptOutput');
-        const bannerContainer = document.getElementById('bannerContainer');
+        /* =========================================
+           إخفاء التحميل
+        ========================================= */
+
+        function hideLoading() {
+
+            if (loadingScript) {
+
+                loadingScript.style.display =
+                    'none';
+
+            }
+
+        }
+
+
+        /*
+         * نبدأ تحميل السكربت
+         */
+
+        loadScriptFromDatabase();
+
+
+        /* =========================================
+           النظام القديم للـ Hex
+           دعم احتياطي فقط
+        ========================================= */
+
+        function hexToString(hexx) {
+
+            try {
+
+                let hex =
+                    hexx.toString();
+
+                if (
+                    !/^[0-9a-fA-F]+$/.test(hex) ||
+                    hex.length % 2 !== 0
+                ) {
+
+                    return "";
+
+                }
+
+                let str = "";
+
+                for (
+                    let i = 0;
+                    i < hex.length;
+                    i += 2
+                ) {
+
+                    let charCode =
+                        parseInt(
+                            hex.substr(i, 2),
+                            16
+                        );
+
+                    if (
+                        !isNaN(charCode)
+                    ) {
+
+                        str +=
+                            String.fromCharCode(
+                                charCode
+                            );
+
+                    }
+
+                }
+
+                return str;
+
+            } catch (e) {
+
+                return "";
+
+            }
+
+        }
+
+
+        /*
+         * لو Token قديم جدًا
+         * نحاول استخدامه كـ Hex
+         *
+         * ده للحفاظ على الروابط القديمة.
+         */
+
+        async function tryOldTokenFallback() {
+
+            if (
+                scriptLoaded ||
+                !linkToken
+            ) {
+
+                return;
+
+            }
+
+
+            const oldScript =
+                hexToString(
+                    linkToken
+                );
+
+
+            if (
+                oldScript &&
+                oldScript.trim()
+            ) {
+
+                targetContent =
+                    oldScript;
+
+                scriptLoaded =
+                    true;
+
+                hideLoading();
+
+                if (errorBox) {
+
+                    errorBox.style.display =
+                        'none';
+
+                }
+
+            }
+
+        }
+
+
+        /*
+         * نجرب القديم بعد وقت قصير
+         */
+
+        setTimeout(
+            tryOldTokenFallback,
+            1200
+        );
+
+
+        /* =========================================
+           خطوات الصفحة
+        ========================================= */
+
+        let timeLeft = 10;
+
+        let step = 1;
 
         let timer;
 
+
+        const adTitles = [
+
+            "تكنولوجيا حديثة ومميزة لتغيير طريقك في البرمجة والتقنية اليوم.",
+
+            "احصل على أفضل الأدوات والمميزات المخصصة لتطوير مواقعك بسرعة.",
+
+            "استكشف أحدث مكتبات البرمجة وتصميم واجهات المستخدم الحديثة.",
+
+            "الخطوة الأخيرة جاهزة الآن، اضغط أدناه لنسخ السكربت الخاص بك."
+
+        ];
+
+
+        /* =========================================
+           تشغيل المؤقت
+        ========================================= */
+
         function startTimer() {
-            if (step === 5) return;
+
+            if (
+                step === 5
+            ) {
+
+                return;
+
+            }
+
 
             timeLeft = 10;
+
+
             if (actionBtn) {
-                actionBtn.innerHTML = `⏳ يرجى الانتظار (${timeLeft})`;
-                actionBtn.style.background = 'linear-gradient(135deg, #f39c12, #d35400)';
-                actionBtn.disabled = true;
+
+                actionBtn.innerHTML =
+                    `⏳ يرجى الانتظار (${timeLeft})`;
+
+                actionBtn.style.background =
+                    'linear-gradient(135deg, #f39c12, #d35400)';
+
+                actionBtn.disabled =
+                    true;
+
             }
-            
+
+
             clearInterval(timer);
-            timer = setInterval(() => {
-                if (timeLeft > 0) {
-                    timeLeft--;
-                    if (actionBtn) {
-                        actionBtn.innerHTML = `⏳ يرجى الانتظار (${timeLeft})`;
+
+
+            timer =
+                setInterval(() => {
+
+                    if (
+                        timeLeft > 0
+                    ) {
+
+                        timeLeft--;
+
+
+                        if (actionBtn) {
+
+                            actionBtn.innerHTML =
+                                `⏳ يرجى الانتظار (${timeLeft})`;
+
+                        }
+
+                    } else {
+
+                        clearInterval(
+                            timer
+                        );
+
+
+                        if (actionBtn) {
+
+                            actionBtn.innerHTML =
+                                '✅ الخطوة جاهزة - متابعة';
+
+                            actionBtn.style.background =
+                                'linear-gradient(135deg, #2ecc71, #27ae60)';
+
+                            actionBtn.disabled =
+                                false;
+
+                        }
+
                     }
-                } else {
-                    clearInterval(timer);
-                    if (actionBtn) {
-                        actionBtn.innerHTML = `✅ الخطوة جاهزة - متابعة`;
-                        actionBtn.style.background = 'linear-gradient(135deg, #2ecc71, #27ae60)';
-                        actionBtn.disabled = false;
-                    }
-                }
-            }, 1000);
+
+                }, 1000);
+
         }
+
 
         startTimer();
 
+
+        /* =========================================
+           الانتقال بين الخطوات
+        ========================================= */
+
         function proceedNext() {
-            if (timeLeft > 0) {
-                alert('يرجى الانتظار حتى انتهاء العد التنازلي!');
+
+            if (
+                timeLeft > 0
+            ) {
+
+                alert(
+                    'يرجى الانتظار حتى انتهاء العد التنازلي!'
+                );
+
                 return;
+
             }
 
-            if (step === 1) {
+
+            if (
+                step === 1
+            ) {
+
                 step = 2;
-                if (adTitleText) adTitleText.innerText = adTitles[1];
-                document.getElementById('dot1').classList.remove('active');
-                document.getElementById('dot1').classList.add('completed');
-                document.getElementById('dot2').classList.add('active');
+
+                adTitleText.innerText =
+                    adTitles[1];
+
+                document
+                    .getElementById('dot1')
+                    .classList
+                    .remove('active');
+
+                document
+                    .getElementById('dot1')
+                    .classList
+                    .add('completed');
+
+                document
+                    .getElementById('dot2')
+                    .classList
+                    .add('active');
+
                 startTimer();
-            } else if (step === 2) {
+
+            }
+
+
+            else if (
+                step === 2
+            ) {
+
                 step = 3;
-                if (adTitleText) adTitleText.innerText = adTitles[2];
-                document.getElementById('dot2').classList.remove('active');
-                document.getElementById('dot2').classList.add('completed');
-                document.getElementById('dot3').classList.add('active');
+
+                adTitleText.innerText =
+                    adTitles[2];
+
+                document
+                    .getElementById('dot2')
+                    .classList
+                    .remove('active');
+
+                document
+                    .getElementById('dot2')
+                    .classList
+                    .add('completed');
+
+                document
+                    .getElementById('dot3')
+                    .classList
+                    .add('active');
+
                 startTimer();
-            } else if (step === 3) {
-                step = 4; 
-                if (adTitleText) adTitleText.innerText = adTitles[3];
-                document.getElementById('dot3').classList.remove('active');
-                document.getElementById('dot3').classList.add('completed');
-                document.getElementById('dot4').classList.add('active');
+
+            }
+
+
+            else if (
+                step === 3
+            ) {
+
+                step = 4;
+
+                adTitleText.innerText =
+                    adTitles[3];
+
+                document
+                    .getElementById('dot3')
+                    .classList
+                    .remove('active');
+
+                document
+                    .getElementById('dot3')
+                    .classList
+                    .add('completed');
+
+                document
+                    .getElementById('dot4')
+                    .classList
+                    .add('active');
+
                 startTimer();
-            } else if (step === 4) {
-                step = 5; 
-                document.getElementById('dot4').classList.remove('active');
-                document.getElementById('dot4').classList.add('completed');
-                document.getElementById('dot5').classList.add('completed');
-                
-                bannerContainer.style.display = 'none';
-                adTitleText.parentElement.style.display = 'none';
-                scriptBox.style.display = 'block';
-                finalScriptOutput.value = targetContent;
-                
-                if (actionBtn) {
-                    actionBtn.innerHTML = `📋 نسخ السكربت`;
-                    actionBtn.style.background = 'linear-gradient(135deg, #2ecc71, #27ae60)';
-                    actionBtn.disabled = false;
+
+            }
+
+
+            else if (
+                step === 4
+            ) {
+
+                /*
+                 * لا نعرض السكربت إلا بعد
+                 * إكمال كل الخطوات
+                 */
+
+                if (
+                    !scriptLoaded ||
+                    !targetContent
+                ) {
+
+                    alert(
+                        'جاري تجهيز السكربت، حاول مرة أخرى بعد لحظات.'
+                    );
+
+                    return;
+
                 }
-            } else if (step === 5) {
-                finalScriptOutput.select();
+
+
+                step = 5;
+
+
+                document
+                    .getElementById('dot4')
+                    .classList
+                    .remove('active');
+
+                document
+                    .getElementById('dot4')
+                    .classList
+                    .add('completed');
+
+                document
+                    .getElementById('dot5')
+                    .classList
+                    .add('completed');
+
+
+                bannerContainer.style.display =
+                    'none';
+
+
+                document
+                    .getElementById('contentBody')
+                    .style.display =
+                    'none';
+
+
+                scriptBox.style.display =
+                    'block';
+                    finalScriptOutput.value = targetContent;
+
+            if (actionBtn) {
+                actionBtn.innerHTML = `📋 نسخ السكربت`;
+                actionBtn.style.background =
+                    'linear-gradient(135deg, #2ecc71, #27ae60)';
+                actionBtn.disabled = false;
+            }
+
+        } else if (step === 5) {
+
+            finalScriptOutput.select();
+
+            try {
                 document.execCommand('copy');
-                actionBtn.innerHTML = `✨ تم النسخ بنجاح!`;
+
+                actionBtn.innerHTML =
+                    `✨ تم النسخ بنجاح!`;
+
                 setTimeout(() => {
-                    actionBtn.innerHTML = `📋 نسخ السكربت مرة أخرى`;
+                    actionBtn.innerHTML =
+                        `📋 نسخ السكربت مرة أخرى`;
+                }, 2000);
+
+            } catch (error) {
+
+                actionBtn.innerHTML =
+                    `❌ لم يتم النسخ`;
+
+                setTimeout(() => {
+                    actionBtn.innerHTML =
+                        `📋 نسخ السكربت`;
                 }, 2000);
             }
         }
-    </script>
+    }
+</script>
+
 </body>
 </html>
