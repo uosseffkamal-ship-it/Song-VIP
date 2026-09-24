@@ -1964,3 +1964,1491 @@ body::before {
     </style>
 </head>
 <body>
+
+<div class="dashboard">
+
+    <header class="topbar">
+
+        <div class="brand">
+            <div class="brand-logo">
+                <img src="https://i.postimg.cc/vBbhHw0m/lrgo.jpg" alt="SONG">
+            </div>
+
+            <div class="brand-text">
+                <div class="brand-name">SONG VIP</div>
+                <div class="brand-sub">VIP LINK UNLOCKER</div>
+            </div>
+        </div>
+
+        <div class="top-actions">
+
+            <button
+                class="icon-btn"
+                id="themeBtn"
+                onclick="toggleTheme()"
+                title="تغيير المظهر">
+                🌙
+            </button>
+
+            <button
+                class="icon-btn"
+                onclick="window.location.href='updates.html'"
+                title="التحديثات">
+                🔔
+            </button>
+
+            <button
+                class="icon-btn"
+                onclick="openAdmin()"
+                title="لوحة الإدارة">
+                ⚙️
+            </button>
+
+        </div>
+
+    </header>
+
+
+    <main class="main-card">
+
+        <div class="hero">
+
+            <div class="hero-logo">
+                <img
+                    src="https://i.postimg.cc/vBbhHw0m/lrgo.jpg"
+                    alt="SONG Logo">
+            </div>
+
+            <h1>SONG VIP</h1>
+
+            <p>
+                افتح الرابط الخاص بك بعد إتمام المهام المطلوبة
+            </p>
+
+        </div>
+
+
+        <div class="status-box">
+
+            <div class="status-icon">
+                🛡️
+            </div>
+
+            <div class="status-content">
+
+                <div class="status-title">
+                    حالة النظام
+                </div>
+
+                <div class="status-text">
+                    النظام يعمل بشكل طبيعي
+                </div>
+
+            </div>
+
+            <div class="status-dot"></div>
+
+        </div>
+
+
+        <div class="notice">
+
+            <div class="notice-icon">
+                💡
+            </div>
+
+            <div>
+                <strong>تنبيه مهم</strong>
+
+                <p>
+                    أكمل المهام بالترتيب وانتظر انتهاء المؤقت
+                    حتى يتم فتح المهمة التالية.
+                </p>
+            </div>
+
+        </div>
+
+
+        <div class="search-box">
+
+            <span>🔍</span>
+
+            <input
+                type="text"
+                id="siteSearchInput"
+                placeholder="ابحث هنا..."
+                oninput="filterContent()">
+
+        </div>
+
+
+        <div class="section-title">
+
+            <span>
+                📋 المهام المطلوبة
+            </span>
+
+            <small id="taskCounter">
+                0 / 3
+            </small>
+
+        </div>
+
+
+        <div class="tasks" id="tasksContainer">
+
+
+            <!-- المهمة الأولى -->
+
+            <button
+                class="task-btn"
+                id="taskBtn0"
+                onclick="startTask(0)">
+
+                <div class="task-icon">
+                    👍
+                </div>
+
+                <div class="task-content">
+
+                    <div class="task-title">
+                        إعجاب بالفيديو
+                    </div>
+
+                    <div class="task-desc">
+                        شاهد الفيديو وقم بعمل إعجاب
+                    </div>
+
+                </div>
+
+                <div
+                    class="task-action"
+                    id="taskAction0">
+                    ابدأ
+                </div>
+
+            </button>
+
+
+            <!-- المهمة الثانية -->
+
+            <button
+                class="task-btn locked"
+                id="taskBtn1"
+                onclick="startTask(1)"
+                disabled>
+
+                <div class="task-icon">
+                    💬
+                </div>
+
+                <div class="task-content">
+
+                    <div class="task-title">
+                        الانضمام لسيرفر الديسكورد
+                    </div>
+
+                    <div class="task-desc">
+                        انضم إلى سيرفر SONG
+                    </div>
+
+                </div>
+
+                <div
+                    class="task-action"
+                    id="taskAction1">
+                    🔒 مقفلة
+                </div>
+
+            </button>
+
+
+            <!-- المهمة الثالثة -->
+
+            <button
+                class="task-btn locked"
+                id="taskBtn2"
+                onclick="startTask(2)"
+                disabled>
+
+                <div class="task-icon">
+                    🔔
+                </div>
+
+                <div class="task-content">
+
+                    <div class="task-title">
+                        الاشتراك في القناة
+                    </div>
+
+                    <div class="task-desc">
+                        اشترك في قناة SONG على يوتيوب
+                    </div>
+
+                </div>
+
+                <div
+                    class="task-action"
+                    id="taskAction2">
+                    🔒 مقفلة
+                </div>
+
+            </button>
+
+        </div>
+
+
+        <div class="progress-box">
+
+            <div class="progress-head">
+
+                <span>
+                    📊 التقدم
+                </span>
+
+                <span
+                    class="progress-count"
+                    id="progressText">
+                    0 / 3
+                </span>
+
+            </div>
+
+            <div class="progress-track">
+
+                <div
+                    class="progress-fill"
+                    id="progressFill">
+                </div>
+
+            </div>
+
+        </div>
+
+
+        <button
+            class="unlock-btn"
+            id="unlockBtn"
+            onclick="goNext()">
+
+            🔒 الرابط مغلق
+
+        </button>
+
+
+        <div class="info-box">
+
+            <strong>⚡ طريقة فتح الرابط</strong>
+
+            <br>
+
+            أكمل المهام الثلاثة بالترتيب.
+            بعد الانتهاء اضغط على زر فتح الرابط
+            للانتقال إلى صفحة التحقق.
+
+        </div>
+
+
+        <div class="stats-row">
+
+            <div class="stat-card">
+
+                <div class="stat-icon">
+                    👥
+                </div>
+
+                <div class="stat-number" id="visitorCount">
+                    0
+                </div>
+
+                <div class="stat-label">
+                    الزوار
+                </div>
+
+            </div>
+
+
+            <div class="stat-card">
+
+                <div class="stat-icon">
+                    👁️
+                </div>
+
+                <div class="stat-number" id="visitCount">
+                    0
+                </div>
+
+                <div class="stat-label">
+                    مرات فتح الموقع
+                </div>
+
+            </div>
+
+
+            <div class="stat-card">
+
+                <div class="stat-icon">
+                    🔗
+                </div>
+
+                <div class="stat-number" id="clickCount">
+                    0
+                </div>
+
+                <div class="stat-label">
+                    عمليات فتح
+                </div>
+
+            </div>
+
+        </div>
+
+
+        <div class="share-box">
+
+            <div class="section-title">
+
+                <span>
+                    📤 مشاركة الموقع
+                </span>
+
+            </div>
+
+            <div class="share-buttons">
+
+                <button onclick="shareSite()">
+                    📤 مشاركة
+                </button>
+
+                <button onclick="copySiteLink()">
+                    🔗 نسخ الرابط
+                </button>
+
+            </div>
+
+        </div>
+
+
+        <div class="update-box">
+
+            <div class="update-icon">
+                🚀
+            </div>
+
+            <div>
+
+                <strong>
+                    آخر تحديث
+                </strong>
+
+                <p id="updateTickerText">
+                    🚀 أحدث إضافة: تم تحديث سيرفر السكريبتات برابط مباشر جديد!
+                </p>
+
+            </div>
+
+        </div>
+
+
+        <footer class="footer">
+
+            <div>
+                SONG VIP
+            </div>
+
+            <span>
+                جميع الحقوق محفوظة © 2026
+            </span>
+
+        </footer>
+
+    </main>
+
+</div>
+
+
+<div
+    class="toast"
+    id="toast">
+</div>
+
+
+<script>
+
+const SUPABASE_URL =
+    'https://zbnbvfrgcggbtpotsnbj.supabase.co';
+
+const SUPABASE_KEY =
+    'sb_publishable_XYHtTlssM3vtdaeLiJEpbQ_oxUBW1k4';
+
+const supabaseClient =
+    window.supabase.createClient(
+        SUPABASE_URL,
+        SUPABASE_KEY
+    );
+
+
+/* =========================
+   CONFIG
+========================= */
+
+const defaultConfig = {
+
+    taskLinks: [
+        'https://youtu.be/VbMk6Fw9Z2Y?si=MAR_MlRXxqIyac2-',
+        'https://discord.gg/dyTF79Bmta',
+        'https://www.youtube.com/@SONGJiNYU2'
+    ],
+
+    updateText:
+        '🚀 أحدث إضافة: تم تحديث سيرفر السكريبتات برابط مباشر جديد!'
+
+};
+
+
+let cfg = {};
+
+try {
+
+    cfg = JSON.parse(
+        localStorage.getItem('site_config') || '{}'
+    );
+
+} catch (error) {
+
+    cfg = {};
+
+}
+
+cfg = {
+    ...defaultConfig,
+    ...cfg
+};
+
+
+/* =========================
+   TASK SYSTEM
+========================= */
+
+let activeTaskIndex = null;
+let waitingForReturn = false;
+let completedTasks = [false, false, false];
+
+
+function getTaskLinks() {
+
+    if (
+        Array.isArray(cfg.taskLinks) &&
+        cfg.taskLinks.length >= 3
+    ) {
+
+        return cfg.taskLinks;
+
+    }
+
+    return defaultConfig.taskLinks;
+
+}
+
+
+function startTask(index) {
+
+    if (index < 0 || index > 2) {
+        return;
+    }
+
+
+    if (completedTasks[index]) {
+        return;
+    }
+
+
+    if (index !== 0 && !completedTasks[index - 1]) {
+
+        showToast(
+            '⚠️ يجب إتمام المهمة السابقة أولاً'
+        );
+
+        return;
+    }
+
+
+    if (waitingForReturn) {
+
+        showToast(
+            '⏳ انتظر حتى تعود من المهمة الحالية'
+        );
+
+        return;
+    }
+
+
+    const links = getTaskLinks();
+
+    const link = links[index];
+
+    if (!link) {
+
+        showToast(
+            '❌ رابط المهمة غير موجود'
+        );
+
+        return;
+    }
+
+
+    activeTaskIndex = index;
+    waitingForReturn = true;
+
+
+    const button =
+        document.getElementById(
+            'taskBtn' + index
+        );
+
+    const action =
+        document.getElementById(
+            'taskAction' + index
+        );
+
+
+    button.classList.add('waiting');
+
+    action.innerText =
+        '⏳ انتظر...';
+
+
+    window.open(
+        link,
+        '_blank'
+    );
+
+
+    showToast(
+        '⏳ بعد العودة انتظر 5 ثواني...'
+    );
+
+}
+
+
+/* =========================
+   RETURN FROM TASK
+========================= */
+
+document.addEventListener(
+    'visibilitychange',
+    function () {
+
+        if (
+            document.visibilityState === 'visible' &&
+            waitingForReturn &&
+            activeTaskIndex !== null
+        ) {
+
+            const index =
+                activeTaskIndex;
+
+            waitingForReturn = false;
+
+            const button =
+                document.getElementById(
+                    'taskBtn' + index
+                );
+
+            const action =
+                document.getElementById(
+                    'taskAction' + index
+                );
+
+            let seconds = 5;
+
+            action.innerText =
+                '⏳ ' + seconds;
+
+
+            const timer =
+                setInterval(
+                    function () {
+
+                        seconds--;
+
+                        if (seconds > 0) {
+
+                            action.innerText =
+                                '⏳ ' + seconds;
+
+                        } else {
+
+                            clearInterval(timer);
+
+                            completeTask(index);
+
+                        }
+
+                    },
+                    1000
+                );
+
+        }
+
+    }
+);
+
+
+/* =========================
+   COMPLETE TASK
+========================= */
+
+function completeTask(index) {
+
+    completedTasks[index] = true;
+
+
+    const button =
+        document.getElementById(
+            'taskBtn' + index
+        );
+
+    const action =
+        document.getElementById(
+            'taskAction' + index
+        );
+
+
+    button.classList.remove(
+        'waiting',
+        'locked'
+    );
+
+    button.classList.add(
+        'done'
+    );
+
+
+    button.disabled = true;
+
+    action.innerText =
+        '✅ تم';
+
+
+    updateProgress();
+
+
+    const next =
+        index + 1;
+
+
+    if (next < 3) {
+
+        const nextButton =
+            document.getElementById(
+                'taskBtn' + next
+            );
+
+        const nextAction =
+            document.getElementById(
+                'taskAction' + next
+            );
+
+
+        nextButton.disabled = false;
+
+        nextButton.classList.remove(
+            'locked'
+        );
+
+        nextAction.innerText =
+            'ابدأ';
+
+
+        showToast(
+            '✅ تم إكمال المهمة! المهمة التالية مفتوحة'
+        );
+
+    } else {
+
+        unlockButton();
+
+        showToast(
+            '🎉 تم إكمال جميع المهام!'
+        );
+
+    }
+
+}
+
+
+/* =========================
+   PROGRESS
+========================= */
+
+function updateProgress() {
+
+    const completed =
+        completedTasks.filter(Boolean).length;
+
+
+    const percentage =
+        (completed / 3) * 100;
+
+
+    const progress =
+        document.getElementById(
+            'progressFill'
+        );
+
+    const text =
+        document.getElementById(
+            'progressText'
+        );
+
+    const counter =
+        document.getElementById(
+            'taskCounter'
+        );
+
+
+    if (progress) {
+
+        progress.style.width =
+            percentage + '%';
+
+    }
+
+
+    if (text) {
+
+        text.innerText =
+            completed + ' / 3';
+
+    }
+
+
+    if (counter) {
+
+        counter.innerText =
+            completed + ' / 3';
+
+    }
+
+}
+
+
+/* =========================
+   UNLOCK
+========================= */
+
+function unlockButton() {
+
+    const button =
+        document.getElementById(
+            'unlockBtn'
+        );
+
+
+    button.disabled = false;
+
+    button.innerText =
+        '🔓 فتح الرابط';
+
+
+    button.style.background =
+        'linear-gradient(135deg,#22c55e,#16a34a)';
+
+}
+
+
+/* =========================
+   GO NEXT
+========================= */
+
+function goNext() {
+
+    const completed =
+        completedTasks.filter(Boolean).length;
+
+
+    if (completed !== 3) {
+
+        showToast(
+            '⚠️ يجب إتمام جميع المهام أولاً'
+        );
+
+        return;
+    }
+
+
+    let totalClicks =
+        parseInt(
+            localStorage.getItem(
+                'site_clicks'
+            ) || '0'
+        );
+
+
+    totalClicks++;
+
+    localStorage.setItem(
+        'site_clicks',
+        totalClicks
+    );
+
+
+    updateClickCount();
+
+
+    const token =
+        localStorage.getItem(
+            'song_vip_active_token'
+        );
+
+
+    if (token) {
+
+        window.location.href =
+            'ready.html?to=' +
+            encodeURIComponent(token);
+
+    } else {
+
+        window.location.href =
+            'ready.html';
+
+    }
+
+}
+
+
+/* =========================
+   TOKEN
+========================= */
+
+function loadToken() {
+
+    const params =
+        new URLSearchParams(
+            window.location.search
+        );
+
+
+    const token =
+        params.get('to') ||
+        params.get('s');
+
+
+    if (token) {
+
+        localStorage.setItem(
+            'song_vip_active_token',
+            token
+        );
+
+    }
+
+}
+
+
+/* =========================
+   VISITOR SYSTEM
+========================= */
+
+function createVisitorId() {
+
+    let id =
+        localStorage.getItem(
+            'site_visitor_id'
+        );
+
+
+    if (!id) {
+
+        if (
+            window.crypto &&
+            crypto.randomUUID
+        ) {
+
+            id =
+                crypto.randomUUID();
+
+        } else {
+
+            id =
+                Date.now().toString(36) +
+                Math.random()
+                    .toString(36)
+                    .substring(2);
+
+        }
+
+
+        localStorage.setItem(
+            'site_visitor_id',
+            id
+        );
+
+    }
+
+
+    return id;
+
+}
+
+
+async function registerVisitor() {
+
+    try {
+
+        const visitorId =
+            createVisitorId();
+
+
+        const result =
+            await supabaseClient.rpc(
+                'register_site_visit',
+                {
+                    p_visitor_id:
+                        visitorId
+                }
+            );
+
+
+        if (
+            result.error ||
+            !result.data
+        ) {
+
+            return;
+
+        }
+
+
+        const data =
+            result.data;
+
+
+        const visitorElement =
+            document.getElementById(
+                'visitorCount'
+            );
+
+        const visitElement =
+            document.getElementById(
+                'visitCount'
+            );
+
+
+        if (visitorElement) {
+
+            visitorElement.innerText =
+                Number(
+                    data.visitors || 0
+                ).toLocaleString(
+                    'ar-EG'
+                );
+
+        }
+
+
+        if (visitElement) {
+
+            visitElement.innerText =
+                Number(
+                    data.visits || 0
+                ).toLocaleString(
+                    'ar-EG'
+                );
+
+        }
+
+    } catch (error) {
+
+        console.log(
+            'Visitor system:',
+            error
+        );
+
+    }
+
+}
+
+
+/* =========================
+   CLICK COUNT
+========================= */
+
+function updateClickCount() {
+
+    const element =
+        document.getElementById(
+            'clickCount'
+        );
+
+
+    if (!element) {
+        return;
+    }
+
+
+    const clicks =
+        parseInt(
+            localStorage.getItem(
+                'site_clicks'
+            ) || '0'
+        );
+
+
+    element.innerText =
+        clicks.toLocaleString(
+            'ar-EG'
+        );
+
+}
+
+
+/* =========================
+   THEME
+========================= */
+
+function toggleTheme() {
+
+    const body =
+        document.body;
+
+
+    const current =
+        body.getAttribute(
+            'data-theme'
+        ) || 'dark';
+
+
+    const next =
+        current === 'dark'
+            ? 'light'
+            : 'dark';
+
+
+    body.setAttribute(
+        'data-theme',
+        next
+    );
+
+
+    localStorage.setItem(
+        'site_theme',
+        next
+    );
+
+
+    const button =
+        document.getElementById(
+            'themeBtn'
+        );
+
+
+    if (button) {
+
+        button.innerText =
+            next === 'dark'
+                ? '🌙'
+                : '☀️';
+
+    }
+
+}
+
+
+function loadTheme() {
+
+    const theme =
+        localStorage.getItem(
+            'site_theme'
+        ) || 'dark';
+
+
+    document.body.setAttribute(
+        'data-theme',
+        theme
+    );
+
+
+    const button =
+        document.getElementById(
+            'themeBtn'
+        );
+
+
+    if (button) {
+
+        button.innerText =
+            theme === 'dark'
+                ? '🌙'
+                : '☀️';
+
+    }
+
+}
+
+
+/* =========================
+   SEARCH
+========================= */
+
+function filterContent() {
+
+    const input =
+        document.getElementById(
+            'siteSearchInput'
+        );
+
+
+    if (!input) {
+        return;
+    }
+
+
+    const query =
+        input.value
+            .trim()
+            .toLowerCase();
+
+
+    const buttons =
+        document.querySelectorAll(
+            '.task-btn'
+        );
+
+
+    buttons.forEach(
+        function (button) {
+
+            const text =
+                button.innerText
+                    .toLowerCase();
+
+
+            if (
+                !query ||
+                text.includes(query)
+            ) {
+
+                button.style.display =
+                    'flex';
+
+            } else {
+
+                button.style.display =
+                    'none';
+
+            }
+
+        }
+    );
+
+}
+
+
+/* =========================
+   SHARE
+========================= */
+
+async function shareSite() {
+
+    const url =
+        window.location.href;
+
+
+    if (
+        navigator.share
+    ) {
+
+        try {
+
+            await navigator.share({
+
+                title:
+                    'SONG VIP',
+
+                text:
+                    'افتح رابط SONG VIP',
+
+                            url:
+                url
+
+            });
+
+            showToast(
+                '✅ تم فتح نافذة المشاركة'
+            );
+
+            return;
+
+        } catch (error) {
+
+            console.log(
+                'Share cancelled:',
+                error
+            );
+
+        }
+
+    }
+
+
+    copySiteLink();
+
+}
+
+
+/* =========================
+   COPY SITE LINK
+========================= */
+
+async function copySiteLink() {
+
+    const url =
+        window.location.href;
+
+
+    try {
+
+        await navigator.clipboard.writeText(
+            url
+        );
+
+        showToast(
+            '✅ تم نسخ رابط الموقع'
+        );
+
+    } catch (error) {
+
+        const textarea =
+            document.createElement(
+                'textarea'
+            );
+
+        textarea.value =
+            url;
+
+        textarea.style.position =
+            'fixed';
+
+        textarea.style.opacity =
+            '0';
+
+        document.body.appendChild(
+            textarea
+        );
+
+        textarea.focus();
+
+        textarea.select();
+
+        document.execCommand(
+            'copy'
+        );
+
+        textarea.remove();
+
+        showToast(
+            '✅ تم نسخ رابط الموقع'
+        );
+
+    }
+
+}
+
+
+/* =========================
+   ADMIN
+========================= */
+
+function openAdmin() {
+
+    const code =
+        prompt(
+            '🔐 أدخل رمز لوحة الإدارة:'
+        );
+
+
+    if (code === null) {
+
+        return;
+
+    }
+
+
+    /*
+       غيّر SONG2026 للرمز
+       الذي تريده.
+    */
+
+    if (
+        code === 'SONG2026'
+    ) {
+
+        window.location.href =
+            'admin.html';
+
+    } else {
+
+        showToast(
+            '❌ رمز الإدارة غير صحيح'
+        );
+
+    }
+
+}
+
+
+/* =========================
+   SITE SETTINGS
+========================= */
+
+function loadSiteSettings() {
+
+    const text =
+        cfg.updateText ||
+        defaultConfig.updateText;
+
+
+    const element =
+        document.getElementById(
+            'updateTickerText'
+        );
+
+
+    if (element) {
+
+        element.innerText =
+            text;
+
+    }
+
+}
+
+
+/* =========================
+   TOAST
+========================= */
+
+let toastTimer = null;
+
+
+function showToast(message) {
+
+    const toast =
+        document.getElementById(
+            'toast'
+        );
+
+
+    if (!toast) {
+
+        return;
+
+    }
+
+
+    toast.innerText =
+        message;
+
+
+    toast.classList.add(
+        'show'
+    );
+
+
+    clearTimeout(
+        toastTimer
+    );
+
+
+    toastTimer =
+        setTimeout(
+            function () {
+
+                toast.classList.remove(
+                    'show'
+                );
+
+            },
+            2800
+        );
+
+}
+
+
+/* =========================
+   INITIALIZE
+========================= */
+
+document.addEventListener(
+    'DOMContentLoaded',
+    function () {
+
+        loadToken();
+
+        loadTheme();
+
+        loadSiteSettings();
+
+        updateProgress();
+
+        updateClickCount();
+
+        registerVisitor();
+
+
+        const unlockButtonElement =
+            document.getElementById(
+                'unlockBtn'
+            );
+
+
+        if (unlockButtonElement) {
+
+            unlockButtonElement.disabled =
+                true;
+
+        }
+
+
+        const firstTask =
+            document.getElementById(
+                'taskBtn0'
+            );
+
+
+        if (firstTask) {
+
+            firstTask.disabled =
+                false;
+
+            firstTask.classList.remove(
+                'locked'
+            );
+
+        }
+
+
+        const firstAction =
+            document.getElementById(
+                'taskAction0'
+            );
+
+
+        if (firstAction) {
+
+            firstAction.innerText =
+                'ابدأ';
+
+        }
+
+    }
+);
+
+</script>
+
+</body>
+</html>
+                    
